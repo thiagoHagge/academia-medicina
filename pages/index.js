@@ -10,11 +10,13 @@ export default function Home() {
 	const [carouselItems, setCarouselItems] = useState([]);
 	
 	useEffect(() => {
-		(api.get('/carousel/get').then(res => {
-			console.log(res)
-			if (!res.data.success) return;
-			setCarouselItems(res.data.items);
-		}))()
+		(async function() {
+			api.get('/carousel/get').then(res => {
+				console.log(res)
+				if (!res.data.success) return;
+				setCarouselItems(res.data.items);
+			})
+		})()
 	}, []);
 
 	return (

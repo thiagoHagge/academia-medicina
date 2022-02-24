@@ -18,13 +18,15 @@ export default function PageEdit({ oldContent }) {
     useEffect(() => {
         const { link } = router.query
         // get link from url
-        (async function() {api.get(`getContent/${link}`).then(res => {
-            // TODO: tratar erro
-            if (res.data.success) {
-                setContent(res.data.content == null ? '' : res.data.content)
-                setIsButtonEnable(false)
-            }
-        })})()
+        (async function() {
+            api.get(`getContent/${link}`).then(res => {
+                // TODO: tratar erro
+                if (res.data.success) {
+                    setContent(res.data.content == null ? '' : res.data.content)
+                    setIsButtonEnable(false)
+                }
+            })
+        })()
     }, [router])
 
     const updateContent = () => {

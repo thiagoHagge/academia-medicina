@@ -26,9 +26,11 @@ export default function Carousel() {
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
-        (async function() {api.get('/carousel/get').then(res => {
-            finishRequest(res);
-        })})()
+        (async function() {
+            api.get('/carousel/get').then(res => {
+                finishRequest(res);
+            })
+        })()
     });
 
     const openModal = (itemObject = null) => {
