@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Navbar from '../../src/patterns/Navbar';
+import Layout from '../../src/patterns/Layout';
 import api from '../../src/api';
 
 // TODO: aplicar getStaticPath para páginas importantes 
@@ -16,13 +16,13 @@ export async function getServerSideProps(context) {
     } 
 }
 
-export default function Index(props) {
+export default function Index({content}) {
     // get link from url
     
 	return (
         <>
-		    <Navbar />
-            <h1>{props.content}</h1>
+		    <Layout />
+            <div dangerouslySetInnerHTML={{__html: content}} />
         </>
 	)
 }

@@ -18,6 +18,7 @@ import TextField from '@mui/material/TextField';
 // ICONS
 import MenuIcon from '@mui/icons-material/Menu';
 import EditIcon from '@mui/icons-material/Edit';
+import EditOffIcon from '@mui/icons-material/EditOff';
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -235,7 +236,7 @@ export default function Navbar({ editable = false }) {
                                                 router.push(`${editable ? '/admin' : ''}/page/${link}`)
                                             }
                                         }}
-                                        sx={{ my: 2, color: 'white', display: 'block' }}
+                                        sx={{ my: 2, color: 'black', display: 'block' }}
                                         >
                                             {name}
                                             {(editable || children.length > 0) && <ArrowDropDownIcon fontSize="8" />}

@@ -15,13 +15,15 @@ export default function AuthProvider({children}) {
 
     useEffect(() => {
         (async function loadUser() {
+            console.log(router.asPath, router.asPath.search('/admin') == -1)
+            if(router.asPath.search('/admin') == -1) return
             const token = localStorage.getItem('token')
             if (token) {
                 console.log("Got a token in the cookies, let's see if it is valid")
                 // TODO: change token to Bearer token
                 // api.defaults.headers.Authorization = `Bearer ${BearerToken}`
     			const response = await api.post('check', {token: token})
-                
+                console.log(response)
                 if(response.data.error == true) {
                     router.push('/admin/login')
                 } else {
