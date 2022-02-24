@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import Layout from '../../src/patterns/Layout';
 import api from '../../src/api';
 
