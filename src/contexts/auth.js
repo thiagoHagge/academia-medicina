@@ -14,7 +14,7 @@ export default function AuthProvider({children}) {
     const router = useRouter()
 
     useEffect(() => {
-        (async function loadUser() {
+        (async function() {
             console.log(router.asPath, router.asPath.search('/admin') == -1)
             if(router.asPath.search('/admin') == -1) return
             const token = localStorage.getItem('token')

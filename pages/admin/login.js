@@ -11,11 +11,11 @@ export default function Login() {
 	const [password, setPassword] = useState('');
 	const router = useRouter()
 	const { signed, login } = useAuth();
-	useEffect(() => {
+	useEffect(async function() {() => {
 		if(signed == true) {
 			router.push('/admin')
 		};
-	})
+	}})
 		
 	return (
 		<Box 
