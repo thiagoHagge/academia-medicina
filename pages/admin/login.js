@@ -15,7 +15,7 @@ export default function Login() {
 		if(signed == true) {
 			router.push('/admin')
 		};
-	}, [])
+	})
 		
 	return (
 		<Box 

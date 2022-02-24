@@ -170,7 +170,7 @@ export default function Navbar({ editable = false }) {
                     <Container maxWidth="xl">
                         <Toolbar disableGutters>
                             {/* Desktop Logo */}
-                            <Link href={editable ? '/admin' : '/'}>
+                            <Link href={editable ? '/admin' : '/'} passHref>
                                 <Box
                                     noWrap
                                     sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, cursor: 'pointer' }}
@@ -216,7 +216,7 @@ export default function Navbar({ editable = false }) {
                                 </Menu>
                             </Box>
                             {/* Mobile Logo */}
-                            <Link href={editable ? '/admin' : '/'}>
+                            <Link href={editable ? '/admin' : '/'} passHref>
                                 <Box
                                     noWrap
                                     sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, maxHeight: 100, cursor: 'pointer' }}

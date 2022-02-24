@@ -11,12 +11,12 @@ export default function Index() {
 			<Grid container spacing={2}>
 				{/* TODO: Style boxes showing the images */}
 				<Grid item xs={8}>
-					<Link href="/admin/carousel">
+					<Link href="/admin/carousel" passHref>
 						<Box sx={{border: 'solid 1px black'}}>Carousel</Box>
 					</Link>
 				</Grid>
 				<Grid item xs={4}>
-					<Link href="/admin/noticias">
+					<Link href="/admin/noticias" passHref>
 						<Box sx={{border: 'solid 1px black'}}>Notícias</Box>
 					</Link>
 				</Grid>

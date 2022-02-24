@@ -14,7 +14,7 @@ export default function Noticias({news}) {
     return (
         <Layout navbarEditable>
             <Card sx={{mt: 2}}>
-                <Link href="/admin/noticias/new">
+                <Link href="/admin/noticias/new" passHref>
                     <CardActionArea sx={{height: '100%'}}>
                         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                             <AddRoundedIcon sx={{fontSize: 40}} /> 
@@ -28,8 +28,8 @@ export default function Noticias({news}) {
                 </Link>
             </Card>
             {news.map(item => (
-                <Card sx={{mt: 2}}>
-                    <Link href={`/admin/noticias/${item.link}`}>
+                <Card sx={{mt: 2}} key={`news-${item}`}>
+                    <Link href={`/admin/noticias/${item.link}`} passHref>
                         <CardActionArea sx={{display: 'flex'}}>
                             <CardMedia
                             component="img"
