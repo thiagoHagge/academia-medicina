@@ -4,14 +4,19 @@ import Link from 'next/link';
 import CardActionArea from '@mui/material/CardActionArea';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 import ViewCarouselOutlinedIcon from '@mui/icons-material/ViewCarouselOutlined';
 import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
+
 import Layout from '../../src/patterns/Layout';
 
 
 export default function Index() {
 	return (
 		<Layout navbarEditable>
+			<Typography variant="h5">
+				Editar:
+			</Typography>
 			<Grid container spacing={2}>
 				{/* TODO: Style boxes showing the images */}
 				<Grid item xs={3}>
@@ -20,6 +25,9 @@ export default function Index() {
 							<CardActionArea>
 								<CardContent sx={{textAlign: 'center'}}>
 									<ViewCarouselOutlinedIcon sx={{fontSize: 50}} />
+									<Typography>
+										Carousel
+									</Typography>
 								</CardContent>
 							</CardActionArea>
 						</Link>
@@ -31,6 +39,9 @@ export default function Index() {
 							<CardActionArea>
 								<CardContent sx={{textAlign: 'center'}}>
 									<NewspaperRoundedIcon sx={{fontSize: 50}} />
+									<Typography>
+										Notícias
+									</Typography>
 								</CardContent>
 							</CardActionArea>
 						</Link>

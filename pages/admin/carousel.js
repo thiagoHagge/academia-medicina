@@ -115,7 +115,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
     }
 
     return (
-        <Layout error={error}>
+        <Layout error={error} navbarEditable>
             <Box>
                 <IconButton color="success" onClick={openModal} style={{display: !isModalVisible ? 'block' : 'none'}}>
                     <AddRoundedIcon sx={{fontSize: 40}} /> 
