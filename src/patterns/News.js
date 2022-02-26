@@ -5,9 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Grid } from '@mui/material';
-export default function Noticias({ news, admin = '' }) {
+export default function Noticias({ news, admin = '', children }) {
     return (
         <Grid container spacing={2}>
+            {children}
             {news.map(item => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={item.image + item.title}>
                     <Card sx={{mt: 2, height: '100%'}}>

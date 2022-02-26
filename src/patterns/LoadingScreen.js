@@ -1,19 +1,24 @@
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import theme from '../themes';
 
 export default function LoadingScreen() {
 
 	return (
 		<Box 
 			sx={{
-				backgroundColor: 'warning.dark',
+				backgroundColor: theme.palette.black,
 				padding: 10,
 				display: 'flex', 
 				justifyContent: 'center', 
 				alignItems: 'center', 
-				flexDirection: 'column'
+				flexDirection: 'column',
+				height: '100vh',
+				width: '100vw',
+				color: theme.palette.yellow,
 			}}
 		>
-            Carregando...
+            <CircularProgress color="inherit" />
 		</Box>
 	)
 }

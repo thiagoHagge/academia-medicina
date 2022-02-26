@@ -15,23 +15,24 @@ export default function Noticias({news}) {
     return (
         <Layout navbarEditable>
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <Card sx={{mt: 2, height: '100%'}}>
-                        <Link href="/admin/noticias/new" passHref>
-                            <CardActionArea sx={{height: '100%'}}>
-                                <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-                                    <AddRoundedIcon sx={{fontSize: 40}} /> 
-                                    <Typography
-                                    variant="h6"
-                                    >
-                                        Novo Item
-                                    </Typography>
-                                </Box>
-                            </CardActionArea>
-                        </Link>
-                    </Card>
-                </Grid>
-                <News news={news} admin="/admin/" />
+                <News news={news} admin="/admin/">
+                    <Grid item xs={12} sm={6} md={4} lg={3}>
+                        <Card sx={{mt: 2, height: '100%'}}>
+                            <Link href="/admin/noticias/new" passHref>
+                                <CardActionArea sx={{height: '100%'}}>
+                                    <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                                        <AddRoundedIcon sx={{fontSize: 40}} /> 
+                                        <Typography
+                                        variant="h6"
+                                        >
+                                            Novo Item
+                                        </Typography>
+                                    </Box>
+                                </CardActionArea>
+                            </Link>
+                        </Card>
+                    </Grid>
+                </News>
             </Grid>
         </Layout>
     )

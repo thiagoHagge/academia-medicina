@@ -20,8 +20,9 @@ export default function Index({content}) {
     
 	return (
         <>
-		    <Layout />
-            <div dangerouslySetInnerHTML={{__html: content}} />
+		    <Layout>
+                <div dangerouslySetInnerHTML={{__html: content}} />
+            </Layout>
         </>
 	)
 }

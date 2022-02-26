@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useAuth } from '../../src/contexts/auth';
 import { useRouter } from 'next/router';
+import theme from '../../src/themes';
 
 export default function Login() {
 	const [username, setUsername] = useState('');
@@ -23,7 +24,6 @@ export default function Login() {
 			sx={{
 				width: '100vw',
 				height: '100vh',
-				backgroundColor: 'secondary.main',
 				display: 'flex',
 				alignItems: 'center',
 				justifyContent: 'center',
@@ -31,7 +31,7 @@ export default function Login() {
 		>
 			<Box 
 				sx={{
-					backgroundColor: 'warning.light',
+					backgroundColor: theme.palette.yellow,
 					padding: 10,
 					display: 'flex', 
 					justifyContent: 'center', 
