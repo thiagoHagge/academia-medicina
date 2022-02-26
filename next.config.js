@@ -1,6 +1,6 @@
 module.exports = {
   reactStrictMode: true,
   env: {
-    URL_API: 'http://localhost:8000/'
+    URL_API: 'https://academia-medicina-itabuna.herokuapp.com/'
   }
 }
