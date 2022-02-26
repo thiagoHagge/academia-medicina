@@ -14,6 +14,7 @@ export default function NewsEditor({link = '', title = '', content = '', error =
                 {title}
             </Typography>
             <img 
+            alt=""
             src={`${process.env.URL_API}images/${image}`}
             style={{margin: 'auto'}}
             />

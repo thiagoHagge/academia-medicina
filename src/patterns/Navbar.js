@@ -189,7 +189,7 @@ export default function Navbar({ editable = false }) {
                                         noWrap
                                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, cursor: 'pointer' }}
                                     >
-                                        <img src="/logo.png" style={{ maxHeight: 100 }} />
+                                        <img src="/logo.png" style={{ maxHeight: 100 }} alt="" />
                                     </Box>
                                 </Link>
                                 {/* Mobile Pages */}
@@ -246,7 +246,7 @@ export default function Navbar({ editable = false }) {
                                         <img src="/logo.png" style={{ maxHeight: 100 }} />
                                     </Box>
                                 </Link>
-                                <Box sx={{ display: { xs: 'block', md: 'none' }, width: 48 }}>
+                                <Box sx={{ display: { xs: 'block', md: 'none' }, width: 48 }} alt="">
 
                                 </Box>
                                 {/* Desktop Pages */}

@@ -151,6 +151,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
                                             src={`${process.env.URL_API}images/${image}`}
                                             srcSet={`${process.env.URL_API}images/${image}`}
                                             loading="lazy"
+                                            alt=""
                                             />
                                             <ImageListItemBar
                                             sx={{backgroundColor: '#00000000'}}

@@ -86,7 +86,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 							style={{maxHeight: windowHeight - navbarRef.current?.clientHeight - 50}}
 							// TODO: lINK EM .ENV
 							src={`${process.env.URL_API}images/${image}`}
-							alt="First slide"
+							alt=""
 							/>
 						</Carousel.Item>)}
 					</Carousel>
