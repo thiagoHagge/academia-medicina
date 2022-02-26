@@ -85,7 +85,7 @@ export default function Navbar({ editable = false }) {
     const createSection = () => {
         // TODO: tratar recebimento de erros da api
         let body = {name: newSection}
-        if (!newSectionParent.id) {
+        if (newSectionParent.id != false) {
             body.parent = newSectionParent.id
         }
         api.post('newPage', body).then((response) => {
