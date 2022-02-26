@@ -6,32 +6,50 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import { CardActionArea } from '@mui/material';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import Modal from '@mui/material/Modal';
 import Form from 'react-bootstrap/Form';
 import FormData from 'form-data'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import Layout from '../../src/patterns/Layout';
 import api from '../../src/api';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import ListSubheader from '@mui/material/ListSubheader';
+import IconButton from '@mui/material/IconButton';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import theme from '../../src/themes';
 
-export default function Carousel() {
+export async function getServerSideProps() {
+    return api.get('/carousel/get').then(res => {
+        if (!res.data.success) {
+            return {
+                props: {
+                    error: res.data.error
+                }
+            }
+        }
+        return {
+            props: {
+                oldCarouselItems: res.data.items
+            }
+        } 
+    })
+}
+
+export default function Carousel({oldCarouselItems = [], error = false}) {
+    // console.log(oldCarouselItems)
     const [isModalVisible, setModalVisible] = useState(false);
-    const [carouselItems, setCarouselItems] = useState([]);
+    const [carouselItems, setCarouselItems] = useState(oldCarouselItems);
     const [itemId, setItemId] = useState(0);
     const [title, setTitle] = useState('');
     const [subtitle, setSubtitle] = useState('');
     const [image, setImage] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
 
-    useEffect(() => {
-        (async function() {
-            api.get('/carousel/get').then(res => {
-                finishRequest(res);
-            })
-        })()
-    });
 
     const openModal = (itemObject = null) => {
         setModalVisible(true)
@@ -65,18 +83,11 @@ export default function Carousel() {
         alignItems: 'center'
     };
 
-    const sendRequest = () => {
+    function sendRequest(file) {
         let data = new FormData();
-        if (itemId) {
-            data.append('id', itemId);
-        }
-        if(image) {
-            data.append('image', image);
-        }
-        data.append('title', title);
-        data.append('subtitle', subtitle);
+        data.append('image', file);
         
-        console.log(title, subtitle, image);
+        console.log('image', file);
         api.post('/carousel/new', data, {
             headers: {
                 'accept': 'application/json',
@@ -84,6 +95,7 @@ export default function Carousel() {
                 'Content-Type': `multipart/form-data; boundary=${data._boundary}`
             }
         }).then((res) => {
+            console.log(res)
             finishRequest(res)
         })
     }
@@ -98,102 +110,67 @@ export default function Carousel() {
             return;
         } 
         closeModal()
+        console.log('finishRequest')
         setCarouselItems(res.data.items);
     }
 
     return (
-        <Layout>
-			<Grid container spacing={2} >
-                <Grid item xs={4}>
-                    <Card sx={{height: '100%'}}>
-                        <CardActionArea sx={{height: '100%'}} onClick={openModal}>
-                            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                                <AddRoundedIcon sx={{fontSize: 40}} /> 
-                                <Typography
-                                    variant="h6"
-                                >
-                                    Novo Item
-                                </Typography>
-                            </Box>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-                {carouselItems.map(({id, title, subtitle, image}) => <Grid item xs={4} key={id}>
-                    <Card>
-                        <CardActionArea onClick={() => openModal({id, title, subtitle})}>
-                            <CardMedia
-                            component="img"
-                            height="140"
-                            // TODO: lINK EM .ENV
-                            image={`http://localhost:8000/images/${image}`}
-                            alt="green iguana"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {title}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {subtitle}
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>)}
-            </Grid>
-            {/* Colocar inputs obrigatórios para criar novos */}
-            <Modal
-                open={isModalVisible}
-                onClose={closeModal}
-            >
-                <Box sx={style}>
-                    <Typography variant="h6" component="h2">
-                        {!itemId ? 'Adicionar item ao carousel' : 'Atualizar item do carousel'}
-                    </Typography>
-                    {errorMessage && <Typography variant="body2" color="error">{errorMessage}</Typography>}
-                    <TextField 
-                        id="title" 
-                        label="Nome da seção"
-                        type="text"
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        // error={createError !== ''}
-                        // helperText={createError}
+        <Layout error={error}>
+            <Box>
+                <IconButton color="success" onClick={openModal} style={{display: !isModalVisible ? 'block' : 'none'}}>
+                    <AddRoundedIcon sx={{fontSize: 40}} /> 
+                </IconButton>
+                <Form.Group controlId="image" className="mb-3" style={{display: isModalVisible ? 'block' : 'none'}}>
+                    <Form.Control 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={(event) => {
+                        setImage(event.target.files[0])
+                        console.log(event.target.files[0])
+                        console.log('foi')
+                        sendRequest(event.target.files[0])
+                    }} 
                     />
-                    <TextField 
-                        id="subtitle" 
-                        label="Nome da seção"
-                        type="text"
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        multiline
-                        value={subtitle}
-                        onChange={(e) => setSubtitle(e.target.value)}
-                        // error={createError !== ''}
-                        // helperText={createError}
-                    />
-                    <Form.Group controlId="image" className="mb-3">
-                        <Form.Control type="file" accept="image/*" onChange={(event) => {
-                            setImage(event.target.files[0])}} />
-                    </Form.Group>
-                    {/* TODO: Colocar botões um do lado do outro */}
-                    {itemId && <Button
-                        onClick={() => deleteItem(itemId)}
-                        sx={{ my: 2, color: 'black', display: 'block' }}
-                    >
-                        Deletar
-                    </Button>}
-                    <Button
-                        onClick={sendRequest}
-                        sx={{ my: 2, color: 'black', display: 'block' }}
-                    >
-                        {!itemId ? 'Criar' : 'Editar'}
-                    </Button>
-                </Box>
-            </Modal>
+                </Form.Group>
+                {/* <DragDropContext onDragEnd={handleDragEnd} onDragStart={showTrash}> */}
+                    {/* <Droppable droppableId="images" direction="horizontal" isUsingPlaceholder={false}> */}
+                        {/* {(provided) => ( */}
+                            <ImageList
+                            sx={{}}
+                            variant="quilted"
+                            cols={2}
+                            rowHeight={121}
+                            >
+                                {/* {provided.placeholder} */}
+                                {carouselItems.map(({id, image, position}) => (
+                                    
+                                    <ImageListItem key={`img-${id}`}>
+                                            {/* <Draggable key={`img-${id}`} draggableId={id} index={position}> */}
+
+                                            <img
+                                            src={`${process.env.URL_API}images/${image}`}
+                                            srcSet={`${process.env.URL_API}images/${image}`}
+                                            loading="lazy"
+                                            />
+                                            <ImageListItemBar
+                                            sx={{backgroundColor: '#00000000'}}
+                                            actionIcon={(
+                                                <IconButton
+                                                sx={{ color: theme.palette.danger }}
+                                                onClick={() => deleteItem(id)}
+                                                >
+                                                    <DeleteForeverRoundedIcon />
+                                                </IconButton>
+                                            )}
+                                            />
+                                        {/* </Draggable> */}
+                                    </ImageListItem>
+                                ))}
+                            </ImageList>
+                        {/* )} */}
+                    {/* </Droppable>
+                </DragDropContext> */}
+            </Box>
         </Layout>
     )
 }

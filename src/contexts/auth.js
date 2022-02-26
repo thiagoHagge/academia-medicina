@@ -15,15 +15,15 @@ export default function AuthProvider({children}) {
 
     useEffect(() => {
         (async function() {
-            console.log(router.asPath, router.asPath.search('/admin') == -1)
+            // console.log(router.asPath, router.asPath.search('/admin') == -1)
             if(router.asPath.search('/admin') == -1) return
             const token = localStorage.getItem('token')
             if (token) {
-                console.log("Got a token in the cookies, let's see if it is valid")
+                // console.log("Got a token in the cookies, let's see if it is valid")
                 // TODO: change token to Bearer token
                 // api.defaults.headers.Authorization = `Bearer ${BearerToken}`
     			const response = await api.post('check', {token: token})
-                console.log(response)
+                // console.log(response)
                 if(response.data.error == true) {
                     router.push('/admin/login')
                 } else {
@@ -40,9 +40,9 @@ export default function AuthProvider({children}) {
 		const response = await api.post('auth', {'login': username, 'password': password});
         let error = response.data.error
 		if (error !== false) {
-			console.log(error)
+			// console.log(error)
 		} else {
-            console.log("Got token")
+            // console.log("Got token")
 			localStorage.setItem('token', response.data.token)
             signIn(true)
             router.push('/admin')

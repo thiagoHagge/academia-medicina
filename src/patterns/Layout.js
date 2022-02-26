@@ -14,6 +14,7 @@ import theme from '../themes';
 import useWindowDimensions from '../hook/useWindowDimensions';
 import Navbar from './Navbar';
 import IconButton from '@mui/material/IconButton';
+import Alert from '@mui/material/Alert';
 
 // Icons
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -24,11 +25,11 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import CallIcon from '@mui/icons-material/Call';
 import { Typography } from '@material-ui/core';
 
-export default function Layout({title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = []}) {
+export default function Layout({title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = [], error = false}) {
 	const navbarRef = useRef(null)
 	
 	const { windowHeight } = useWindowDimensions();
-	console.log(navbarRef.current?.clientHeight)
+	// console.log(navbarRef.current?.clientHeight)
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>
@@ -44,24 +45,22 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 				{!navbarEditable && (
 					<Box>
 						<Grid container sx={{backgroundColor: theme.palette.primary.main}}>
-							<Grid item xs={4} sm={6}>
-								<Box sx={theme.center}>
+							<Grid item xs={8} >
+								<Box sx={[theme.align.start, theme.ps2]}>
 									{/* Tratar para ligas de todos os aparelhos */}
-									<a href="tel:+5573999013110" style={theme.center}>
-										<CallIcon />
-										<Typography sx={theme.ms2}>
-											(73) 99901-3110
-										</Typography>
-									</a>
+									<CallIcon />
+									<Typography sx={theme.ps2}>
+										(73) 99901-3110
+									</Typography>
 								</Box>
 							</Grid>
-							<Grid item xs={4}>
-								<Box sx={theme.center}>
+							{/* <Grid item xs={4}>
+								<Box sx={theme.align.center}>
 
 								</Box>
-							</Grid>
+							</Grid> */}
 							<Grid item xs={4}>
-								<Box sx={theme.center}>
+								<Box sx={theme.align.center}>
 									<IconButton sx={{color: theme.palette.black}}>
 										<WhatsAppIcon />
 									</IconButton>
@@ -86,26 +85,16 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 							className="d-block w-100"
 							style={{maxHeight: windowHeight - navbarRef.current?.clientHeight - 50}}
 							// TODO: lINK EM .ENV
-							src={`http://localhost:8000/images/${image}`}
+							src={`${process.env.URL_API}images/${image}`}
 							alt="First slide"
 							/>
-							<Carousel.Caption>
-								<h3>{title}</h3>
-								<p>{subtitle}</p>
-							</Carousel.Caption>
 						</Carousel.Item>)}
 					</Carousel>
 				)}
 			</Box>
-			<Box sx={{p: 2}}>
-				{children}
+			<Box sx={{p: 2, display: 'grid', mb: 2}}>
+				{error == false ? children : <Alert severity="error">{error === true ? 'Algo deu errado, contate o desenvolvedor' : error}</Alert>}
 			</Box>
 		</ThemeProvider>
 	);
 };
-
-const Center = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;

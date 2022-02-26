@@ -1,13 +1,37 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router'
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 
 import Layout from '../../../src/patterns/Layout';
 import CKEditor from '../../../src/components/CKeditor';
 import { UpdateButton } from '../../../src/components/UpdateButton';
 import api from '../../../src/api';
 
-export default function PageEdit({ oldContent }) {
+export async function getServerSideProps(context) {
+    const { link } = context.query;
+    return api.get(`getContent/${link}`).then(res => {
+        // TODO: tratar erro
+        // console.log('res', res.data)
+        if (res.data.success) {
+            return {
+                props: {
+                    oldContent: res.data.content == null ? '' : res.data.content,
+                    // wasButtonEnabled: false
+                }
+            }
+        } else {
+            return {
+                props: {
+                    error: 'Página não encontrada',
+                }
+            }
+        }
+    })
+}
+
+export default function PageEdit({ oldContent = '', error = false }) {
 
     const [content, setContent] = useState(oldContent);
     const [isButtonEnable, setIsButtonEnable] = useState(false)
@@ -15,19 +39,6 @@ export default function PageEdit({ oldContent }) {
     const editorRef = useRef()
 
     const router = useRouter()
-    useEffect(() => {
-        const { link } = router.query
-        // get link from url
-        (async function() {
-            api.get(`getContent/${link}`).then(res => {
-                // TODO: tratar erro
-                if (res.data.success) {
-                    setContent(res.data.content == null ? '' : res.data.content)
-                    setIsButtonEnable(false)
-                }
-            })
-        })()
-    }, [router])
 
     const updateContent = () => {
         const { link } = router.query
@@ -40,16 +51,20 @@ export default function PageEdit({ oldContent }) {
     }
 
     return (
-        <Layout navbarEditable>
-            <CKEditor
-                data={content}
-                onChange={(event, editor) => {
-                    const data = editor.getData();
-                    setContent(data);
-                    setIsButtonEnable(true)
-                }}
-            />
-            <UpdateButton onClick={updateContent} enable={isButtonEnable} />
+        <Layout navbarEditable error={error}>
+            {!notFound && (
+                <>
+                    <CKEditor
+                        data={content}
+                        onChange={(event, editor) => {
+                            const data = editor.getData();
+                            setContent(data);
+                            setIsButtonEnable(true)
+                        }}
+                    />
+                    <UpdateButton onClick={updateContent} enable={isButtonEnable} />
+                </>
+            )}
         </Layout>
     )
 }

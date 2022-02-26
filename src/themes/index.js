@@ -9,19 +9,29 @@ const theme = createTheme({
         },
         background: {
             paper: '#000',
-        }
+        },
+        danger: '#f00f00'
     },
     zIndex: { 
         deep: -1
     },
-    center: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%',
+    align: {
+        center: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+        },
+        start: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'left',
+            height: '100%',
+        }
     },
-    ms2: {
-        marginRight: '1rem',
+
+    ps2: {
+        paddingLeft: '1rem',
     }
 
 });

@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { ThemeProvider } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
+import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Modal from '@mui/material/Modal';
@@ -24,7 +25,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import api from '../api';
 import theme from '../themes';
-import { ThemeProvider } from '@material-ui/core/styles';
+import MenuItem from '../components/MenuItem';
 
 export default function Navbar({ editable = false }) {
     const router = useRouter()
@@ -39,14 +40,23 @@ export default function Navbar({ editable = false }) {
 	const [newSection, setNewSection] = useState('')
 	const [createError, showCreateError] = useState('')
     const [pages, setPages] = useState([])
-    const [newSectionParent, setNewSectionParent] = useState({name: '', id: 0})
+    const [newSectionParent, setNewSectionParent] = useState({name: '', id: false})
+    const [navActive, setNavActive] = useState('')
+    
     
     const handleOpenNavMenu = (event) => {
         setAnchorNav(event.currentTarget)
     };
 
-    const handleCloseNavMenu = () => {
+    const handleCloseNavMenu = (link = '', hasChildren = false) => {
+        if (hasChildren) {
+            setNavActive(link)
+            return
+        }
         setAnchorNav(null)
+        setNavActive('')
+        if (link === '') return
+        router.push(`/page/${link}`)
     };
 
     const handleOpenDropdown = (event, key) => {
@@ -55,24 +65,27 @@ export default function Navbar({ editable = false }) {
 
     const handleCloseDropdown = () => {
         setDropdown({key: null, anchor: null});
-        setNewSectionParent({name: '', id: 0})
+        setNewSectionParent({name: '', id: false})
+        // console.log('newSectionParent', newSectionParent.id)
     }
 
     const openCreateModal = (parent = null) => {
         setCreateModalVisible(true)
         if (parent == null) return
         setNewSectionParent({name: parent.name, id: parent.id})
+        // console.log('newSectionParent', newSectionParent.id)
     }
 
     const closeCreateModal = () => {
         setCreateModalVisible(false)
-        setNewSectionParent({name: '', id: 0})
+        setNewSectionParent({name: '', id: false})
+        // console.log('newSectionParent', newSectionParent.id)
     }
 
     const createSection = () => {
         // TODO: tratar recebimento de erros da api
         let body = {name: newSection}
-        if (newSectionParent.id !== 0) {
+        if (!newSectionParent.id) {
             body.parent = newSectionParent.id
         }
         api.post('newPage', body).then((response) => {
@@ -93,18 +106,18 @@ export default function Navbar({ editable = false }) {
         setTrashVisible(false);
         
         const { destination, source, draggableId } = result;
-        console.log(destination);
+        // console.log(destination);
         
         // If the item was dropped outside the list, do nothing
         if(destination == null) return
         // TODO: tratar loading
         switch(destination.droppableId) {
             case 'trash':
-                console.log('Deletando', draggableId);
+                // console.log('Deletando', draggableId);
                 setPages([])
                 api.delete(`deletePage/${draggableId}`).then((response) => {
                     // TODO: tratar erros
-                    console.log(response)
+                    // console.log(response)
                     setPages(response.data.pages)
                 })
                 break;
@@ -166,159 +179,174 @@ export default function Navbar({ editable = false }) {
     return (
         <DragDropContext onDragEnd={handleDragEnd} onDragStart={showTrash}>
             <ThemeProvider theme={theme}>
-                <AppBar position="static" sx={{backgroundColor: theme.palette.white, color: theme.palette.black, boxShadow: 1}}>
-                    <Container maxWidth="xl">
-                        <Toolbar disableGutters>
-                            {/* Desktop Logo */}
-                            <Link href={editable ? '/admin' : '/'} passHref>
-                                <Box
-                                    noWrap
-                                    sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, cursor: 'pointer' }}
-                                >
-                                    <img src="/logo.png" style={{ maxHeight: 100 }} />
-                                </Box>
-                            </Link>
-                            {/* Mobile Pages */}
-                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    onClick={handleOpenNavMenu}
-                                    color="inherit"
-                                >
-                                    <MenuIcon />
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorNav}
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'left',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'left',
-                                    }}
-                                    open={Boolean(anchorNav)}
-                                    onClose={handleCloseNavMenu}
-                                    sx={{
-                                        display: { xs: 'block', md: 'none' },
-                                    }}
-                                >
-                                    {pages.map(({link, name}) => (
-                                        <MenuItem key={`mob-${link}`} onClick={handleCloseNavMenu}>
-                                            <Typography textAlign="center">{name}</Typography>
-                                        </MenuItem>
-                                    ))}
-                                </Menu>
-                            </Box>
-                            {/* Mobile Logo */}
-                            <Link href={editable ? '/admin' : '/'} passHref>
-                                <Box
-                                    noWrap
-                                    sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, maxHeight: 100, cursor: 'pointer' }}
-                                >
-                                    <img src="/logo.png" style={{ maxHeight: 100 }} />
-                                </Box>
-                            </Link>
-                            {/* Desktop Pages */}
-                            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                                {!allowEdit ? (pages.map(({id, link, name, children}) => (
-                                    <div key={`dsk-${link}`}>
-                                        <Button
-                                        onClick={(event) => {
-                                            if(editable || children.length > 0) {
-                                                handleOpenDropdown(event, `adm-${link}`)
-                                            } else {
-                                                router.push(`${editable ? '/admin' : ''}/page/${link}`)
-                                            }
-                                        }}
-                                        sx={{ my: 2, color: 'black', display: 'block' }}
-                                        >
-                                            {name}
-                                            {(editable || children.length > 0) && <ArrowDropDownIcon fontSize="8" />}
-                                            
-                                        </Button>
-                                        <Menu
-                                        key={`dropdown-${link}`}
-                                        sx={{ mt: '45px' }}
-                                        anchorEl={dropdown.anchor}
+                <Paper>
+                    <AppBar position="static" sx={{backgroundColor: theme.palette.white, color: theme.palette.black, boxShadow: 1}}>
+                        <Container maxWidth="xl">
+                            <Toolbar disableGutters sx={{justifyContent: {xs: 'space-between', md: 'flex-start'}}}>
+                                {/* Desktop Logo */}
+                                <Link href={editable ? '/admin' : '/'} passHref>
+                                    <Box
+                                        noWrap
+                                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, cursor: 'pointer' }}
+                                    >
+                                        <img src="/logo.png" style={{ maxHeight: 100 }} />
+                                    </Box>
+                                </Link>
+                                {/* Mobile Pages */}
+                                <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                                    <IconButton
+                                        size="large"
+                                        aria-label="account of current user"
+                                        aria-controls="menu-appbar"
+                                        aria-haspopup="true"
+                                        onClick={handleOpenNavMenu}
+                                        color="inherit"
+                                    >
+                                        <MenuIcon />
+                                    </IconButton>
+                                    <Menu
+                                        id="menu-appbar"
+                                        anchorEl={anchorNav}
                                         anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
+                                            vertical: 'bottom',
+                                            horizontal: 'left',
                                         }}
                                         keepMounted
                                         transformOrigin={{
                                             vertical: 'top',
-                                            horizontal: 'right',
+                                            horizontal: 'left',
                                         }}
-                                        open={dropdown.key == `adm-${link}`}
-                                        onClose={handleCloseDropdown}
-                                        >
-                                            {(editable && children == 0) && <MenuItem onClick={() => router.push(`${editable ? '/admin' : ''}/page/${link}`)}>
-                                                <EditIcon fontSize="16" />    
-                                                <Typography textAlign="center">Editar {name}</Typography>
-                                            </MenuItem>}
-                                            {children.map((child) => (
-                                                <MenuItem key={`child-${child.link}`} onClick={() => router.push(`${editable ? '/admin' : ''}/page/${child.link}`)}>
-                                                    <EditIcon fontSize="16" />    
-                                                    <Typography textAlign="center">Editar {child.name}</Typography>
-                                                </MenuItem>
-                                            ))}
-                                            {editable && <MenuItem onClick={() => openCreateModal({id, name})}>
-                                                <AddLinkIcon fontSize="16" />
-                                                <Typography textAlign="center">Nova página</Typography>
-                                            </MenuItem>}
-                                        </Menu>
-                                    </div>
-                                ))) : (
-                                    <Droppable droppableId="sections" direction="horizontal" isUsingPlaceholder={false}>
-                                    {(provided) => (
-                                        <FakeBox className="characters" {...provided.droppableProps} ref={provided.innerRef}>
-                                            {provided.placeholder}
-                                            {pages.map(({link, name, position}) => (
-                                                <Draggable key={`drag-${link}`} draggableId={link} index={position}>
-                                                    {(provided) => (
-                                                        <FakeButton ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                            <Typography textAlign="center" sx={{fontSize: 14}}>
-                                                                {name}
-                                                            </Typography>
-                                                        </FakeButton>
-                                                    )}
-                                                </Draggable>
-                                            ))}
-                                        </FakeBox>
-                                    )}
-                                    </Droppable>
-                                )}
-                            </Box>
-                            {editable && ( 
-                                <Box sx={{ flexGrow: 0 }}>
-                                    {allowEdit && <Tooltip title="Criar nova seção">
-                                        <IconButton onClick={openCreateModal} sx={{ p: 0 }}>
-                                            <AddRoundedIcon />
-                                        </IconButton>
-                                    </Tooltip>}
-                                    <Tooltip title={allowEdit ? "Desabilitar edição" : "Habilitar edição"}>
-                                        <IconButton onClick={() => setAllowEdit(!allowEdit)} sx={{ p: 0 }}>
-                                            {allowEdit ? <EditOffIcon color="action" /> : <EditIcon color="action" />}
-                                        </IconButton>
-                                    </Tooltip>
+                                        open={Boolean(anchorNav)}
+                                        onClose={handleCloseNavMenu}
+                                        sx={{
+                                            display: { xs: 'block', md: 'none' },
+                                        }}
+                                    >
+                                        {pages.map(({link, name, children}) => (
+                                            [
+                                                <MenuItem key={`mob-${link}`} onClick={() => handleCloseNavMenu(link, children.length > 0)}>
+                                                    <Typography textAlign="center">{name}</Typography>
+                                                    {(children.length > 0) && <ArrowDropDownIcon fontSize="8" />}
+                                                </MenuItem>,
+                                                children.map((child) => (
+                                                    <MenuItem key={`mob-${child.link}`} onClick={() => handleCloseNavMenu(child.link)} hide={navActive != link}>
+                                                        <Typography textAlign="center">{child.name}</Typography>
+                                                    </MenuItem>
+                                                ))
+                                            ]
+                                        ))}
+                                    </Menu>
                                 </Box>
-                            )}
-                        </Toolbar>
-                    </Container>
-                </AppBar>
+                                {/* Mobile Logo */}
+                                <Link href={editable ? '/admin' : '/'} passHref>
+                                    <Box
+                                        noWrap
+                                        sx={{ display: { xs: 'flex', md: 'none' }, maxHeight: 100, cursor: 'pointer' }}
+                                    >
+                                        <img src="/logo.png" style={{ maxHeight: 100 }} />
+                                    </Box>
+                                </Link>
+                                <Box sx={{ display: { xs: 'block', md: 'none' }, width: 48 }}>
+
+                                </Box>
+                                {/* Desktop Pages */}
+                                <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                                    {!allowEdit ? (pages.map(({id, link, name, children}) => (
+                                        <div key={`dsk-${link}`}>
+                                            <Button
+                                            onClick={(event) => {
+                                                if(editable || children.length > 0) {
+                                                    handleOpenDropdown(event, `adm-${link}`)
+                                                } else {
+                                                    router.push(`${editable ? '/admin' : ''}/page/${link}`)
+                                                }
+                                            }}
+                                            sx={{ my: 2, color: 'black', display: 'block' }}
+                                            >
+                                                {name}
+                                                {(editable || children.length > 0) && <ArrowDropDownIcon fontSize="8" />}
+                                                
+                                            </Button>
+                                            <Menu
+                                            key={`dropdown-${link}`}
+                                            sx={{ mt: '45px' }}
+                                            anchorEl={dropdown.anchor}
+                                            anchorOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            keepMounted
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            open={dropdown.key == `adm-${link}`}
+                                            onClose={handleCloseDropdown}
+                                            >
+                                                {(editable && children == 0) && <MenuItem onClick={() => router.push(`${editable ? '/admin' : ''}/page/${link}`)}>
+                                                    <EditIcon fontSize="16" />    
+                                                    <Typography textAlign="center">Editar {name}</Typography>
+                                                </MenuItem>}
+                                                {children.map((child) => {
+                                                    return (
+                                                        <MenuItem key={`child-${child.link}`} onClick={() => router.push(`${editable ? '/admin' : ''}/page/${child.link}`)}>
+                                                            {editable && <EditIcon fontSize="16" />}
+                                                            <Typography textAlign="center">{`${editable ? 'Editar ' : ''}${child.name}`}</Typography>
+                                                        </MenuItem>
+                                                    )
+                                                })}
+                                                {editable && <MenuItem onClick={() => openCreateModal({id, name})}>
+                                                    <AddLinkIcon fontSize="16" />
+                                                    <Typography textAlign="center">Nova página</Typography>
+                                                </MenuItem>}
+                                            </Menu>
+                                        </div>
+                                    ))) : (
+                                        <Droppable droppableId="sections" direction="horizontal" isUsingPlaceholder={false}>
+                                        {(provided) => (
+                                            <FakeBox className="characters" {...provided.droppableProps} ref={provided.innerRef}>
+                                                {provided.placeholder}
+                                                {pages.map(({link, name, position}) => (
+                                                    <Draggable key={`drag-${link}`} draggableId={link} index={position}>
+                                                        {(provided) => (
+                                                            <FakeButton ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                                <Typography textAlign="center" sx={{fontSize: 14}}>
+                                                                    {name}
+                                                                </Typography>
+                                                            </FakeButton>
+                                                        )}
+                                                    </Draggable>
+                                                ))}
+                                            </FakeBox>
+                                        )}
+                                        </Droppable>
+                                    )}
+                                </Box>
+                                {editable && ( 
+                                    <Box sx={{ flexGrow: 0 }}>
+                                        {allowEdit && <Tooltip title="Criar nova seção">
+                                            <IconButton onClick={openCreateModal} sx={{ p: 0 }}>
+                                                <AddRoundedIcon />
+                                            </IconButton>
+                                        </Tooltip>}
+                                        <Tooltip title={allowEdit ? "Desabilitar edição" : "Habilitar edição"}>
+                                            <IconButton onClick={() => setAllowEdit(!allowEdit)} sx={{ p: 0 }}>
+                                                {allowEdit ? <EditOffIcon color="action" /> : <EditIcon color="action" />}
+                                            </IconButton>
+                                        </Tooltip>
+                                    </Box>
+                                )}
+                            </Toolbar>
+                        </Container>
+                    </AppBar>
+                </Paper>
                 <Modal
                     open={isCreateModalVisible}
                     onClose={closeCreateModal}
                 >
                     <Box sx={style}>
                         <Typography variant="h6" component="h2">
-                            {newSectionParent.name === '' ? 'Criar nova seção' : `Criar nova página em: ${newSectionParent.name}`}
+                            {!newSectionParent.id ? 'Criar nova seção' : `Criar nova página em: ${newSectionParent.name}`}
                         </Typography>
                         <TextField 
                             label={newSectionParent.name === '' ? 'Nome da seção' : 'Nome da página'}
