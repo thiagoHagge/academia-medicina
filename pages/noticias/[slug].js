@@ -15,7 +15,7 @@ export default function NewsEditor({link = '', title = '', content = '', error =
             </Typography>
             <img 
             alt=""
-            src={`${process.env.URL_API}images/${image}`}
+            src={image}
             style={{margin: 'auto'}}
             />
             <div dangerouslySetInnerHTML={{__html: content}} />

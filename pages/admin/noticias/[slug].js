@@ -82,7 +82,7 @@ export default function NewsEditor({oldLink = '', oldTitle = '', oldContent = ''
             </Form.Group>
             {oldImage != null && <img 
             alt=""
-            src={`${process.env.URL_API}images/${oldImage}`} 
+            src={oldImage} 
             style={{maxWidth: '100%', marginBottom: '1rem'}}
             />}
             <CKEditor 

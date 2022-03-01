@@ -16,8 +16,8 @@ export default function Noticias({ news, admin = '', children }) {
                             <CardActionArea>
                                 <CardMedia
                                 component="img"
-                                image={`${process.env.URL_API}images/${item.image}`}
-                                alt="Live from space album cover"
+                                image={item.image}
+                                alt=""
                                 />
                                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                     <CardContent sx={{ flex: '1 0 auto' }}>

@@ -148,8 +148,8 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
                                             {/* <Draggable key={`img-${id}`} draggableId={id} index={position}> */}
 
                                             <img
-                                            src={`${process.env.URL_API}images/${image}`}
-                                            srcSet={`${process.env.URL_API}images/${image}`}
+                                            src={image}
+                                            srcSet={image}
                                             loading="lazy"
                                             alt=""
                                             />
