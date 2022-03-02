@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-const token = localStorage.getItem('token')
-
-export default apiAdmin = axios.create({
-    baseURL: `${process.env.URL_API}api/`,
-	timeout: 10000,
-	headers: {
-		'X-Token': token
-	}
-});
+export default function apiAdmin() {
+	const token = localStorage.getItem('token')
+	return axios.create({
+		baseURL: `${process.env.URL_API}api/`,
+		timeout: 10000,
+		headers: {
+			'X-Token': token
+		}
+	});
+}	

@@ -53,19 +53,17 @@ export default function PageEdit({ oldContent = '', error = false }) {
 
     return (
         <Layout navbarEditable error={error}>
-            {!notFound && (
-                <>
-                    <CKEditor
-                        data={content}
-                        onChange={(event, editor) => {
-                            const data = editor.getData();
-                            setContent(data);
-                            setIsButtonEnable(true)
-                        }}
-                    />
-                    <UpdateButton onClick={updateContent} enable={isButtonEnable} />
-                </>
-            )}
+            <>
+                <CKEditor
+                    data={content}
+                    onChange={(event, editor) => {
+                        const data = editor.getData();
+                        setContent(data);
+                        setIsButtonEnable(true)
+                    }}
+                />
+                <UpdateButton onClick={updateContent} enable={isButtonEnable} />
+            </>
         </Layout>
     )
 }
