@@ -24,6 +24,7 @@ import AddLinkIcon from '@mui/icons-material/AddLink';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import api from '../api';
+import apiAdmin from '../api/admin';
 import theme from '../themes';
 import MenuItem from '../components/MenuItem';
 
@@ -88,7 +89,7 @@ export default function Navbar({ editable = false }) {
         if (newSectionParent.id != false) {
             body.parent = newSectionParent.id
         }
-        api.post('newPage', body).then((response) => {
+        apiAdmin.post('newPage', body).then((response) => {
             if (response.data.success) {
                 closeCreateModal()
                 setNewSection('')
@@ -115,7 +116,7 @@ export default function Navbar({ editable = false }) {
             case 'trash':
                 // console.log('Deletando', draggableId);
                 setPages([])
-                api.delete(`deletePage/${draggableId}`).then((response) => {
+                apiAdmin.delete(`deletePage/${draggableId}`).then((response) => {
                     // TODO: tratar erros
                     // console.log(response)
                     setPages(response.data.pages)
@@ -126,7 +127,7 @@ export default function Navbar({ editable = false }) {
                 if(destination.index === source.index) return
                 
                 setPages([])
-                api.put('setOrder', {
+                apiAdmin.put('setOrder', {
                     "page": draggableId,
                     "position": destination.index,
                     "parent": 0

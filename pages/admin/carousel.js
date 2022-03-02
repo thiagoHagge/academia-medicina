@@ -15,6 +15,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import Layout from '../../src/patterns/Layout';
 import api from '../../src/api';
+import apiAdmin from '../../src/api/admin';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -88,7 +89,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
         data.append('image', file);
         
         console.log('image', file);
-        api.post('/carousel/new', data, {
+        apiAdmin.post('/carousel/new', data, {
             headers: {
                 'accept': 'application/json',
                 'Accept-Language': 'en-US,en;q=0.8',
@@ -100,7 +101,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
         })
     }
     const deleteItem = (id) => {
-        api.delete(`/carousel/delete/${id}`).then(res => finishRequest(res))
+        apiAdmin.delete(`/carousel/delete/${id}`).then(res => finishRequest(res))
     }
 
     const finishRequest = (res) => {

@@ -8,6 +8,7 @@ import Layout from '../../../src/patterns/Layout';
 import CKEditor from '../../../src/components/CKeditor';
 import { UpdateButton } from '../../../src/components/UpdateButton';
 import api from '../../../src/api';
+import apiAdmin from '../../../src/api/admin';
 
 export default function NewsEditor({oldLink = '', oldTitle = '', oldContent = '', error = false, oldImage = null}) {
     const [title, setTitle] = useState(oldTitle);
@@ -35,7 +36,7 @@ export default function NewsEditor({oldLink = '', oldTitle = '', oldContent = ''
                 data.append('link', link);
             }
         }
-        api.post('news/new', data).then(res => {
+        apiAdmin.post('news/new', data).then(res => {
             // TODO: show error message
             if(!res.data.success) {
                 setTitleError(res.data.error)

@@ -8,6 +8,7 @@ import Layout from '../../../src/patterns/Layout';
 import CKEditor from '../../../src/components/CKeditor';
 import { UpdateButton } from '../../../src/components/UpdateButton';
 import api from '../../../src/api';
+import apiAdmin from '../../../src/api/admin';
 
 export async function getServerSideProps(context) {
     const { link } = context.query;
@@ -42,7 +43,7 @@ export default function PageEdit({ oldContent = '', error = false }) {
 
     const updateContent = () => {
         const { link } = router.query
-        api.put('updatePage', { page: link, content: content }).then(res => {
+        apiAdmin.put('updatePage', { page: link, content: content }).then(res => {
             // TODO: show Loading and ERROR
             if (res.data.success) {
                 setIsButtonEnable(false)
