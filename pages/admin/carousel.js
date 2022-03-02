@@ -15,7 +15,6 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import Layout from '../../src/patterns/Layout';
 import api from '../../src/api';
-import apiAdmin from '../../src/api/admin';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -23,6 +22,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import theme from '../../src/themes';
+import { useAuth } from '../../src/contexts/auth';
 
 export async function getServerSideProps() {
     return api.get('/carousel/get').then(res => {
@@ -50,6 +50,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
     const [subtitle, setSubtitle] = useState('');
     const [image, setImage] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
+    const { token } = useAuth();
 
 
     const openModal = (itemObject = null) => {
@@ -89,11 +90,13 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
         data.append('image', file);
         
         console.log('image', file);
-        apiAdmin.post('/carousel/new', data, {
+
+        api.post('/carousel/new', data, {
             headers: {
                 'accept': 'application/json',
                 'Accept-Language': 'en-US,en;q=0.8',
-                'Content-Type': `multipart/form-data; boundary=${data._boundary}`
+                'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+                'X-Token': token
             }
         }).then((res) => {
             console.log(res)
@@ -101,7 +104,11 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
         })
     }
     const deleteItem = (id) => {
-        apiAdmin.delete(`/carousel/delete/${id}`).then(res => finishRequest(res))
+        api.delete(`/carousel/delete/${id}`, undefined, {
+            headers: {
+                'X-Token': token
+            }
+        }).then(res => finishRequest(res))
     }
 
     const finishRequest = (res) => {

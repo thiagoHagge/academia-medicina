@@ -10,6 +10,7 @@ const AuthContext = createContext({});
 export default function AuthProvider({children}) {
 
     const [signed, signIn] = useState(false)
+    const [token, setToken] = useState('')
     const [loading, setLoading] = useState(true)
     const router = useRouter()
 
@@ -28,6 +29,7 @@ export default function AuthProvider({children}) {
                     router.push('/admin/login')
                 } else {
                     signIn(true)
+                    setToken(token)
                 }
             } else {
                 router.push('/admin/login')
@@ -44,6 +46,7 @@ export default function AuthProvider({children}) {
 		} else {
             // console.log("Got token")
 			localStorage.setItem('token', response.data.token)
+			setToken(response.data.token)
             signIn(true)
             router.push('/admin')
 		}
@@ -52,11 +55,12 @@ export default function AuthProvider({children}) {
     const logout = (email, password) => {
         localStorage.removeItem('token')
         signIn(false)
+        setToken('')
         router.push('/admin/login')
     }
 
     return (
-        <AuthContext.Provider value={{ signed, login, loading, logout }}>
+        <AuthContext.Provider value={{ signed, token, login, loading, logout }}>
             {children}
         </AuthContext.Provider>
     )

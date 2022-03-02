@@ -24,9 +24,9 @@ import AddLinkIcon from '@mui/icons-material/AddLink';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import api from '../api';
-import apiAdmin from '../api/admin';
 import theme from '../themes';
 import MenuItem from '../components/MenuItem';
+import { useAuth } from '../contexts/auth';
 
 export default function Navbar({ editable = false }) {
     const router = useRouter()
@@ -43,7 +43,7 @@ export default function Navbar({ editable = false }) {
     const [pages, setPages] = useState([])
     const [newSectionParent, setNewSectionParent] = useState({name: '', id: false})
     const [navActive, setNavActive] = useState('')
-    
+    const { token } = useAuth();
     
     const handleOpenNavMenu = (event) => {
         setAnchorNav(event.currentTarget)
@@ -89,7 +89,11 @@ export default function Navbar({ editable = false }) {
         if (newSectionParent.id != false) {
             body.parent = newSectionParent.id
         }
-        apiAdmin.post('newPage', body).then((response) => {
+        api.post('newPage', body, {
+            headers: {
+                'X-Token': token
+            }
+        }).then((response) => {
             if (response.data.success) {
                 closeCreateModal()
                 setNewSection('')
@@ -116,7 +120,11 @@ export default function Navbar({ editable = false }) {
             case 'trash':
                 // console.log('Deletando', draggableId);
                 setPages([])
-                apiAdmin.delete(`deletePage/${draggableId}`).then((response) => {
+                api.delete(`deletePage/${draggableId}`, undefined, {
+                    headers: {
+                        'X-Token': token
+                    }
+                }).then((response) => {
                     // TODO: tratar erros
                     // console.log(response)
                     setPages(response.data.pages)
@@ -127,10 +135,14 @@ export default function Navbar({ editable = false }) {
                 if(destination.index === source.index) return
                 
                 setPages([])
-                apiAdmin.put('setOrder', {
+                api.put('setOrder', {
                     "page": draggableId,
                     "position": destination.index,
                     "parent": 0
+                }, {
+                    headers: {
+                        'X-Token': token
+                    }
                 }).then((response) => {
                     if(!response.data.success) return
                     setPages(response.data.pages)

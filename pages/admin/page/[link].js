@@ -8,7 +8,7 @@ import Layout from '../../../src/patterns/Layout';
 import CKEditor from '../../../src/components/CKeditor';
 import { UpdateButton } from '../../../src/components/UpdateButton';
 import api from '../../../src/api';
-import apiAdmin from '../../../src/api/admin';
+import { useAuth } from '../../../src/contexts/auth';
 
 export async function getServerSideProps(context) {
     const { link } = context.query;
@@ -36,14 +36,18 @@ export default function PageEdit({ oldContent = '', error = false }) {
 
     const [content, setContent] = useState(oldContent);
     const [isButtonEnable, setIsButtonEnable] = useState(false)
-
+    const { token } = useAuth();
     const editorRef = useRef()
 
     const router = useRouter()
 
     const updateContent = () => {
         const { link } = router.query
-        apiAdmin.put('updatePage', { page: link, content: content }).then(res => {
+        api.put('updatePage', { page: link, content: content }, {
+            headers: {
+                'X-Token': token
+            }
+        }).then(res => {
             // TODO: show Loading and ERROR
             if (res.data.success) {
                 setIsButtonEnable(false)
