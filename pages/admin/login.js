@@ -76,6 +76,7 @@ export default function Login() {
 				/>
 				<Button 
 					variant="contained" 
+					color="dark"
 					size="large"
 					onClick={() => login(username, password)}
 				>
