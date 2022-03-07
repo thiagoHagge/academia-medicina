@@ -367,6 +367,7 @@ export default function Navbar({ editable = false }) {
                             label={newSectionParent.name === '' ? 'Nome da seção' : 'Nome da página'}
                             type="text"
                             variant="outlined"
+                            maxlength="191"
                             margin="normal"	
                             value={newSection}
                             onChange={(e) => setNewSection(e.target.value)}
