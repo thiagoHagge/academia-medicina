@@ -1,7 +1,7 @@
 import ListPage from '../../../src/patterns/ListPage';
 import api from '../../../src/api';
 
-export default function Videos({news}) {
+export default function Videos({news = []}) {
     return (
         <ListPage news={news} slug="videos" video/>
     )
