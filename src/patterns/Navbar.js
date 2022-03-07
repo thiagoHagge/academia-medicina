@@ -239,11 +239,11 @@ export default function Navbar({ editable = false }) {
                                     >
                                         {pages.map(({link, name, children}) => (
                                             [
-                                                <MenuItem key={`mob-${link}`} onClick={() => handleCloseNavMenu(link, children.length > 0)}>
+                                                <MenuItem key={`mob-${link}`} onClick={() => handleCloseNavMenu(link, (typeof children != 'undefined' && children.length > 0))}>
                                                     <Typography textAlign="center">{name}</Typography>
-                                                    {(children.length > 0) && <ArrowDropDownIcon fontSize="8" />}
+                                                    {(typeof children != 'undefined' && children.length > 0) && <ArrowDropDownIcon fontSize="8" />}
                                                 </MenuItem>,
-                                                children.map((child) => (
+                                                typeof children != 'undefined' && children.map((child) => (
                                                     <MenuItem key={`mob-${child.link}`} onClick={() => handleCloseNavMenu(child.link)} hide={navActive != link}>
                                                         <Typography textAlign="center">{child.name}</Typography>
                                                     </MenuItem>
@@ -270,7 +270,7 @@ export default function Navbar({ editable = false }) {
                                         <div key={`dsk-${link}`}>
                                             <Button
                                             onClick={(event) => {
-                                                if(editable || children.length > 0) {
+                                                if(editable || (typeof children != 'undefined' && children.length > 0)) {
                                                     handleOpenDropdown(event, `adm-${link}`)
                                                 } else {
                                                     router.push(`${editable ? '/admin' : ''}/page/${link}`)
@@ -279,7 +279,7 @@ export default function Navbar({ editable = false }) {
                                             sx={{ my: 2, color: 'black', display: 'block' }}
                                             >
                                                 {name}
-                                                {(editable || children.length > 0) && <ArrowDropDownIcon fontSize="8" />}
+                                                {(editable || (typeof children != 'undefined' && children.length > 0)) && <ArrowDropDownIcon fontSize="8" />}
                                                 
                                             </Button>
                                             <Menu
@@ -302,7 +302,7 @@ export default function Navbar({ editable = false }) {
                                                     <EditIcon fontSize="16" />    
                                                     <Typography textAlign="center">Editar {name}</Typography>
                                                 </MenuItem>}
-                                                {children.map((child) => {
+                                                {typeof children != 'undefined' && children.map((child) => {
                                                     return (
                                                         <MenuItem key={`child-${child.link}`} onClick={() => router.push(`${editable ? '/admin' : ''}/page/${child.link}`)}>
                                                             {editable && <EditIcon fontSize="16" />}
