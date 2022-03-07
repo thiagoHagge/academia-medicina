@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 
 import theme from '../themes';
 
-export function ActionLine({enable, deleteButton = false, updateAction = () => {}, deleteAction = () => {}, ...rest}) {
+export default function ActionLine({enable, deleteButton = false, updateAction = () => {}, deleteAction = () => {}, ...rest}) {
     return (
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
             {deleteButton && <Button

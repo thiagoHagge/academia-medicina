@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 
 import Layout from '../../../src/patterns/Layout';
+import ActionLine from '../../../src/patterns/ActionLine';
 import CKEditor from '../../../src/components/CKeditor';
-import { UpdateButton } from '../../../src/components/UpdateButton';
 import api from '../../../src/api';
 import { useAuth } from '../../../src/contexts/auth';
 
@@ -66,7 +66,7 @@ export default function PageEdit({ oldContent = '', error = false }) {
                         setIsButtonEnable(true)
                     }}
                 />
-                <UpdateButton onClick={updateContent} enable={isButtonEnable} />
+            <ActionLine onClick={updateContent} enable={isButtonEnable} />
             </>
         </Layout>
     )
