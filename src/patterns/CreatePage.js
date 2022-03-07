@@ -68,7 +68,7 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
             setTitleError('')
             setVideoError('')
             setIsButtonEnable(false)
-            console.log(res.data.link)
+            // console.log(res.data.link)
             if(res.data.link != link) {
                 router.push(`/admin/${slug}/${res.data.link}`, undefined, { shallow: true })
                 setLink(res.data.link)

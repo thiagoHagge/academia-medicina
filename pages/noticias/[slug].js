@@ -16,7 +16,7 @@ export default function ReadNews({link = '', title = '', content = '', error = f
 }
 ReadNews.getInitialProps = async ({query}) => {
     return api.get(`news/get/${query.slug}`).then(res => {
-        console.log(res)
+        // console.log(res)
         if(res.data.success && res.data.news != null) {
             return {
                 props: {

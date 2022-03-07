@@ -49,8 +49,10 @@ export default function Navbar({ editable = false }) {
         setAnchorNav(event.currentTarget)
     };
 
-    const handleCloseNavMenu = (link = '', hasChildren = false) => {
-        if (hasChildren) {
+    const handleCloseNavMenu = (link = '', hasChildren) => {
+        // console.log(link)
+        // console.log(hasChildren)
+        if (hasChildren !== 'backdropClick') {
             setNavActive(link)
             return
         }

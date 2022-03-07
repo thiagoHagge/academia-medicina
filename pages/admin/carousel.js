@@ -89,7 +89,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
         let data = new FormData();
         data.append('image', file);
         
-        console.log('image', file);
+        // console.log('image', file);
 
         api.post('/carousel/new', data, {
             headers: {
@@ -99,7 +99,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
                 'X-Token': token
             }
         }).then((res) => {
-            console.log(res)
+            // console.log(res)
             finishRequest(res)
         })
     }
@@ -118,7 +118,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
             return;
         } 
         hideInput()
-        console.log('finishRequest')
+        // console.log('finishRequest')
         setCarouselItems(res.data.items);
     }
 
@@ -134,8 +134,8 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
                     accept="image/*" 
                     onChange={(event) => {
                         setImage(event.target.files[0])
-                        console.log(event.target.files[0])
-                        console.log('foi')
+                        // console.log(event.target.files[0])
+                        // console.log('foi')
                         sendRequest(event.target.files[0])
                     }} 
                     />
