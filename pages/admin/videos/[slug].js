@@ -16,29 +16,23 @@ export default function VideoEditor({oldLink = '', oldTitle = '', oldContent = '
 VideoEditor.getInitialProps = async ({query}) => {
     if (query.slug == 'new') {
         return {
-            props: {
-                oldLink: query.slug,
-                oldTitle: '',
-                oldContent: ''
-            }
+            oldLink: query.slug,
+            oldTitle: '',
+            oldContent: ''
         }
     }
     return api.get(`videos/get/${query.slug}`).then(res => {
         // console.log(res)
         if(res.data.success && res.data.news != null) {
             return {
-                props: {
-                    oldLink: query.slug,
-                    oldTitle: res.data.news.title,
-                    oldContent: res.data.news.content
-                }
+                oldLink: query.slug,
+                oldTitle: res.data.news.title,
+                oldContent: res.data.news.content
             }
         }
         return {
-            props: {
-                error: res.data.error || true,
-                oldLink: query.slug,
-            }
+            error: res.data.error || true,
+            oldLink: query.slug,
         }
     })
 }

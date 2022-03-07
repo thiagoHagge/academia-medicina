@@ -10,9 +10,7 @@ export default function Videos({news = []}) {
 Videos.getInitialProps = async () => {
     return api.get('videos/get').then(res => {
         return {
-            props: {
-                news: res.data.news
-            }
+            news: res.data.news
         }
     })
 }
