@@ -19,10 +19,12 @@ ReadNews.getInitialProps = async ({query}) => {
         console.log(res)
         if(res.data.success && res.data.news != null) {
             return {
-                link: query.slug,
-                title: res.data.news.title,
-                image: res.data.news.image,
-                content: res.data.news.content
+                props: {
+                    link: query.slug,
+                    title: res.data.news.title,
+                    image: res.data.news.image,
+                    content: res.data.news.content
+                }
             }
         }
         return {

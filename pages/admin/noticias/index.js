@@ -10,7 +10,9 @@ export default function Noticias({news}) {
 Noticias.getInitialProps = async () => {
     return api.get('news/get').then(res => {
         return {
-            news: res.data.news
+            props: {
+                news: res.data.news
+            }
         }
     })
 }
