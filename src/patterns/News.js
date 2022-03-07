@@ -30,7 +30,7 @@ export default function NewsList({ news = [], admin = '', children, video = fals
                 let dateStr = `${date.getDay()} de ${month[date.getMonth()]} de ${date.getFullYear()}`
                 return (
                 <Grid item xs={12} sm={6} md={3} key={item.image + item.title}>
-                    <Link href={`${admin}/noticias/${item.link}`} passHref>
+                    <Link href={`${admin}/${video ? 'videos' : 'noticias'}/${item.link}`} passHref>
                         <Card sx={{mt: 2}}>
                             <CardActionArea>
                                 <CardMedia
@@ -44,9 +44,10 @@ export default function NewsList({ news = [], admin = '', children, video = fals
                                         <Typography component="p" variant="h5" style={{whiteSpace: 'pre-wrap'}}>
                                             {item.title}
                                         </Typography>
-                                        <Typography variant="subtitle1" color="text.secondary" component="div">
-                                            {item.creation == item.updated ? 'Criado em ' : 'Atualizado em '}{dateStr} por {item.author}
-                                        </Typography>
+                                        {!video && <Typography variant="subtitle1" color="text.secondary" component="div">
+                                            {item.creation == item.updated ? 'Criado em ' : 'Atualizado em '}{dateStr}{'\n'}
+                                            {item.author && `Por ${item.author}`}
+                                        </Typography>}
                                     </CardContent>
                                 </Box>
                             </CardActionArea>
