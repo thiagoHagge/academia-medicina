@@ -14,7 +14,7 @@ export async function getServerSideProps(context) {
     })
 }
 
-export default function Noticias({news}) {
+export default function Noticias({news = []}) {
     return (
         <Layout title="Notícias">
             <News news={news} />
