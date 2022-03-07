@@ -298,7 +298,7 @@ export default function Navbar({ editable = false }) {
                                             open={dropdown.key == `adm-${link}`}
                                             onClose={handleCloseDropdown}
                                             >
-                                                {(editable && children == 0) && <MenuItem onClick={() => router.push(`${editable ? '/admin' : ''}/page/${link}`)}>
+                                                {(editable && (children == 0 || typeof children == 'undefined')) && <MenuItem onClick={() => router.push(`${editable ? '/admin' : ''}/page/${link}`)}>
                                                     <EditIcon fontSize="16" />    
                                                     <Typography textAlign="center">Editar {name}</Typography>
                                                 </MenuItem>}
