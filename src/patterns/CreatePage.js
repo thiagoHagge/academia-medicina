@@ -95,7 +95,7 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
             <TextField 
             label="Título" 
             variant="outlined" 
-            maxlength="191"
+            inputProps={{ maxLength: 191 }}
             fullWidth 
             sx={{mb: 2}} 
             value={title}
@@ -125,7 +125,7 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
             {allowAuthor && <TextField 
             label="Autor" 
             variant="outlined" 
-            maxlength="191"
+            inputProps={{ maxLength: 191 }}
             fullWidth 
             sx={{mb: 2}} 
             value={author}
@@ -139,7 +139,7 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
             {allowVideoLink && <TextField 
             label="Link do Youtube" 
             variant="outlined" 
-            maxlength="191"
+            inputProps={{ maxLength: 191 }}
             fullWidth 
             sx={{mb: 2}} 
             value={videoLink}
