@@ -1,7 +1,7 @@
 import ListPage from '../../../src/patterns/ListPage';
 import api from '../../../src/api';
 
-export default function Noticias({news = []}) {
+export default function NoticiasAdmin({news = []}) {
     return (
         <ListPage news={news} slug="noticias"/>
     )
@@ -9,6 +9,9 @@ export default function Noticias({news = []}) {
 
 Noticias.getInitialProps = async () => {
     return api.get('news/get').then(res => {
-        news: res.data.news
+        if(!res.data.success) return {news: []}
+        return {
+            news: res.data.news
+        }
     })
 }
