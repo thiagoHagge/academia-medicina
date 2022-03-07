@@ -104,7 +104,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
         })
     }
     const deleteItem = (id) => {
-        api.delete(`/carousel/delete/${id}`, undefined, {
+        api.delete(`/carousel/delete/${id}`, {
             headers: {
                 'X-Token': token
             }

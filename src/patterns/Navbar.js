@@ -120,7 +120,7 @@ export default function Navbar({ editable = false }) {
             case 'trash':
                 // console.log('Deletando', draggableId);
                 setPages([])
-                api.delete(`deletePage/${draggableId}`, undefined, {
+                api.delete(`deletePage/${draggableId}`, {
                     headers: {
                         'X-Token': token
                     }
