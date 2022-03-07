@@ -7,7 +7,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
-export default function Noticias({ news, admin = '', children, video = false }) {
+export default function NewsList({ news = [], admin = '', children, video = false }) {
     return (
         <Grid container spacing={2}>
             {children}
