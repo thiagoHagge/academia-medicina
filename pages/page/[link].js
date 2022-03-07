@@ -9,18 +9,19 @@ export async function getServerSideProps(context) {
         return {
             props: {
                 content: data.content,
+                title: data.title,
             },
         };
 
     } 
 }
 
-export default function Index({content}) {
+export default function Index({content, title}) {
     // get link from url
     
 	return (
         <>
-		    <Layout>
+		    <Layout title={title}>
                 <div dangerouslySetInnerHTML={{__html: content}} />
             </Layout>
         </>

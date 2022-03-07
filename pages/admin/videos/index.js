@@ -1,14 +1,14 @@
 import ListPage from '../../../src/patterns/ListPage';
 import api from '../../../src/api';
 
-export default function Noticias({news}) {
+export default function Videos({news}) {
     return (
-        <ListPage news={news} slug="noticias"/>
+        <ListPage news={news} slug="videos" video/>
     )
 }
 
-Noticias.getInitialProps = async () => {
-    return api.get('news/get').then(res => {
+Videos.getInitialProps = async () => {
+    return api.get('videos/get').then(res => {
         return {
             news: res.data.news
         }

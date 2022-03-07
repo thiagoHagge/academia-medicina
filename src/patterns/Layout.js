@@ -25,7 +25,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import CallIcon from '@mui/icons-material/Call';
 import { Typography } from '@material-ui/core';
 
-export default function Layout({title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = [], error = false}) {
+export default function Layout({title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = [], error = false, noMargin = false}) {
 	const navbarRef = useRef(null)
 	
 	const { windowHeight } = useWindowDimensions();
@@ -62,13 +62,13 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 							</Grid> */}
 							<Grid item xs={4}>
 								<Box sx={theme.align.center}>
-									<IconButton sx={{color: theme.palette.black}}>
+									<IconButton sx={{color: theme.palette.black.main}}>
 										<WhatsAppIcon />
 									</IconButton>
-									<IconButton sx={{color: theme.palette.black}}>
+									<IconButton sx={{color: theme.palette.black.main}}>
 										<InstagramIcon />
 									</IconButton>
-									<IconButton sx={{color: theme.palette.black}}>
+									<IconButton sx={{color: theme.palette.black.main}}>
 										<FacebookIcon />
 									</IconButton>
 								</Box>
@@ -93,9 +93,9 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 					</Carousel>
 				)}
 			</Box>
-			<Box sx={{p: 2, display: 'grid', mb: 2}}>
+			{noMargin ? children : <Box sx={{p: 2, display: 'block', mb: 2}}>
 				{error == false ? children : <Alert severity="error">{error === true ? 'Algo deu errado, contate o desenvolvedor' : error}</Alert>}
-			</Box>
+			</Box>}
 		</ThemeProvider>
 	);
 };

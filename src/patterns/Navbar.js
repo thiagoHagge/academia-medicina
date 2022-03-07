@@ -193,7 +193,7 @@ export default function Navbar({ editable = false }) {
         <DragDropContext onDragEnd={handleDragEnd} onDragStart={showTrash}>
             <ThemeProvider theme={theme}>
                 <Paper>
-                    <AppBar position="static" sx={{backgroundColor: theme.palette.white, color: theme.palette.black, boxShadow: 1}}>
+                    <AppBar position="static" sx={{backgroundColor: theme.palette.white, color: theme.palette.black.main, boxShadow: 1}}>
                         <Container maxWidth="xl">
                             <Toolbar disableGutters sx={{justifyContent: {xs: 'space-between', md: 'flex-start'}}}>
                                 {/* Desktop Logo */}

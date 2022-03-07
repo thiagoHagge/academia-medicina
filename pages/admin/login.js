@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { ThemeProvider } from '@material-ui/core/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -19,70 +20,74 @@ export default function Login() {
 	})
 		
 	return (
-		<Box 
-			mode="dark"
-			sx={{
-				width: '100vw',
-				height: '100vh',
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center',
-			}}
-		>
+		<ThemeProvider theme={theme}>
 			<Box 
+				mode="dark"
 				sx={{
-					backgroundColor: theme.palette.yellow,
-					padding: 10,
-					display: 'flex', 
-					justifyContent: 'center', 
-					alignItems: 'center', 
-					flexDirection: 'column'
+					width: '100vw',
+					height: '100vh',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
 				}}
 			>
-				<Typography
-					variant="h6"
-					noWrap
-					component="div"
-					sx={{ 
-						mb: 2, 
-						display: { 
-							xs: 'none', 
-							md: 'flex' 
-						} 
+				<Box 
+					sx={{
+						backgroundColor: theme.palette.yellow,
+						padding: 10,
+						display: 'flex', 
+						justifyContent: 'center', 
+						alignItems: 'center', 
+						flexDirection: 'column'
 					}}
 				>
-					Login
-				</Typography>
-				<TextField 
-					id="user" 
-					label="Usuário" 
-					variant="outlined"
-					margin="normal"
-					value={username}
-					onChange={(e) => setUsername(e.target.value)}
-				/>
-				<TextField 
-					id="pass" 
-					label="Senha"
-					type="password"
-					autoComplete="current-password" 
-					variant="outlined"
-					margin="normal"	
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					// sx={{
-					// 	mb: 2
-					// }}
-				/>
-				<Button 
-					variant="contained" 
-					color={theme.palette.black}
-					size="large"
-					onClick={() => login(username, password)}
-				>
-					Logar
-				</Button>
+					<Typography
+						variant="h6"
+						noWrap
+						component="div"
+						sx={{ 
+							mb: 2, 
+							display: { 
+								xs: 'none', 
+								md: 'flex' 
+							} 
+						}}
+					>
+						Login
+					</Typography>
+					<TextField 
+						id="user" 
+						label="Usuário" 
+						variant="outlined"
+						margin="normal"
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
+					/>
+					<TextField 
+						id="pass" 
+						label="Senha"
+						type="password"
+						autoComplete="current-password" 
+						variant="outlined"
+						margin="normal"	
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						// sx={{
+						// 	mb: 2
+						// }}
+					/>
+					<Button 
+						variant="contained" 
+						size="large"
+						onClick={() => login(username, password)}
+						sx={{color: 'white', backgroundColor: theme.palette.black.main,  "&:hover": {
+							backgroundColor: theme.palette.black.main,
+						},}}
+					>
+						Logar
+					</Button>
+				</Box>
 			</Box>
-		</Box>
-  );
+		</ThemeProvider>
+	);
 }

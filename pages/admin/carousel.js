@@ -43,7 +43,7 @@ export async function getServerSideProps() {
 
 export default function Carousel({oldCarouselItems = [], error = false}) {
     // console.log(oldCarouselItems)
-    const [isModalVisible, setModalVisible] = useState(false);
+    const [isInputVisible, setInputVisible] = useState(false);
     const [carouselItems, setCarouselItems] = useState(oldCarouselItems);
     const [itemId, setItemId] = useState(0);
     const [title, setTitle] = useState('');
@@ -53,16 +53,16 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
     const { token } = useAuth();
 
 
-    const openModal = (itemObject = null) => {
-        setModalVisible(true)
+    const showInput = (itemObject = null) => {
+        setInputVisible(true)
         if (!itemObject) return
         setItemId(itemObject.id)
         setTitle(itemObject.title)
         setSubtitle(itemObject.subtitle)
     }
 
-    const closeModal = () => {
-        setModalVisible(false)
+    const hideInput = () => {
+        setInputVisible(false)
         setItemId(0)
         setTitle('')
         setSubtitle('')
@@ -117,7 +117,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
             setErrorMessage(res.data.error)
             return;
         } 
-        closeModal()
+        hideInput()
         console.log('finishRequest')
         setCarouselItems(res.data.items);
     }
@@ -125,10 +125,10 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
     return (
         <Layout error={error} navbarEditable>
             <Box>
-                <IconButton color="success" onClick={openModal} style={{display: !isModalVisible ? 'block' : 'none'}}>
+                <IconButton color="success" onClick={showInput} style={{display: !isInputVisible ? 'block' : 'none'}}>
                     <AddRoundedIcon sx={{fontSize: 40}} /> 
                 </IconButton>
-                <Form.Group controlId="image" className="mb-3" style={{display: isModalVisible ? 'block' : 'none'}}>
+                <Form.Group controlId="image" className="mb-3" style={{display: isInputVisible ? 'block' : 'none'}}>
                     <Form.Control 
                     type="file" 
                     accept="image/*" 
@@ -165,7 +165,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
                                             sx={{backgroundColor: '#00000000'}}
                                             actionIcon={(
                                                 <IconButton
-                                                sx={{ color: theme.palette.danger }}
+                                                sx={{ color: theme.palette.danger.main }}
                                                 onClick={() => deleteItem(id)}
                                                 >
                                                     <DeleteForeverRoundedIcon />

@@ -7,7 +7,7 @@ export default function LoadingScreen() {
 	return (
 		<Box 
 			sx={{
-				backgroundColor: theme.palette.black,
+				backgroundColor: theme.palette.black.main,
 				padding: 10,
 				display: 'flex', 
 				justifyContent: 'center', 

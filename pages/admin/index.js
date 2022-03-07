@@ -7,7 +7,11 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import ViewCarouselOutlinedIcon from '@mui/icons-material/ViewCarouselOutlined';
 import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
+
+import theme from '../../src/themes';
 import Layout from '../../src/patterns/Layout';
 
 
@@ -17,46 +21,30 @@ export default function Index() {
 			<Typography variant="h5">
 				Editar:
 			</Typography>
-			<Grid container spacing={2}>
 				{/* TODO: Style boxes showing the images */}
-				<Grid item xs={3}>
-					<Card>
-						<Link href="/admin/carousel" passHref>
-							<CardActionArea>
-								<CardContent sx={{textAlign: 'center'}}>
-									<ViewCarouselOutlinedIcon sx={{fontSize: 50}} />
-									<Typography>
-										Carousel
-									</Typography>
-								</CardContent>
-							</CardActionArea>
-						</Link>
-					</Card>
-				</Grid>
-				<Grid item xs={3}>
-					<Card>
-						<Link href="/admin/noticias" passHref>
-							<CardActionArea>
-								<CardContent sx={{textAlign: 'center'}}>
-									<NewspaperRoundedIcon sx={{fontSize: 50}} />
-									<Typography>
-										Notícias
-									</Typography>
-								</CardContent>
-							</CardActionArea>
-						</Link>
-					</Card>
-				</Grid>
-				{/* <Grid item xs={4}>
-					<Box>xs=4</Box>
-				</Grid>
-				<Grid item xs={4}>
-					<Box>xs=4</Box>
-				</Grid>
-				<Grid item xs={8}>
-					<Box>xs=8</Box>
-				</Grid> */}
-			</Grid>
+				<Box sx={{flexDirection: 'row', display: 'flex', flexWrap: 'wrap'}}>
+					<CardEdit link="/admin/carousel" name="Carrousel" icon={ViewCarouselOutlinedIcon} />
+					<CardEdit link="/admin/noticias" name="Notícias" icon={NewspaperRoundedIcon} />
+					<CardEdit link="/admin/videos" name="Vídeos" icon={YouTubeIcon} />
+				</Box>
 		</Layout>
+	)
+}
+
+function CardEdit({link, name, icon}) {
+	return (
+		<Card sx={{marginRight: 2, marginBottom: 2, width: 106}}>
+			<Link href={link} passHref>
+				<CardActionArea sx={{'&:hover': {color: theme.palette.primary.main}}}>
+					<CardContent sx={{textAlign: 'center'}}>
+						<SvgIcon component={icon} style={{fontSize: 50}} ></SvgIcon>
+						{/* <YouTubeIcon /> */}
+						<Typography>
+							{name}
+						</Typography>
+					</CardContent>
+				</CardActionArea>
+			</Link>
+		</Card>
 	)
 }
