@@ -4,13 +4,17 @@ import FormData from 'form-data'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Form from 'react-bootstrap/Form';
+import dynamic from 'next/dynamic';
 
 import Layout from './Layout';
-import CKEditor from '../components/CKeditor';
 import ActionLine from '../patterns/ActionLine';
 import api from '../api';
 import { useAuth } from '../contexts/auth';
 
+
+const CKeditor = dynamic(() => import('../components/CKeditor'), {
+    ssr: false
+})  
 export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', oldContent = '', oldAuthor = '', error = false, oldImage = null, allowImage = false, allowVideoLink = false, allowAuthor = false}) {
     const [title, setTitle] = useState(oldTitle);
     const [author, setAuthor] = useState(oldAuthor);
@@ -150,7 +154,7 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
             error={videoError !== ''}
             helperText={videoError}
             />}
-            <CKEditor 
+            <CKeditor 
             data={content}
             onChange={(event, editor) => {
                 setContent(editor.getData());

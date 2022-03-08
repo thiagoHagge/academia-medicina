@@ -12,12 +12,9 @@ export default function Noticias({news = []}) {
 
 Noticias.getInitialProps = async () => {
     return api.get('/news/get').then(res => {
-        // console.log(res)
         if (!res.data.success) return;
         return {
-            props: {
-                news: res.data.news
-            }
+            news: res.data.news
         };
     })
 }

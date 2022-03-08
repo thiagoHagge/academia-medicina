@@ -9,7 +9,7 @@ export default function NoticiasAdmin({news = []}) {
 
 NoticiasAdmin.getInitialProps = async () => {
     return api.get('news/get').then(res => {
-        if(!res.data.success) return {news: []}
+        if(!res.data.success) return
         return {
             news: res.data.news
         }

@@ -3,13 +3,16 @@ import { useRouter } from 'next/router'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
+import dynamic from 'next/dynamic'
 
 import Layout from '../../../src/patterns/Layout';
 import ActionLine from '../../../src/patterns/ActionLine';
-import CKEditor from '../../../src/components/CKeditor';
 import api from '../../../src/api';
 import { useAuth } from '../../../src/contexts/auth';
 
+const CKeditor = dynamic(() => import('../../../src/components/CKeditor'), {
+    ssr: false
+})  
 export async function getServerSideProps(context) {
     const { link } = context.query;
     return api.get(`getContent/${link}`).then(res => {
@@ -58,7 +61,7 @@ export default function PageEdit({ oldContent = '', error = false }) {
     return (
         <Layout navbarEditable error={error}>
             <>
-                <CKEditor
+                <CKeditor
                     data={content}
                     onChange={(event, editor) => {
                         const data = editor.getData();

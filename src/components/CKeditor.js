@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-export default function CKEditor(props) {
+export default function CKeditor(props) {
     const [editorLoaded, setEditorLoaded] = useState(false)
     
     const editorRef = useRef()
@@ -9,7 +9,7 @@ export default function CKEditor(props) {
     useEffect(() => {
         editorRef.current = {
             CKEditor: require('@ckeditor/ckeditor5-react').CKEditor,
-            ClassicEditor: require('@ckeditor/ckeditor5-build-classic'),
+            ClassicEditor: require('ckeditor5-custom-build'),
             // Alignment: require('@ckeditor/ckeditor5-alignment/src/alignment')
         }
         setEditorLoaded(true)
