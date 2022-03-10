@@ -68,6 +68,7 @@ export default function PageEdit({ oldContent = '', error = false }) {
                         setContent(data);
                         setIsButtonEnable(true)
                     }}
+                    token={token}
                 />
             <ActionLine onClick={updateContent} enable={isButtonEnable} />
             </>

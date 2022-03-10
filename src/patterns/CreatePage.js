@@ -69,17 +69,20 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
                 }
                 return
             }
+            // Clean values
             setTitleError('')
             setVideoError('')
             setIsButtonEnable(false)
-            // console.log(res.data.link)
+            setImage(null)
+
+            // Redirect if changed the image
             if(res.data.link != link) {
                 router.push(`/admin/${slug}/${res.data.link}`, undefined, { shallow: true })
                 setLink(res.data.link)
             } else {
+                if(image == null) return
                 router.reload(router.asPath)
             }
-
         })
     }
 
@@ -160,6 +163,7 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
                 setContent(editor.getData());
                 setIsButtonEnable(true)
             }}
+            token={token}
             />
             <ActionLine enable={isButtonEnable} updateAction={sendRequest} deleteAction={deleteAction} deleteButton={id != 0} />
         </Layout>

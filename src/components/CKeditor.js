@@ -1,25 +1,57 @@
 import { useState, useEffect, useRef } from 'react';
+import FormData from 'form-data'
 
-export default function CKeditor(props) {
+import api from '../api';
+
+export default function CKeditor({token, ...rest}) {
     const [editorLoaded, setEditorLoaded] = useState(false)
     
     const editorRef = useRef()
-    const {CKEditor, ClassicEditor} = editorRef.current || {}
+    const {CKEditor, CustomEditor} = editorRef.current || {}
 
     useEffect(() => {
         editorRef.current = {
             CKEditor: require('@ckeditor/ckeditor5-react').CKEditor,
-            ClassicEditor: require('ckeditor5-custom-build'),
+            CustomEditor: require('ckeditor5-custom-build'),
             // Alignment: require('@ckeditor/ckeditor5-alignment/src/alignment')
         }
         setEditorLoaded(true)
     }, [])
+    function uploadAdapter(loader) {
+        return {
+            upload: () => {
+                return new Promise((resolve, reject) => {
+                    let data = new FormData();
+                    loader.file.then((file) => {
+                        data.append("image", file);
+                        api.post('/saveImage', data, {
+                            headers: {
+                                'X-Token': token
+                            }
+                        })
+                        .then((res) => {
+                            resolve({
+                                default: res.data.url
+                            });
+                        })
+                        .catch((err) => {
+                            reject(err);
+                        });
+                    });
+                });
+            }
+        };
+    }
+    function uploadPlugin(editor) {
+        editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+            return uploadAdapter(loader);
+        };
+    }
 
-    // TODO: Colocar CKEditor em português
     return editorLoaded ? (
         <CKEditor
         // TODO: setar altura baseada na altura da tela
-        editor={ ClassicEditor }
+        editor={ CustomEditor }
         onReady={(editor) => {
             editor.editing.view.change((writer) => {
                 writer.setStyle(
@@ -36,10 +68,17 @@ export default function CKeditor(props) {
                 );
             });
         }}
-        // config={{
-        //     plugins: [ Alignment ]
-        // }}
-        {...props}
+        config={{
+            extraPlugins: [uploadPlugin],
+            simpleUpload: {
+                uploadUrl: `${process.env.URL_API}api/`,
+                withCredentials: true,
+                headers: {
+                    'X-TOKEN': token
+                }    
+            }
+        }}
+        {...rest}
         />
     ) : <></>
 }
