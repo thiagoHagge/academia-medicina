@@ -7,7 +7,7 @@ export default function ReadNews({link = '', title = '', content = '', error = f
     return (
         <ReadPage 
         title={title}
-        erraor={error}
+        error={error}
         link={link}
         content={content}
         image={image}

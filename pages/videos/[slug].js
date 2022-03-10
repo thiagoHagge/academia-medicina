@@ -7,7 +7,7 @@ export default function ReadVideos({link = '', title = '', content = '', error =
     return (
         <ReadPage 
         title={title}
-        erraor={error}
+        error={error}
         link={link}
         content={content}
         video={ytId}

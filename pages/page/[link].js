@@ -1,4 +1,4 @@
-import Layout from '../../src/patterns/Layout';
+import ReadPage from '../../src/patterns/ReadPage';
 import api from '../../src/api';
 
 // TODO: aplicar getStaticPath para páginas importantes 
@@ -18,12 +18,10 @@ export async function getServerSideProps(context) {
 
 export default function Index({content, title}) {
     // get link from url
-    
 	return (
-        <>
-		    <Layout title={title}>
-                <div dangerouslySetInnerHTML={{__html: content}} />
-            </Layout>
-        </>
+        <ReadPage 
+        title={title}
+        content={content}
+        />
 	)
 }
