@@ -1,9 +1,13 @@
+import { useRef, useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 
 import Layout from '../../src/patterns/Layout';
 
 export default function ReadPage({link = '', title = '', content = '', error = false, image = null, video = null}) {
+    const videoRef = useRef(null);
+    const [videoHeight, setVideoHeight] = useState(0);
     var formattedContent = [];
     // prepare videos to be displayed
     (function() {
@@ -30,46 +34,54 @@ export default function ReadPage({link = '', title = '', content = '', error = f
         // get paragraph after video
         formattedContent[i++] = content.slice(cutEnd, content.length)
     })()
+    useEffect(() => {
+        if (videoRef.current) {
+            setVideoHeight(videoRef.current.offsetWidth)
+        }
+    }, [videoRef.current])
     return (
         <Layout title={title} error={error}>
-            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <Typography variant="h4" gutterBottom sx={{textAlign: 'center', mb: 3}}>
-                    {title}
-                </Typography>
-                {image != null && <img 
-                src={image}
-                style={{margin: 'auto', maxWidth: '100%', maxHeight: 300}}
-                />}
-                {video != null && <iframe 
-                style={{margin: 'auto', maxWidth: '100%', maxHeight: 315}}
-                src={`https://www.youtube.com/embed/${video}`} 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-                >
-                </iframe>}
-                {/* TODO: trata pra não aparece url ao subir 2 videos */}
-                {formattedContent != [] ? 
-                    formattedContent.map((p) => {
-                        if (p.slice(0, 6) == '{#url}') {
-                            return (
-                                <iframe 
-                                style={{margin: 'auto', maxWidth: '100%', maxHeight: 315}}
-                                src={p.slice(6, p.length).replace('watch?v=', 'embed/')} 
-                                title="YouTube video player" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                >
-                                </iframe>
-                            )
-                        }
-                        return <div dangerouslySetInnerHTML={{__html: p}} />
-                    }) : 
-                    <div dangerouslySetInnerHTML={{__html: content}} />
-                }
-            </Box>
+            <Grid container spacing={2} sx={{px: {xs: 0, md: 7}}}>
+                <Grid item xs={12} md={7}>
+                    <Typography variant="h4" gutterBottom sx={{textAlign: 'center', mb: 3}}>
+                        {title}
+                    </Typography>
+                    {image != null && <img 
+                    src={image}
+                    style={{width: '100%'}}
+                    />}
+                    {video != null && <iframe
+                    ref={videoRef}
+                    style={{width: '100%', height: videoHeight * 0.5625}}
+                    src={`https://www.youtube.com/embed/${video}`} 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                    >
+                    </iframe>}
+                    {/* TODO: trata pra não aparece url ao subir 2 videos */}
+                    {formattedContent != [] ? 
+                        formattedContent.map((p) => {
+                            if (p.slice(0, 6) == '{#url}') {
+                                return (
+                                    <iframe 
+                                    style={{margin: 'auto', maxWidth: '100%', maxHeight: 315}}
+                                    src={p.slice(6, p.length).replace('watch?v=', 'embed/')} 
+                                    title="YouTube video player" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen
+                                    >
+                                    </iframe>
+                                )
+                            }
+                            return <div dangerouslySetInnerHTML={{__html: p}} />
+                        }) : 
+                        <div dangerouslySetInnerHTML={{__html: content}} />
+                    }
+                </Grid>
+            </Grid>
         </Layout>
     )
 }
