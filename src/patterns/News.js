@@ -31,7 +31,7 @@ export default function NewsList({ news = [], admin = '', children, video = fals
                 return (
                 <Grid item xs={12} sm={6} md={3} key={item.image + item.title}>
                     <Link href={`${admin}/${video ? 'videos' : 'noticias'}/${item.link}`} passHref>
-                        <Card sx={{mt: 2}}>
+                        <Card sx={{mt: 2, maxWidth: 345}}>
                             <CardActionArea>
                                 <CardMedia
                                 component="img"
@@ -39,17 +39,15 @@ export default function NewsList({ news = [], admin = '', children, video = fals
                                 image={video ? `https://i.ytimg.com/vi/${item.ytId}/hqdefault.jpg` : item.image}
                                 alt=""
                                 />
-                                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                    <CardContent sx={{ flex: '1 0 auto' }}>
-                                        <Typography component="p" variant="h5" style={{whiteSpace: 'pre-wrap'}}>
-                                            {item.title}
-                                        </Typography>
-                                        {!video && <Typography variant="subtitle1" color="text.secondary" component="div">
-                                            {item.creation == item.updated ? 'Criado em ' : 'Atualizado em '}{dateStr}{'\n'}
-                                            {item.author && `Por ${item.author}`}
-                                        </Typography>}
-                                    </CardContent>
-                                </Box>
+                                <CardContent sx={{ flex: '1 0 auto', backgroundColor: '#121212', borderRadius: '4px' }}>
+                                    <Typography gutterBottom component="div" variant="h5" style={{whiteSpace: 'pre-wrap', color: '#fff'}}>
+                                        {item.title}
+                                    </Typography>
+                                    {!video && <Typography variant="subtitle1" component="div" sx={{color: '#ffffffb3'}}>
+                                        {item.creation == item.updated ? 'Criado em ' : 'Atualizado em '}{dateStr}{'\n'}
+                                        {item.author && `Por ${item.author}`}
+                                    </Typography>}
+                                </CardContent>
                             </CardActionArea>
                         </Card>
                     </Link>
