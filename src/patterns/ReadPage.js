@@ -94,6 +94,7 @@ export default function ReadPage({link = '', title = '', content = '', error = f
                     lastNews
                     noImage
                     algin="start"
+                    video={video}
                     />
                 </Grid>
             </Grid>
