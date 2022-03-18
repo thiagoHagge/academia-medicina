@@ -204,7 +204,7 @@ export default function Navbar({ editable = false }) {
                                         noWrap
                                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, cursor: 'pointer' }}
                                     >
-                                        <img src="/logo.png" style={{ maxHeight: 50, marginTop: 25, marginBottom: 25 }} alt="" />
+                                        <img src="/logo.png" style={{ maxHeight: 80, marginTop: 25, marginBottom: 25 }} alt="" />
                                     </Box>
                                 </Link>
                                 {/* Mobile Pages */}
