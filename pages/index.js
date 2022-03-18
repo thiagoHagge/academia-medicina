@@ -16,29 +16,41 @@ export default function Home() {
 	const [carouselItems, setCarouselItems] = useState([]);
 	const [news, setNews] = useState([]);
 	const [videos, setVideos] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [reqNum, setReqNum] = useState(0);
 	
 	useEffect(() => {
+
 		(async function() {
 			api.get('/carousel/get').then(res => {
 				// console.log(res)
+				countReq();
 				if (!res.data.success) return;
 				setCarouselItems(res.data.items);
 			})
 			api.get('/news/get/limit/4').then(res => {
 				// console.log(res)
+				countReq();
 				if (!res.data.success) return;
 				setNews(res.data.news);
 			})
 			api.get('/videos/get/limit/3').then(res => {
 				// console.log(res)
+				countReq();
 				if (!res.data.success) return;
 				setVideos(res.data.news);
 			})
 		})()
 	}, []);
+	function countReq() {
+		setReqNum(++reqNum);
+		if (reqNum === 3) {
+			setLoading(false);
+		}
+	}
 
 	return (
-		<Layout	Layout title='Home' carousel={carouselItems} noMargin>
+		<Layout	Layout title='Home' carousel={carouselItems} noMargin loading={loading}>
 			<Box sx={{mt: 4, mr: 4, ml: 4, mb:1}}>
 				<Grid item xs={12} sx={{display: 'flex', mb: 2}}>
 					<Typography component="span" variant="h5">

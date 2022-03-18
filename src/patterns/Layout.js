@@ -10,9 +10,6 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Carousel from 'react-bootstrap/Carousel';
 import purple from '@material-ui/core/colors/purple';
-import theme from '../themes';
-import useWindowDimensions from '../hook/useWindowDimensions';
-import Navbar from './Navbar';
 import IconButton from '@mui/material/IconButton';
 import Alert from '@mui/material/Alert';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
@@ -25,10 +22,15 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import CallIcon from '@mui/icons-material/Call';
 import { Typography } from '@material-ui/core';
 
+import theme from '../themes';
+import useWindowDimensions from '../hook/useWindowDimensions';
+import Navbar from './Navbar';
+import LoadingScreen from './LoadingScreen';
+
 const phone = '(73) 00000-0000';
 const email = 'easdasdasmail@emasdasail.com';
 
-export default function Layout({title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = [], error = false, noMargin = false}) {
+export default function Layout({title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = [], error = false, noMargin = false, loading = false}) {
 	const navbarRef = useRef(null)
 	
 	const { windowHeight } = useWindowDimensions();
@@ -48,7 +50,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 				<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
 			</Head>
-			<Box sx={{minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+			{!loading ? <Box sx={{minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
 				<Box>
 					<Box>
 						{!navbarEditable && (
@@ -96,8 +98,8 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 					</Box>}
 				</Box>
 				<Box sx={{justifySelf: 'flex-end'}}>
-					<Box sx={{backgroundColor: theme.palette.black.dark, py: '20px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
-						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+					<Box sx={{backgroundColor: theme.palette.black.dark, py: '20px', display: 'flex', justifyContent: 'space-evenly', alignItems: {xs: 'center', md: 'baseline'}, flexDirection: {xs: 'column', md: 'row'}}}>
+						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 1, md: 0}, mb: 3, flexShrink: 1}}>
 							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
 								Contatos
 							</h6>
@@ -110,7 +112,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 								{email}
 							</p>
 						</Box>
-						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 0, md: 1}, mb: 3, flexShrink: 1}}>
 							<img src="/logo.png" style={{width: 150}} />
 							<h2 style={{fontFamily: "'Lora', serif", color: theme.palette.white, letterSpacing: '5px', fontSize: '40px', marginBottom: 0}}>
 								ACADEMIA
@@ -119,7 +121,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 								DE MEDICINA DE ITABUNA
 							</h6>
 						</Box>
-						<Box sx={{display: 'flex', flexDirection: 'column'}}>
+						<Box sx={{display: 'flex', flexDirection: 'column', order: 3, flexShrink: 1}}>
 							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
 								Redes sociais:
 							</h6>
@@ -132,7 +134,8 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 						</p>
 					</Box>
 				</Box>
-			</Box>
+			</Box> : <LoadingScreen />
+			}
 		</ThemeProvider>
 	);
 };
