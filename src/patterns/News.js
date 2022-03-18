@@ -10,7 +10,7 @@ import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 
 import theme from '../themes';
 
-export default function NewsList({ news = [], admin = '', video = false, containerSx = {}, itemXs = 0, itemSm = 0, itemMd = 0, noImage = false }) {
+export default function NewsList({ news = [], admin = '', video = false, containerSx = {}, itemXs = 0, itemSm = 0, itemMd = 0, noImage = false, algin = 'center' }) {
     return (
         <Grid container spacing={2} sx={containerSx}>
             {news.map(item => {
@@ -33,7 +33,7 @@ export default function NewsList({ news = [], admin = '', video = false, contain
                 return (
                 <Grid item xs={itemXs === 0 ? 12 : itemXs} sm={itemSm === 0 ? 6 : itemSm} md={itemMd === 0 ? 3 : itemMd} key={item.image + item.title} sx={{alignSelf: 'stretch', justifySelf: 'stretch'}}>
                     <Link href={`${admin}/${video ? 'videos' : 'noticias'}/${item.link}`} passHref>
-                        <Card sx={{mt: 2, maxWidth: 345, margin: '0 auto 0'}}>
+                        <Card sx={{mt: 2, maxWidth: 345, margin: algin == 'center' ? '0 auto 0' : '0'}}>
                             <CardActionArea sx={{maxHeight: 280}}>
                                 {(video || item.image) && !noImage && <CardMedia
                                 component="img"

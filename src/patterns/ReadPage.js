@@ -93,6 +93,7 @@ export default function ReadPage({link = '', title = '', content = '', error = f
                     itemMd={12}
                     lastNews
                     noImage
+                    algin="start"
                     />
                 </Grid>
             </Grid>
