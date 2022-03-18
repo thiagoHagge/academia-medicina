@@ -113,7 +113,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 							</p>
 						</Box>
 						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 0, md: 1}, mb: 3, flexShrink: 1}}>
-							<img src="/logo.png" style={{width: 150}} />
+							<img src="/logo-dark.png" style={{width: 250}} />
 							<h2 style={{fontFamily: "'Lora', serif", color: theme.palette.white, letterSpacing: '5px', fontSize: '40px', marginBottom: 0}}>
 								ACADEMIA
 							</h2>
