@@ -21,7 +21,6 @@ export default function Videos({videos}) {
                                 component="img"
                                 image={`https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`}
                                 >
-
                                 </CardMedia>
                             </CardActionArea>
                         </Card>

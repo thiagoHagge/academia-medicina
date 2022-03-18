@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ReadPage from '../../src/patterns/ReadPage';
 import api from '../../src/api';
 
-export default function ReadVideos({link = '', title = '', content = '', error = false, image = null, ytId = ''}) {
+export default function ReadVideos({link = '', title = '', content = '', error = false, image = null, ytId = '', lastVideos = []}) {
     return (
         <ReadPage 
         title={title}
@@ -11,6 +11,7 @@ export default function ReadVideos({link = '', title = '', content = '', error =
         link={link}
         content={content}
         video={ytId}
+        lastItems={lastVideos}
         />
     )
 }
@@ -23,7 +24,8 @@ ReadVideos.getInitialProps = async ({query}) => {
                 title: res.data.news.title,
                 image: res.data.news.image,
                 content: res.data.news.content,
-                ytId: res.data.news.ytId
+                ytId: res.data.news.ytId,
+                lastVideos: res.data.lastVideos
             }
         }
         return {

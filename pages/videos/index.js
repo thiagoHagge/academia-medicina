@@ -1,7 +1,7 @@
 import Layout from "../../src/patterns/Layout";
-import News from "../../src/patterns/News";
 import api from "../../src/api";
 import Videos from "../../src/patterns/Videos";
+import Typography from '@mui/material/Typography';
 
 export async function getServerSideProps(context) {
     return api.get('/videos/get').then(res => {
@@ -18,6 +18,9 @@ export async function getServerSideProps(context) {
 export default function Noticias({videos}) {
     return (
         <Layout title="Vídeos">
+            <Typography component="span" variant="h5">
+                Vídeos
+            </Typography>
             <Videos videos={videos} />
         </Layout>
     )

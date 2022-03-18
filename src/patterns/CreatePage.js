@@ -102,7 +102,7 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
             <TextField 
             label="Título" 
             variant="outlined" 
-            inputProps={{ maxLength: 191 }}
+            inputProps={{ maxLength: 40 }}
             fullWidth 
             sx={{mb: 2}} 
             value={title}

@@ -15,7 +15,7 @@ import useWindowDimensions from '../hook/useWindowDimensions';
 import Navbar from './Navbar';
 import IconButton from '@mui/material/IconButton';
 import Alert from '@mui/material/Alert';
-
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 // Icons
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -24,6 +24,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import CallIcon from '@mui/icons-material/Call';
 import { Typography } from '@material-ui/core';
+
+const phone = '(73) 00000-0000';
+const email = 'easdasdasmail@emasdasail.com';
 
 export default function Layout({title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = [], error = false, noMargin = false}) {
 	const navbarRef = useRef(null)
@@ -41,6 +44,9 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 				crossOrigin="anonymous"
 				/>
 				<link rel="icon" type="image/png" href="/favicon-32x32.png"/>
+				<link rel="preconnect" href="https://fonts.googleapis.com" />
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+				<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
 			</Head>
 			<Box>
 				{!navbarEditable && (
@@ -51,7 +57,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 									{/* Tratar para ligas de todos os aparelhos */}
 									<CallIcon />
 									<Typography sx={theme.ps2}>
-										(73) 99901-3110
+										{phone}
 									</Typography>
 								</Box>
 							</Grid>
@@ -61,17 +67,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 								</Box>
 							</Grid> */}
 							<Grid item xs={4}>
-								<Box sx={theme.align.center}>
-									<IconButton sx={{color: theme.palette.black.main}}>
-										<WhatsAppIcon />
-									</IconButton>
-									<IconButton sx={{color: theme.palette.black.main}}>
-										<InstagramIcon />
-									</IconButton>
-									<IconButton sx={{color: theme.palette.black.main}}>
-										<FacebookIcon />
-									</IconButton>
-								</Box>
+								<SocialMedia />
 							</Grid>
 						</Grid>
 					</Box>
@@ -96,6 +92,57 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 			{noMargin ? children : <Box sx={{p: 2, display: 'block', mb: 2}}>
 				{error == false ? children : <Alert severity="error">{error === true ? 'Algo deu errado, contate o desenvolvedor' : error}</Alert>}
 			</Box>}
+			<Box sx={{backgroundColor: theme.palette.black.dark, py: '20px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+				<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+					<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
+						Contatos
+					</h6>
+					<p style={{fontFamily: "'Lora', serif", color: theme.palette.white, marginBottom: '5px'}}>
+						<CallIcon sx={{mr: 1}} />
+						{phone}
+					</p>
+					<p style={{fontFamily: "'Lora', serif", color: theme.palette.white}}>
+						<EmailRoundedIcon sx={{mr: 1}} />
+						{email}
+					</p>
+				</Box>
+				<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+					<img src="/logo.png" style={{width: 150}} />
+					<h2 style={{fontFamily: "'Lora', serif", color: theme.palette.white, letterSpacing: '5px', fontSize: '40px', marginBottom: 0}}>
+						ACADEMIA
+					</h2>
+					<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '15px', letterSpacing: '1px'}}>
+						DE MEDICINA DE ITABUNA
+					</h6>
+				</Box>
+				<Box sx={{display: 'flex', flexDirection: 'column'}}>
+					<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
+						Redes sociais:
+					</h6>
+					<SocialMedia color={theme.palette.white}/>
+				</Box>
+			</Box>
+			<Box sx={{backgroundColor: theme.palette.primary.main, py: '5px'}}>
+				<p style={{fontFamily: "'Lora', serif", marginBottom: 0, textAlign: 'center'}}>
+					2022 - Academia de Medicina de Itabuna - Copyright© todos os direitos reservados
+				</p>
+			</Box>
 		</ThemeProvider>
 	);
 };
+
+function SocialMedia(color = theme.palette.black.main) {
+	return (
+		<Box sx={theme.align.center}>
+			<IconButton sx={{color: color}}>
+				<WhatsAppIcon />
+			</IconButton>
+			<IconButton sx={{color: color}}>
+				<InstagramIcon />
+			</IconButton>
+			<IconButton sx={{color: color}}>
+				<FacebookIcon />
+			</IconButton>
+		</Box>
+	)
+}

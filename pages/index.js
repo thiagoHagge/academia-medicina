@@ -11,6 +11,7 @@ import theme from '../src/themes';
 import Layout from '../src/patterns/Layout';
 import Videos from '../src/patterns/Videos'
 import News from '../src/patterns/News';
+
 export default function Home() {
 	const [carouselItems, setCarouselItems] = useState([]);
 	const [news, setNews] = useState([]);
@@ -39,16 +40,15 @@ export default function Home() {
 	return (
 		<Layout	Layout title='Home' carousel={carouselItems} noMargin>
 			<Box sx={{mt: 4, mr: 4, ml: 4, mb:1}}>
-				<News news={news}>
-					<Grid item xs={12} sx={{display: 'flex'}}>
-						<Typography component="span" variant="h5">
-							Notícias
-						</Typography>
-						<Link href="/noticias" passHref>
-							<Button variant="contained" sx={{color: theme.palette.font.dark, backgroundColor: theme.palette.primary.main, '&:hover': {backgroundColor: theme.palette.primary.dark, color: theme.palette.font.dark}, marginLeft: 'auto'}}>Ver todas</Button>
-						</Link>
-					</Grid>
-				</News>
+				<Grid item xs={12} sx={{display: 'flex', mb: 2}}>
+					<Typography component="span" variant="h5">
+						Notícias
+					</Typography>
+					<Link href="/noticias" passHref>
+						<Button variant="contained" sx={{color: theme.palette.font.dark, backgroundColor: theme.palette.primary.main, '&:hover': {backgroundColor: theme.palette.primary.dark, color: theme.palette.font.dark}, marginLeft: 'auto'}}>Ver todas</Button>
+					</Link>
+				</Grid>
+				<News news={news} />
 			</Box>
 			{videos.length > 0 && <Box sx={{pt: 2, pr: 4, pl: 4, pb:2, mb: 2, mt: 4, backgroundColor: theme.palette.primary.light}}>
 				<Box sx={{display: 'flex'}}>

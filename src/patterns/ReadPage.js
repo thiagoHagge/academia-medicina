@@ -2,10 +2,11 @@ import { useRef, useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import News from "../../src/patterns/News";
 
 import Layout from '../../src/patterns/Layout';
 
-export default function ReadPage({link = '', title = '', content = '', error = false, image = null, video = null}) {
+export default function ReadPage({link = '', title = '', content = '', error = false, image = null, video = null, lastItems = []}) {
     const videoRef = useRef(null);
     const [videoHeight, setVideoHeight] = useState(0);
     var formattedContent = [];
@@ -42,13 +43,13 @@ export default function ReadPage({link = '', title = '', content = '', error = f
     return (
         <Layout title={title} error={error}>
             <Grid container spacing={2} sx={{px: {xs: 0, md: 7}}}>
-                <Grid item xs={12} md={7}>
+                <Grid item xs={12} md={8} sx={{display: 'flex', flexDirection: 'column'}}>
                     <Typography variant="h4" gutterBottom sx={{textAlign: 'center', mb: 3}}>
                         {title}
                     </Typography>
                     {image != null && <img 
                     src={image}
-                    style={{width: '100%'}}
+                    style={{width: 'auto', maxHeight: 320, maxWidth: '100%', margin: '0 auto 12px'}}
                     />}
                     {video != null && <iframe
                     ref={videoRef}
@@ -80,6 +81,19 @@ export default function ReadPage({link = '', title = '', content = '', error = f
                         }) : 
                         <div dangerouslySetInnerHTML={{__html: content}} />
                     }
+                </Grid>
+                <Grid item xs={12} md={4}>
+                    <Typography variant="h6" gutterBottom sx={{mb: 3}}>
+                        {`${video != null ? 'Últimos vídeos' : 'Últimas notícias'}:`}
+                    </Typography>
+                    <News 
+                    news={lastItems} 
+                    containerSx={{display: 'flex', flexDirection: {xs: 'row', md:'column'}, width: '100%'}} 
+                    itemSm={6}
+                    itemMd={12}
+                    lastNews
+                    noImage
+                    />
                 </Grid>
             </Grid>
         </Layout>
