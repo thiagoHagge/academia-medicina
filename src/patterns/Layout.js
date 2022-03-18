@@ -48,84 +48,90 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 				<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
 			</Head>
-			<Box>
-				{!navbarEditable && (
+			<Box sx={{minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+				<Box>
 					<Box>
-						<Grid container sx={{backgroundColor: theme.palette.primary.main}}>
-							<Grid item xs={8} >
-								<Box sx={[theme.align.start, theme.ps2]}>
-									{/* Tratar para ligas de todos os aparelhos */}
-									<CallIcon />
-									<Typography sx={theme.ps2}>
-										{phone}
-									</Typography>
-								</Box>
-							</Grid>
-							{/* <Grid item xs={4}>
-								<Box sx={theme.align.center}>
+						{!navbarEditable && (
+							<Box>
+								<Grid container sx={{backgroundColor: theme.palette.primary.main}}>
+									<Grid item xs={8} >
+										<Box sx={[theme.align.start, theme.ps2]}>
+											{/* Tratar para ligas de todos os aparelhos */}
+											<CallIcon />
+											<Typography sx={theme.ps2}>
+												{phone}
+											</Typography>
+										</Box>
+									</Grid>
+									{/* <Grid item xs={4}>
+										<Box sx={theme.align.center}>
 
-								</Box>
-							</Grid> */}
-							<Grid item xs={4}>
-								<SocialMedia />
-							</Grid>
-						</Grid>
+										</Box>
+									</Grid> */}
+									<Grid item xs={4}>
+										<SocialMedia />
+									</Grid>
+								</Grid>
+							</Box>
+						)}
+						<div ref={navbarRef}>
+							<Navbar editable={navbarEditable} />
+						</div>
+						{carousel.length > 0 && (
+							<Carousel sx={{zIndex: theme.zIndex.deep}}>
+								{carousel.map(({id, title, subtitle, image}) => <Carousel.Item key={id}>
+									<img
+									className="d-block w-100"
+									style={{maxHeight: windowHeight - navbarRef.current?.clientHeight - 50}}
+									// TODO: lINK EM .ENV
+									src={image}
+									alt=""
+									/>
+								</Carousel.Item>)}
+							</Carousel>
+						)}
 					</Box>
-				)}
-				<div ref={navbarRef}>
-					<Navbar editable={navbarEditable} />
-				</div>
-				{carousel.length > 0 && (
-					<Carousel sx={{zIndex: theme.zIndex.deep}}>
-						{carousel.map(({id, title, subtitle, image}) => <Carousel.Item key={id}>
-							<img
-							className="d-block w-100"
-							style={{maxHeight: windowHeight - navbarRef.current?.clientHeight - 50}}
-							// TODO: lINK EM .ENV
-							src={image}
-							alt=""
-							/>
-						</Carousel.Item>)}
-					</Carousel>
-				)}
-			</Box>
-			{noMargin ? children : <Box sx={{p: 2, display: 'block', mb: 2}}>
-				{error == false ? children : <Alert severity="error">{error === true ? 'Algo deu errado, contate o desenvolvedor' : error}</Alert>}
-			</Box>}
-			<Box sx={{backgroundColor: theme.palette.black.dark, py: '20px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
-				<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-					<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
-						Contatos
-					</h6>
-					<p style={{fontFamily: "'Lora', serif", color: theme.palette.white, marginBottom: '5px'}}>
-						<CallIcon sx={{mr: 1}} />
-						{phone}
-					</p>
-					<p style={{fontFamily: "'Lora', serif", color: theme.palette.white}}>
-						<EmailRoundedIcon sx={{mr: 1}} />
-						{email}
-					</p>
+					{noMargin ? children : <Box sx={{p: 2, display: 'block', mb: 2}}>
+						{error == false ? children : <Alert severity="error">{error === true ? 'Algo deu errado, contate o desenvolvedor' : error}</Alert>}
+					</Box>}
 				</Box>
-				<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-					<img src="/logo.png" style={{width: 150}} />
-					<h2 style={{fontFamily: "'Lora', serif", color: theme.palette.white, letterSpacing: '5px', fontSize: '40px', marginBottom: 0}}>
-						ACADEMIA
-					</h2>
-					<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '15px', letterSpacing: '1px'}}>
-						DE MEDICINA DE ITABUNA
-					</h6>
+				<Box sx={{justifySelf: 'flex-end'}}>
+					<Box sx={{backgroundColor: theme.palette.black.dark, py: '20px', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
+								Contatos
+							</h6>
+							<p style={{fontFamily: "'Lora', serif", color: theme.palette.white, marginBottom: '5px'}}>
+								<CallIcon sx={{mr: 1}} />
+								{phone}
+							</p>
+							<p style={{fontFamily: "'Lora', serif", color: theme.palette.white}}>
+								<EmailRoundedIcon sx={{mr: 1}} />
+								{email}
+							</p>
+						</Box>
+						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+							<img src="/logo.png" style={{width: 150}} />
+							<h2 style={{fontFamily: "'Lora', serif", color: theme.palette.white, letterSpacing: '5px', fontSize: '40px', marginBottom: 0}}>
+								ACADEMIA
+							</h2>
+							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '15px', letterSpacing: '1px'}}>
+								DE MEDICINA DE ITABUNA
+							</h6>
+						</Box>
+						<Box sx={{display: 'flex', flexDirection: 'column'}}>
+							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
+								Redes sociais:
+							</h6>
+							<SocialMedia color={theme.palette.white}/>
+						</Box>
+					</Box>
+					<Box sx={{backgroundColor: theme.palette.primary.main, py: '5px'}}>
+						<p style={{fontFamily: "'Lora', serif", marginBottom: 0, textAlign: 'center'}}>
+							2022 - Academia de Medicina de Itabuna - Copyright© todos os direitos reservados
+						</p>
+					</Box>
 				</Box>
-				<Box sx={{display: 'flex', flexDirection: 'column'}}>
-					<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
-						Redes sociais:
-					</h6>
-					<SocialMedia color={theme.palette.white}/>
-				</Box>
-			</Box>
-			<Box sx={{backgroundColor: theme.palette.primary.main, py: '5px'}}>
-				<p style={{fontFamily: "'Lora', serif", marginBottom: 0, textAlign: 'center'}}>
-					2022 - Academia de Medicina de Itabuna - Copyright© todos os direitos reservados
-				</p>
 			</Box>
 		</ThemeProvider>
 	);
