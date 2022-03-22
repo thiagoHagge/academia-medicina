@@ -1,4 +1,6 @@
-<img src="https://raw.githubusercontent.com/thiagoHagge/layout/main/public/logo-full.png" style="max-width: 300px" alt="Brasão da medicina de itabuna">
+<p align="center">
+    <img src="https://raw.githubusercontent.com/thiagoHagge/layout/main/public/logo-full.png" style="max-width: 300px" alt="Brasão da medicina de itabuna">
+</p>
 
 <hr>
 
