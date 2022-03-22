@@ -18,9 +18,6 @@
 
 - [Acesso ao projeto](#acesso-ao-projeto)
 
-- [Abrir e rodar o projeto](#abrir-e-rodar-o-projeto)
-
-- [Desenvolvedores](#desenvolvedores)
 
 ## Descrição do projeto 
 
@@ -39,15 +36,23 @@
 - [ ] `Funcionalidade 3` Testes automatizados com Jest
 
 ## Telas
-<div style="display: flex; align-items: flex-start; flex-wrap: wrap;">
-    <img src="https://i.imgur.com/CQtOnfq.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
-    <img src="https://i.imgur.com/koWueHd.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
-    <img src="https://i.imgur.com/XWq2Lzn.png" style="max-width: 200px; margin-right: 10px; margin-bottom: 5px">
-    <img src="https://i.imgur.com/dhl1CjC.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
+<div style="display: flex">
+    <img src="https://i.imgur.com/XWq2Lzn.png" style="max-width: 200px; margin-right: 10px; margin-bottom: 5px. float:left;">
+    <div style="display: flex; align-items: flex-start; flex-wrap: wrap;">
+        <img src="https://i.imgur.com/CQtOnfq.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
+        <img src="https://i.imgur.com/koWueHd.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
+        <img src="https://i.imgur.com/dhl1CjC.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
+</div>
 </div>
 
 ## Ferramentas utilizadas
 <p align="center">
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg" alt="Next.js" width="50">
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg" alt="Next.js" width="50">
-</p>   
+</p>
+<p align="justify">
+    Foi escolhido o Next.js para o projeto para aproveitarmos os benefícios de SEO oferecido pelo Next.
+</p>
+
+## Acesso ao projeto
+Você pode acompanhar o beta do projeto nesse [link](https://layout-three.vercel.app/) 
