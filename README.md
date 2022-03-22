@@ -1,34 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<img src="https://raw.githubusercontent.com/thiagoHagge/layout/main/public/logo-full.png" style="max-width: 300px" alt="Brasão da medicina de itabuna">
 
-## Getting Started
+<hr>
 
-First, run the development server:
+<p align="center">
+    <img src="https://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=RED&style=for-the-badge" alt="Status: em desenvolvimento"/>
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Tópicos 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Descrição do projeto](#descrição-do-projeto)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- [Funcionalidades](#funcionalidades)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- [Telas](#telas)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [Ferramentas utilizadas](#ferramentas-utilizadas)
 
-## Learn More
+- [Acesso ao projeto](#acesso-ao-projeto)
 
-To learn more about Next.js, take a look at the following resources:
+- [Abrir e rodar o projeto](#abrir-e-rodar-o-projeto)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Desenvolvedores](#desenvolvedores)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Descrição do projeto 
 
-## Deploy on Vercel
+<p align="justify">
+    Site informativo e jornalístico da Academia Itabunense de Medicina, que tem como principal objetivo a divulgação científica e democratização do conhecimento.
+</p>
+<p align="justify">
+    Lançamento ocorrerá em abril.
+</p>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Funcionalidades
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [x] `Funcionalidade 1` Blog responsivo com notícias, vídeos e carousel.
+- [x] `Funcionalidade 2` Painel de controle de conteúdo permitindo criação e edição de todos os items.
+- [ ] `Funcionalidade 3` State while revalidate
+- [ ] `Funcionalidade 3` Testes automatizados com Jest
+
+## Telas
+<div style="display: flex; align-items: flex-start; flex-wrap: wrap;">
+    <img src="https://i.imgur.com/CQtOnfq.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
+    <img src="https://i.imgur.com/koWueHd.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
+    <img src="https://i.imgur.com/XWq2Lzn.png" style="max-width: 200px; margin-right: 10px; margin-bottom: 5px">
+    <img src="https://i.imgur.com/dhl1CjC.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
+</div>
+
+## Ferramentas utilizadas
+<p align="center">
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg" alt="Next.js" width="50">
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg" alt="Next.js" width="50">
+</p>   
