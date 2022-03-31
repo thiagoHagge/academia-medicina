@@ -4,11 +4,12 @@ import api from '../../../src/api';
 export default function VideoEditor({oldLink = '', oldTitle = '', oldContent = '', error = false}) {
     return (
         <CreatePage
-        slug="videos"
+        slug="podcasts"
+        oldLink={oldLink} 
         oldTitle={oldTitle}
         oldContent={oldContent}
         error={error}
-        components={['title', 'link', 'content']}
+        components={['link']}
         />
     )
 }

@@ -34,7 +34,6 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 	const navbarRef = useRef(null)
 	
 	const { windowHeight } = useWindowDimensions();
-	// console.log(navbarRef.current?.clientHeight)
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>
@@ -50,7 +49,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 				<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
 			</Head>
-			{!loading ? <Box sx={{minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+			{!loading ? <Box sx={{minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflowX: 'hidden'}}>
 				<Box>
 					<Box>
 						{!navbarEditable && (
@@ -84,7 +83,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 								{carousel.map(({id, title, subtitle, image}) => <Carousel.Item key={id}>
 									<img
 									className="d-block w-100"
-									style={{maxHeight: windowHeight - navbarRef.current?.clientHeight - 50}}
+									style={{maxHeight: windowHeight && navbarRef.current?.clientHeight ? windowHeight - navbarRef.current?.clientHeight - 50: 240}}
 									// TODO: lINK EM .ENV
 									src={image}
 									alt=""
@@ -99,7 +98,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 				</Box>
 				<Box sx={{justifySelf: 'flex-end'}}>
 					<Box sx={{backgroundColor: theme.palette.black.dark, py: '20px', display: 'flex', justifyContent: 'space-evenly', alignItems: {xs: 'center', md: 'baseline'}, flexDirection: {xs: 'column', md: 'row'}}}>
-						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 1, md: 0}, mb: 3, flexShrink: 1}}>
+						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 1, md: 0}, mb: 3, flexGrow: 1}}>
 							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
 								Contatos
 							</h6>
@@ -112,7 +111,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 								{email}
 							</p>
 						</Box>
-						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 0, md: 1}, mb: 3, flexShrink: 1}}>
+						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 0, md: 1}, mb: 3, flexGrow: 1}}>
 							<img src="/logo-dark.png" style={{width: 250}} />
 							<h2 style={{fontFamily: "'Lora', serif", color: theme.palette.white, letterSpacing: '5px', fontSize: '40px', marginBottom: 0}}>
 								ACADEMIA
@@ -121,8 +120,8 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 								DE MEDICINA DE ITABUNA
 							</h6>
 						</Box>
-						<Box sx={{display: 'flex', flexDirection: 'column', order: 3, flexShrink: 1}}>
-							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
+						<Box sx={{display: 'flex', flexDirection: 'column', order: 3, flexGrow: 1}}>
+							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px', textAlign: 'center'}}>
 								Redes sociais:
 							</h6>
 							<SocialMedia color={theme.palette.white}/>

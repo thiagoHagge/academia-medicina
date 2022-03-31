@@ -6,7 +6,7 @@ import News from "../../src/patterns/News";
 
 import Layout from '../../src/patterns/Layout';
 
-export default function ReadPage({link = '', title = '', content = '', error = false, image = null, video = null, lastItems = []}) {
+export default function ReadPage({link = '', title = '', content = '', error = false, image = null, video = null, lastItems = [], page = false}) {
     const videoRef = useRef(null);
     const [videoHeight, setVideoHeight] = useState(0);
     var formattedContent = [];
@@ -43,7 +43,7 @@ export default function ReadPage({link = '', title = '', content = '', error = f
     return (
         <Layout title={title} error={error}>
             <Grid container spacing={2} sx={{px: {xs: 0, md: 7}}}>
-                <Grid item xs={12} md={8} sx={{display: 'flex', flexDirection: 'column'}}>
+                <Grid item xs={12} md={!page ? 8 : 12} sx={{display: 'flex', flexDirection: 'column'}}>
                     <Typography variant="h4" gutterBottom sx={{textAlign: 'center', mb: 3}}>
                         {title}
                     </Typography>
@@ -82,7 +82,7 @@ export default function ReadPage({link = '', title = '', content = '', error = f
                         <div dangerouslySetInnerHTML={{__html: content}} />
                     }
                 </Grid>
-                <Grid item xs={12} md={4}>
+                {!page && <Grid item xs={12} md={4}>
                     <Typography variant="h6" gutterBottom sx={{mb: 3}}>
                         {`${video != null ? 'Últimos vídeos' : 'Últimas notícias'}:`}
                     </Typography>
@@ -96,7 +96,7 @@ export default function ReadPage({link = '', title = '', content = '', error = f
                     algin="start"
                     video={video}
                     />
-                </Grid>
+                </Grid>}
             </Grid>
         </Layout>
     )

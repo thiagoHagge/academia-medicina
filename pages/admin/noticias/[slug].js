@@ -6,14 +6,13 @@ export default function NewsEditor({id = 0, oldLink = '', oldTitle = '', oldCont
         <CreatePage
         id={id}
         slug="noticias"
-        allowImage
-        allowAuthor
         oldLink={oldLink} 
         oldTitle={oldTitle}
         oldContent={oldContent}
         oldAuthor={oldAuthor}
         error={error}
         oldImage={oldImage}
+        components={['title', 'file', 'author', 'content']}
         />
     )
 }

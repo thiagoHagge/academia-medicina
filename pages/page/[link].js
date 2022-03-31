@@ -22,6 +22,7 @@ export default function Index({content, title}) {
         <ReadPage 
         title={title}
         content={content}
+        page
         />
 	)
 }

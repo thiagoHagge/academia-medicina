@@ -15,7 +15,7 @@ import { useAuth } from '../contexts/auth';
 const CKeditor = dynamic(() => import('../components/CKeditor'), {
     ssr: false
 })  
-export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', oldContent = '', oldAuthor = '', error = false, oldImage = null, allowImage = false, allowVideoLink = false, allowAuthor = false}) {
+export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', oldContent = '', oldAuthor = '', error = false, oldImage = null, components = []}) {
     const [title, setTitle] = useState(oldTitle);
     const [author, setAuthor] = useState(oldAuthor);
     const [videoLink, setVideoLink] = useState('');
@@ -87,7 +87,8 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
     }
 
     const deleteAction = () => {
-        if(!confirm(`Tem certeza quer deletar ${allowVideoLink ? 'o vídeo' : 'a notícia'}: ${title}`)) return
+        // FIXME: change parameter allowVideoLink
+        if(!confirm(`Tem certeza quer deletar ${slug == 'podcasts' ? 'o podcast' : slug == 'videos' ? 'o vídeo' : 'a notícia'}: ${title}`)) return
         api.delete(`news/delete/${id}`, {
             headers: {
                 'X-Token': token
@@ -96,10 +97,14 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
             if(!res.data.success) return
             router.push(`/admin/${slug}`)
         })
-    }  
+    }
+
+    const hasInput = (input) => {
+        return components.indexOf(input) > -1
+    }
     return (
         <Layout navbarEditable error={error}>
-            <TextField 
+            {hasInput('title') && <TextField 
             label="Título" 
             variant="outlined" 
             inputProps={{ maxLength: 40 }}
@@ -112,9 +117,9 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
             }}
             error={titleError !== ''}
             helperText={titleError}
-            />
+            />}
             {/* TODO: mostrar imagem antiga */}
-            {allowImage && <Form.Group controlId="image" className="mb-3">
+            {hasInput('file') && <Form.Group controlId="image" className="mb-3">
                 <Form.Control 
                 type="file" 
                 accept="image/*" 
@@ -129,7 +134,7 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
             src={oldImage} 
             style={{maxWidth: '100%', marginBottom: '1rem', maxHeight: 200}}
             />}
-            {allowAuthor && <TextField 
+            {hasInput('author') && <TextField 
             label="Autor" 
             variant="outlined" 
             inputProps={{ maxLength: 191 }}
@@ -143,8 +148,8 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
             // error={videoError !== ''}
             // helperText={videoError}
             />}
-            {allowVideoLink && <TextField 
-            label="Link do Youtube" 
+            {hasInput('link') && <TextField 
+            label={`Link do ${slug == 'podcasts' ? 'Spotify' : 'Youtube'}`} 
             variant="outlined" 
             inputProps={{ maxLength: 191 }}
             fullWidth 
@@ -157,14 +162,14 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
             error={videoError !== ''}
             helperText={videoError}
             />}
-            <CKeditor 
+            {hasInput('content') && <CKeditor 
             data={content}
             onChange={(event, editor) => {
                 setContent(editor.getData());
                 setIsButtonEnable(true)
             }}
             token={token}
-            />
+            />}
             <ActionLine enable={isButtonEnable} updateAction={sendRequest} deleteAction={deleteAction} deleteButton={id != 0} />
         </Layout>
     )

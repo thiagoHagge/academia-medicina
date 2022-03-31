@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import ViewCarouselOutlinedIcon from '@mui/icons-material/ViewCarouselOutlined';
 import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import PodcastsRoundedIcon from '@mui/icons-material/PodcastsRounded';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 
@@ -17,16 +18,17 @@ import Layout from '../../src/patterns/Layout';
 
 export default function Index() {
 	return (
-		<Layout navbarEditable>
+		<Layout navbarEditable title="Painel do admin - AMEI-BA">
 			<Typography variant="h5">
 				Editar:
 			</Typography>
-				{/* TODO: Style boxes showing the images */}
-				<Box sx={{flexDirection: 'row', display: 'flex', flexWrap: 'wrap'}}>
-					<CardEdit link="/admin/carousel" name="Carrousel" icon={ViewCarouselOutlinedIcon} />
-					<CardEdit link="/admin/noticias" name="Notícias" icon={NewspaperRoundedIcon} />
-					<CardEdit link="/admin/videos" name="Vídeos" icon={YouTubeIcon} />
-				</Box>
+			{/* TODO: Style boxes showing the images */}
+			<Box sx={{flexDirection: 'row', display: 'flex', flexWrap: 'wrap'}}>
+				<CardEdit link="/admin/carousel" name="Carrousel" icon={ViewCarouselOutlinedIcon} />
+				<CardEdit link="/admin/noticias" name="Notícias" icon={NewspaperRoundedIcon} />
+				<CardEdit link="/admin/videos" name="Vídeos" icon={YouTubeIcon} />
+				<CardEdit link="/admin/podcasts" name="Podcasts" icon={PodcastsRoundedIcon} />
+			</Box>
 		</Layout>
 	)
 }

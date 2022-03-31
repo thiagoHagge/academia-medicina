@@ -7,33 +7,36 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
-
+import IconButton from '@mui/material/IconButton';
+import PlayCircleFilledRoundedIcon from '@mui/icons-material/PlayCircleFilledRounded';
 import theme from '../themes';
 
-export default function NewsList({ news = [], admin = '', video = false, containerSx = {}, itemXs = 0, itemSm = 0, itemMd = 0, noImage = false, algin = 'center' }) {
+export default function NewsList({ news = [], admin = '', video = false, podcasts = false, containerSx = {}, itemXs = 0, itemSm = 0, itemMd = 0, noImage = false, align = 'center', children, width = 0 }) {
     return (
         <Grid container spacing={2} sx={containerSx}>
+            {children}
             {news.map(item => {
                 let date = new Date(Date.parse(item.updated))
                 const month = [
                     'Jan',
-                    'Feb',
+                    'Fev',
                     'Mar',
-                    'Apr',
-                    'May',
+                    'Abr',
+                    'Mai',
                     'Jun',
                     'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
+                    'Ago',
+                    'Set',
+                    'Out',
                     'Nov',
-                    'Dec'
+                    'Dez'
                 ]
                 let dateStr = `${date.getDay()} de ${month[date.getMonth()]} de ${date.getFullYear()}`
                 return (
+                // TODO: criar componente da news box e alinhas com botão de novo item
                 <Grid item xs={itemXs === 0 ? 12 : itemXs} sm={itemSm === 0 ? 6 : itemSm} md={itemMd === 0 ? 3 : itemMd} key={item.image + item.title} sx={{alignSelf: 'stretch', justifySelf: 'stretch'}}>
-                    <Link href={`${admin}/${video ? 'videos' : 'noticias'}/${item.link}`} passHref>
-                        <Card sx={{mt: 2, maxWidth: 345, margin: algin == 'center' ? '0 auto 0' : '0'}}>
+                    <Card sx={[{mt: 2, margin: align == 'center' ? '0 auto 0' : '0'}, !podcasts && {maxWidth: 345}]}>
+                        {!podcasts ? <Link href={`${admin}/${video ? 'videos' : 'noticias'}/${item.link}`} passHref>
                             <CardActionArea sx={{maxHeight: 280}}>
                                 {(video || item.image) && !noImage && <CardMedia
                                 component="img"
@@ -41,11 +44,11 @@ export default function NewsList({ news = [], admin = '', video = false, contain
                                 image={video ? `https://i.ytimg.com/vi/${item.ytId}/hqdefault.jpg` : item.image}
                                 alt=""
                                 />}
-                                <CardContent sx={{ flex: '1 0 auto', backgroundColor: '#121212', borderRadius: '0 0 4px 4px', py: 0, minHeight: 80, display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                                    <Typography gutterBottom component="div" variant="h5" style={{whiteSpace: 'pre-wrap', color: '#fff', fontSize: 15, lineHeight: 1}}>
+                                <CardContent sx={{ flex: '1 0 auto', backgroundColor: '#121212', borderRadius: '0 0 4px 4px', py: 0, minHeight: 90, display: 'flex', flexDirection: !podcasts ? 'column' : 'row', justifyContent: 'center', alignItems: !podcasts ? 'flex-start' : 'center'}}>
+                                    {<Typography gutterBottom component="div" variant="h5" style={{whiteSpace: 'pre-wrap', color: '#fff', fontSize: 15, lineHeight: 1, marginBottom: podcasts ? 0 : '0.35em' }}>
                                         {item.title}
-                                    </Typography>
-                                    {!video && (
+                                    </Typography>}
+                                    {!video && !podcasts && (
                                         <Box sx={{color: '#ffffffb3', display: 'flex'}}>
                                             <CalendarMonthRoundedIcon sx={{color: theme.palette.primary.dark, marginRight: '3px'}} />
                                             <Typography variant="subtitle1" component="div" style={{color: '#ffffffb3', fontSize: 14}}>
@@ -53,10 +56,32 @@ export default function NewsList({ news = [], admin = '', video = false, contain
                                             </Typography>
                                         </Box>
                                     )}
+                                    {podcasts && <Link href={item.podcast} passHref>
+                                        <IconButton sx={{color: theme.palette.primary.main, marginRight: '3px'}}>
+                                            <PlayCircleFilledRoundedIcon />
+                                        </IconButton>
+                                    </Link>}
                                 </CardContent>
                             </CardActionArea>
-                        </Card>
-                    </Link>
+                        </Link> : <CardContent sx={{ flex: '1 1 auto', backgroundColor: '#121212', borderRadius: '0 0 4px 4px', pb: 0, minHeight: 90, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+                            {<Typography gutterBottom component="div" variant="h5" style={{whiteSpace: 'pre-wrap', color: '#fff', fontSize: 15, lineHeight: 1, marginBottom: podcasts ? 0 : '0.35em' }}>
+                                {item.title}
+                            </Typography>}
+                            {!video && !podcasts && (
+                                <Box sx={{color: '#ffffffb3', display: 'flex'}}>
+                                    <CalendarMonthRoundedIcon sx={{color: theme.palette.primary.dark, marginRight: '3px'}} />
+                                    <Typography variant="subtitle1" component="div" style={{color: '#ffffffb3', fontSize: 14}}>
+                                        {dateStr}
+                                    </Typography>
+                                </Box>
+                            )}
+                            {podcasts && <a href={item.podcast} target="_blank">
+                                <IconButton sx={{color: theme.palette.primary.main, marginRight: '3px'}}>
+                                    <PlayCircleFilledRoundedIcon />
+                                </IconButton>
+                            </a>}
+                        </CardContent>}
+                    </Card>
                 </Grid>
             )})}
         </Grid>
