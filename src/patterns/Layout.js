@@ -83,7 +83,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 								{carousel.map(({id, title, subtitle, image}) => <Carousel.Item key={id}>
 									<img
 									className="d-block w-100"
-									style={{maxHeight: windowHeight && navbarRef.current?.clientHeight ? windowHeight - navbarRef.current?.clientHeight - 50: 240}}
+									style={{maxHeight: windowHeight && navbarRef.current?.clientHeight ? windowHeight - navbarRef.current?.clientHeight - 50: 380}}
 									// TODO: lINK EM .ENV
 									src={image}
 									alt=""

@@ -52,7 +52,7 @@ export default function Home({carouselItems, news, videos, podcasts}) {
 	);
 };
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
     return await api.get('/getLandingPage').then(res => {
 		if (res.data.success) {
 			return {
@@ -61,7 +61,8 @@ export async function getServerSideProps(context) {
 					videos: res.data.videos,
 					podcasts: res.data.podcasts,
 					news: res.data.news,
-				}
+				},
+				revalidate: 10
 			}
 		} 
 	});
