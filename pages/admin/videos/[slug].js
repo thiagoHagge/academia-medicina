@@ -1,9 +1,10 @@
 import CreatePage from '../../../src/patterns/CreatePage';
 import api from '../../../src/api';
 
-export default function VideoEditor({oldLink = '', oldTitle = '', oldContent = '', oldYtId = '', error = false, pages = []}) {
+export default function VideoEditor({id = 0, oldLink = '', oldTitle = '', oldContent = '', oldYtId = '', error = false, pages = []}) {
     return (
         <CreatePage
+        id={id}
         slug="videos"
         oldTitle={oldTitle}
         oldContent={oldContent}
@@ -38,6 +39,7 @@ export async function getServerSideProps({query}) {
                     oldTitle: res.data.news.title,
                     oldContent: res.data.news.content,
                     oldYtId: res.data.news.ytId,
+                    id: res.data.news.id,
                 }
             }
         }
