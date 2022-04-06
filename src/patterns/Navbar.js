@@ -28,7 +28,7 @@ import theme from '../themes';
 import MenuItem from '../components/MenuItem';
 import { useAuth } from '../contexts/auth';
 
-export default function Navbar({ editable = false }) {
+export default function Navbar({ editable = false, pages = [] }) {
     const router = useRouter()
 
     const [anchorNav, setAnchorNav] = useState(null)
@@ -40,7 +40,6 @@ export default function Navbar({ editable = false }) {
 
 	const [newSection, setNewSection] = useState('')
 	const [createError, showCreateError] = useState('')
-    const [pages, setPages] = useState([])
     const [newSectionParent, setNewSectionParent] = useState({name: '', id: false})
     const [navActive, setNavActive] = useState('')
     const { token } = useAuth();
@@ -161,18 +160,8 @@ export default function Navbar({ editable = false }) {
     }
 
 
-    // TODO: SERVER SIDE RENDERING
-    const getSections = () => {
-        api.get('getPages').then((response) => {
-            if(response.data.success) {
-                setPages(response.data.pages);
-            }
-        })
-    }
+    
 
-    useEffect(() => {
-        getSections();
-    }, [])
     
     const style = {
         position: 'absolute',

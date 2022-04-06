@@ -14,6 +14,7 @@ const CKeditor = dynamic(() => import('../../../src/components/CKeditor'), {
     ssr: false
 })  
 export async function getServerSideProps(context) {
+    const pages = await api.get('/getPages').then(res => res.data.pages)
     const { link } = context.query;
     return api.get(`getContent/${link}`).then(res => {
         // TODO: tratar erro
@@ -22,7 +23,7 @@ export async function getServerSideProps(context) {
             return {
                 props: {
                     oldContent: res.data.content == null ? '' : res.data.content,
-                    // wasButtonEnabled: false
+                    pages: pages,
                 }
             }
         } else {
@@ -35,7 +36,7 @@ export async function getServerSideProps(context) {
     })
 }
 
-export default function PageEdit({ oldContent = '', error = false }) {
+export default function PageEdit({ oldContent = '', error = false, pages = [] }) {
 
     const [content, setContent] = useState(oldContent);
     const [isButtonEnable, setIsButtonEnable] = useState(false)
@@ -59,7 +60,7 @@ export default function PageEdit({ oldContent = '', error = false }) {
     }
 
     return (
-        <Layout navbarEditable error={error}>
+        <Layout navbarEditable error={error} pages={pages}>
             <>
                 <CKeditor
                     data={content}

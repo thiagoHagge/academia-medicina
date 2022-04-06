@@ -1,21 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import FormData from 'form-data'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Form from 'react-bootstrap/Form';
 import dynamic from 'next/dynamic';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import IconButton from '@mui/material/IconButton';
 
 import Layout from './Layout';
 import ActionLine from '../patterns/ActionLine';
 import api from '../api';
 import { useAuth } from '../contexts/auth';
 
-
 const CKeditor = dynamic(() => import('../components/CKeditor'), {
     ssr: false
 })  
-export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', oldContent = '', oldAuthor = '', error = false, oldImage = null, components = []}) {
+export default function CreatePage({
+    id = 0, 
+    slug, 
+    oldLink = '', 
+    oldTitle = '', 
+    oldContent = '', 
+    oldAuthor = '', 
+    oldYtId = '',
+    oldPodcast = '',
+    podcast = false,
+    error = false, 
+    oldImage = null, 
+    components = [],
+    pages = []
+}) {
     const [title, setTitle] = useState(oldTitle);
     const [author, setAuthor] = useState(oldAuthor);
     const [videoLink, setVideoLink] = useState('');
@@ -28,9 +43,19 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
     const router = useRouter()
     const { token } = useAuth();
 
+    useEffect(() => {
+        if (oldYtId != '') {
+            setVideoLink(`https://www.youtube.com/watch?v=${oldYtId}`)
+        }
+        if (oldPodcast != '') {
+            setVideoLink(oldPodcast)
+        }
+    })
     const sendRequest = () => {
         let data = {}
-        if (image == null) {
+        if(podcast) {
+            data.podcast = videoLink
+        } else if (image == null) {
             data.title = title
             data.content = content
             if(link!='new') {
@@ -103,7 +128,10 @@ export default function CreatePage({id = 0, slug, oldLink = '', oldTitle = '', o
         return components.indexOf(input) > -1
     }
     return (
-        <Layout navbarEditable error={error}>
+        <Layout navbarEditable error={error} pages={pages}>
+            <IconButton onClick={() => router.push(`/admin/${slug}`)} sx={{mb:2}}>
+                <ArrowBackRoundedIcon />
+            </IconButton>
             {hasInput('title') && <TextField 
             label="Título" 
             variant="outlined" 

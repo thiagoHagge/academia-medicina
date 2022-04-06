@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -21,6 +22,15 @@ export default function Login() {
 		
 	return (
 		<ThemeProvider theme={theme}>
+			<Head>
+				<title>Área de edição</title>
+				<meta name="description" content="Painel de amin" />
+				<meta name="robots" content="noindex, nofollow"/>
+				<link rel="icon" type="image/png" href="/favicon-32x32.png"/>
+				<link rel="preconnect" href="https://fonts.googleapis.com" />
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+				<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
+			</Head>
 			<Box 
 				mode="dark"
 				sx={{

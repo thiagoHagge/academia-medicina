@@ -30,7 +30,7 @@ import LoadingScreen from './LoadingScreen';
 const phone = '(73) 00000-0000';
 const email = 'easdasdasmail@emasdasail.com';
 
-export default function Layout({title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = [], error = false, noMargin = false, loading = false}) {
+export default function Layout({pages = [], title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = [], error = false, noMargin = false, loading = false}) {
 	const navbarRef = useRef(null)
 	
 	const { windowHeight } = useWindowDimensions();
@@ -38,6 +38,9 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 		<ThemeProvider theme={theme}>
 			<Head>
 				<title>{title}</title>
+				<meta name="description" content="A Academia Itabunense de Medicina têm como objetivo a divulgação científica, produção de conteúdo acadêmico, divulgação de eventos, premiações, entre outros." />
+				<meta name="keywords" content="academia de medicina, itabuna"/>
+				<meta name="robots" content={navbarEditable ? 'noindex, nofollow' : 'index, follow'} />
 				<link
 				rel="stylesheet"
 				href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -76,7 +79,7 @@ export default function Layout({title = 'Academia Itabunense de Medicina', child
 							</Box>
 						)}
 						<div ref={navbarRef}>
-							<Navbar editable={navbarEditable} />
+							<Navbar editable={navbarEditable} pages={pages} />
 						</div>
 						{carousel.length > 0 && (
 							<Carousel sx={{zIndex: theme.zIndex.deep}}>

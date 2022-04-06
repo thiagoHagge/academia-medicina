@@ -25,6 +25,7 @@ import theme from '../../src/themes';
 import { useAuth } from '../../src/contexts/auth';
 
 export async function getServerSideProps() {
+    const pages = await api.get('/getPages').then(res => res.data.pages)
     return api.get('/carousel/get').then(res => {
         if (!res.data.success) {
             return {
@@ -35,13 +36,14 @@ export async function getServerSideProps() {
         }
         return {
             props: {
-                oldCarouselItems: res.data.items
+                oldCarouselItems: res.data.items,
+                pages: pages
             }
         } 
     })
 }
 
-export default function Carousel({oldCarouselItems = [], error = false}) {
+export default function Carousel({oldCarouselItems = [], error = false, pages = []}) {
     // console.log(oldCarouselItems)
     const [isInputVisible, setInputVisible] = useState(false);
     const [carouselItems, setCarouselItems] = useState(oldCarouselItems);
@@ -123,7 +125,7 @@ export default function Carousel({oldCarouselItems = [], error = false}) {
     }
 
     return (
-        <Layout error={error} navbarEditable>
+        <Layout error={error} navbarEditable pages={pages}>
             <Box>
                 <IconButton color="success" onClick={showInput} style={{display: !isInputVisible ? 'block' : 'none'}}>
                     <AddRoundedIcon sx={{fontSize: 40}} /> 

@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import PlayCircleFilledRoundedIcon from '@mui/icons-material/PlayCircleFilledRounded';
 import theme from '../themes';
 
-export default function NewsList({ news = [], admin = '', video = false, podcasts = false, containerSx = {}, itemXs = 0, itemSm = 0, itemMd = 0, noImage = false, align = 'center', children, width = 0 }) {
+export default function NewsList({ news = [], admin = '', video = false, podcasts = false, podcastEditable = false, containerSx = {}, itemXs = 0, itemSm = 0, itemMd = 0, noImage = false, align = 'center', children, width = 0 }) {
     return (
         <Grid container spacing={2} sx={containerSx}>
             {children}
@@ -36,7 +36,7 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                 // TODO: criar componente da news box e alinhas com botão de novo item
                 <Grid item xs={itemXs === 0 ? 12 : itemXs} sm={itemSm === 0 ? 6 : itemSm} md={itemMd === 0 ? 3 : itemMd} key={item.image + item.title} sx={{alignSelf: 'stretch', justifySelf: 'stretch'}}>
                     <Card sx={[{mt: 2, margin: align == 'center' ? '0 auto 0' : '0'}, !podcasts && {maxWidth: 345}]}>
-                        {!podcasts ? <Link href={`${admin}/${video ? 'videos' : 'noticias'}/${item.link}`} passHref>
+                        {!podcasts ? <Link href={`${admin}/${podcastEditable ? 'podcasts' : video ? 'videos' : 'noticias'}/${item.link}`} passHref>
                             <CardActionArea sx={{maxHeight: 280}}>
                                 {(video || item.image) && !noImage && <CardMedia
                                 component="img"

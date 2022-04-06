@@ -14,11 +14,11 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 
 import theme from '../../src/themes';
 import Layout from '../../src/patterns/Layout';
+import api from '../../src/api';
 
-
-export default function Index() {
+export default function Index({pages = []}) {
 	return (
-		<Layout navbarEditable title="Painel do admin - AMEI-BA">
+		<Layout navbarEditable title="Painel do admin - AMEI-BA" pages={pages}>
 			<Typography variant="h5">
 				Editar:
 			</Typography>
@@ -49,4 +49,14 @@ function CardEdit({link, name, icon}) {
 			</Link>
 		</Card>
 	)
+}
+
+export async function getStaticProps() {
+    const pages = await api.get('/getPages').then(res => res.data.pages)
+	return {
+		props: {
+			pages: pages
+		},
+		revalidate: 10
+	}
 }

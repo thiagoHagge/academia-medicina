@@ -3,21 +3,22 @@ import api from "../../src/api";
 import Videos from "../../src/patterns/Videos";
 import Typography from '@mui/material/Typography';
 
-export async function getServerSideProps(context) {
+export async function getStaticProps() {
+    const pages = await api.get('/getPages').then(res => res.data.pages)
     return api.get('/videos/get').then(res => {
-        // console.log(res)
         if (!res.data.success) return;
         return {
             props: {
-                videos: res.data.news
+                videos: res.data.news,
+                pages: pages
             }
         };
     })
 }
 
-export default function Noticias({videos}) {
+export default function Noticias({videos, pages = []}) {
     return (
-        <Layout title="Vídeos">
+        <Layout title="Vídeos" pages={pages}>
             <Typography component="span" variant="h5">
                 Vídeos
             </Typography>

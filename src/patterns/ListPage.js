@@ -11,13 +11,13 @@ import Layout from './Layout';
 import News from './News';
 import theme from '../themes';
 
-export default function ListPage({news, slug, video = false, podcast = false}) {
+export default function ListPage({news, slug, video = false, podcast = false, pages = []}) {
     return (
-        <Layout navbarEditable title={video ? 'Vídeos' : 'Notícias'}>
+        <Layout navbarEditable title={video ? 'Vídeos' : 'Notícias'} pages={pages}>
             <Typography variant="h5">
                 {podcast ? 'Podcast' : video ? 'Vídeos' : 'Notícias'}:
 			</Typography>
-            <News news={news} admin="/admin" video={video}>
+            <News news={news} admin="/admin" video={video} podcastEditable={podcast}>
                 <Grid item xs={12} sm={6} md={3}>
                     <Link href={`/admin/${podcast? 'podcasts' : video ? 'videos' : 'noticias'}/new`} passHref>
                         <Card sx={{mt: 2, maxWidth: 345, margin: '0 auto 0'}}>

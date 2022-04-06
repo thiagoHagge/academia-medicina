@@ -3,9 +3,9 @@ import Typography from '@mui/material/Typography';
 import News from "../../src/patterns/News";
 import api from "../../src/api";
 
-export default function Noticias({news = []}) {
+export default function Noticias({news = [], pages = []}) {
     return (
-        <Layout title="Notícias">
+        <Layout title="Notícias" pages={pages}>
             <Typography component="span" variant="h5">
                 Notícias
             </Typography>
@@ -14,11 +14,15 @@ export default function Noticias({news = []}) {
     )
 }
 
-Noticias.getInitialProps = async () => {
+export async function getStaticProps(context) {
+    const pages = await api.get('/getPages').then(res => res.data.pages)
     return api.get('/news/get').then(res => {
-        if (!res.data.success) return;
+        if (!res.data.success) return
         return {
-            news: res.data.news
-        };
+            props: {
+                news: res.data.news,
+                pages: pages
+            }
+        }
     })
 }
