@@ -101,7 +101,7 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 									<Grid item xs={8} >
 										<Box sx={[theme.align.start, theme.ps2]}>
 											{/* Tratar para ligas de todos os aparelhos */}
-											<a href={`tel:55${phone}`} style={{color: theme.palette.black.main}} >
+											<a href={`tel:55${phone}`} style={{display: 'flex', color: theme.palette.black.main}} >
 												<CallIcon />
 												<Typography sx={theme.ps2}>
 													{contact.phone}
