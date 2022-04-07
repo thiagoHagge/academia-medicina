@@ -31,6 +31,11 @@ import LoadingScreen from './LoadingScreen';
 export default function Layout({pages = [], title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = [], error = false, noMargin = false, loading = false, contact = {}}) {
 	const navbarRef = useRef(null)
 	const { windowHeight } = useWindowDimensions();
+	let phone = ''
+	if(contact.phone != '') {
+		let regex = /\d/g
+		phone = contact.phone.match(regex).join('')
+	}
 	function SocialMedia(color = theme.palette.black.black ) {
 		const ShowIconButton = ({children, link}) => {
 			if (link == '') return 
@@ -96,10 +101,12 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 									<Grid item xs={8} >
 										<Box sx={[theme.align.start, theme.ps2]}>
 											{/* Tratar para ligas de todos os aparelhos */}
-											<CallIcon />
-											<Typography sx={theme.ps2}>
-												{contact.phone}
-											</Typography>
+											<a href={`tel:55${phone}`} style={{color: theme.palette.black.main}} >
+												<CallIcon />
+												<Typography sx={theme.ps2}>
+													{contact.phone}
+												</Typography>
+											</a>
 										</Box>
 									</Grid>
 									{/* <Grid item xs={4}>
@@ -140,14 +147,14 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
 								Contatos
 							</h6>
-							<p style={{fontFamily: "'Lora', serif", color: theme.palette.white, marginBottom: '5px'}}>
+							<a href={`tel:55${phone}`} style={{fontFamily: "'Lora', serif", color: theme.palette.white, marginBottom: '5px'}}>
 								<CallIcon sx={{mr: 1}} />
 								{contact.phone}
-							</p>
-							<p style={{fontFamily: "'Lora', serif", color: theme.palette.white}}>
+							</a>
+							<a href={`mailto:${contact.email}`} style={{fontFamily: "'Lora', serif", color: theme.palette.white}}>
 								<EmailRoundedIcon sx={{mr: 1}} />
 								{contact.email}
-							</p>
+							</a>
 						</Box>
 						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 0, md: 1}, mb: 3, flexGrow: 1}}>
 							<img src="/logo-dark.png" style={{width: 250}} />
