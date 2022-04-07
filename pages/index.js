@@ -49,7 +49,7 @@ export default function Home({carouselItems, news, videos, podcasts, pages, cont
 					<Link href="/videos" passHref>
 						<Button variant="contained" sx={{color: theme.palette.font.dark, backgroundColor: theme.palette.primary.main, '&:hover': {backgroundColor: theme.palette.primary.dark, color: theme.palette.font.dark}, marginLeft: 'auto'}}>Ver todos</Button>
 					</Link>
-				</Box>
+				</Box> 
 				<Videos videos={videos}/>
 			</Box>}
 			{podcasts.length > 0 && <Box sx={{pt: 2, pr: 4, pl: 4, pb:2, mb: 2, mt: 4, maxWidth: 720}}>
