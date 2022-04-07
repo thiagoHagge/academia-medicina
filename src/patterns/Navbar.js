@@ -40,6 +40,7 @@ export default function Navbar({ editable = false, pages = [] }) {
 
 	const [newSection, setNewSection] = useState('')
 	const [createError, showCreateError] = useState('')
+	const [newPages, setPages] = useState(pages)
     const [newSectionParent, setNewSectionParent] = useState({name: '', id: false})
     const [navActive, setNavActive] = useState('')
     const { token } = useAuth();
@@ -196,7 +197,7 @@ export default function Navbar({ editable = false, pages = [] }) {
                                         <img src="/logo.png" style={{ maxHeight: 80, marginTop: 25, marginBottom: 25 }} alt="" />
                                     </Box>
                                 </Link>
-                                {/* Mobile Pages */}
+                                {/* Mobile newPages */}
                                 <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                                     <IconButton
                                         size="large"
@@ -226,7 +227,7 @@ export default function Navbar({ editable = false, pages = [] }) {
                                             display: { xs: 'block', md: 'none' },
                                         }}
                                     >
-                                        {pages.map(({link, name, children}) => (
+                                        {newPages.map(({link, name, children}) => (
                                             [
                                                 <MenuItem key={`mob-${link}`} onClick={() => handleCloseNavMenu(link, (typeof children != 'undefined' && children.length > 0))}>
                                                     <Typography textAlign="center">{name}</Typography>
@@ -253,9 +254,9 @@ export default function Navbar({ editable = false, pages = [] }) {
                                 <Box sx={{ display: { xs: 'block', md: 'none' }, width: 48 }} alt="">
 
                                 </Box>
-                                {/* Desktop Pages */}
+                                {/* Desktop newPages */}
                                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                                    {!allowEdit ? (pages.map(({id, link, name, children}) => (
+                                    {!allowEdit ? (newPages.map(({id, link, name, children}) => (
                                         <div key={`dsk-${link}`}>
                                             <Button
                                             onClick={(event) => {
@@ -310,7 +311,7 @@ export default function Navbar({ editable = false, pages = [] }) {
                                         {(provided) => (
                                             <FakeBox className="characters" {...provided.droppableProps} ref={provided.innerRef}>
                                                 {provided.placeholder}
-                                                {pages.map(({link, name, position}) => (
+                                                {newPages.map(({link, name, position}) => (
                                                     <Draggable key={`drag-${link}`} draggableId={link} index={position}>
                                                         {(provided) => (
                                                             <FakeButton ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>

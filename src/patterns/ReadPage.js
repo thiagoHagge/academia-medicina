@@ -6,7 +6,18 @@ import News from "../../src/patterns/News";
 
 import Layout from '../../src/patterns/Layout';
 
-export default function ReadPage({link = '', title = '', content = '', error = false, image = null, video = null, lastItems = [], page = false, pages = []}) {
+export default function ReadPage({
+    link = '', 
+    title = '', 
+    content = '', 
+    error = false, 
+    image = null, 
+    video = null, 
+    lastItems = [], 
+    page = false, 
+    pages = [],
+    contact = {}
+}) {
     const videoRef = useRef(null);
     const [videoHeight, setVideoHeight] = useState(0);
     var formattedContent = [];
@@ -41,7 +52,7 @@ export default function ReadPage({link = '', title = '', content = '', error = f
         }
     }, [videoRef.current])
     return (
-        <Layout title={title} error={error} pages={pages}>
+        <Layout title={title} error={error} pages={pages} contact={contact}>
             <Grid container spacing={2} sx={{px: {xs: 0, md: 7}}}>
                 <Grid item xs={12} md={!page ? 8 : 12} sx={{display: 'flex', flexDirection: 'column'}}>
                     <Typography variant="h4" gutterBottom sx={{textAlign: 'center', mb: 3}}>

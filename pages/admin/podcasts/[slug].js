@@ -1,7 +1,7 @@
 import CreatePage from '../../../src/patterns/CreatePage';
 import api from '../../../src/api';
 
-export default function VideoEditor({id = 0, oldLink = '', oldTitle = '', oldContent = '', oldPodcast = '', error = false, pages={pages}}) {
+export default function VideoEditor({id = 0, oldLink = '', oldTitle = '', oldContent = '', oldPodcast = '', error = false, pages={pages}, contact = {}}) {
     return (
         <CreatePage
         id={id}
@@ -14,11 +14,12 @@ export default function VideoEditor({id = 0, oldLink = '', oldTitle = '', oldCon
         components={['link']}
         pages={pages}
         podcast
+        contact={contact}
         />
     )
 }
 export async function getServerSideProps({query}) {
-    const pages = await api.get('/getPages').then(res => res.data.pages)
+    const {pages, contact} = await api.get('/getPages').then(res => res.data)
     if (query.slug == 'new') {
         return {
             props: {
@@ -26,7 +27,8 @@ export async function getServerSideProps({query}) {
                 oldLink: query.slug,
                 oldTitle: '',
                 oldContent: '',
-                id: 0
+                id: 0,
+                contact: contact
             },
         }
     }
@@ -39,7 +41,8 @@ export async function getServerSideProps({query}) {
                     oldTitle: res.data.news.title,
                     oldContent: res.data.news.content,
                     oldPodcast: res.data.news.podcast,
-                    id: res.data.news.id
+                    id: res.data.news.id,
+                    contact: contact
                 }
             }
         }
@@ -48,6 +51,7 @@ export async function getServerSideProps({query}) {
                 pages: pages,
                 error: res.data.error || true,
                 oldLink: query.slug,
+                contact: contact
             }
         }
     })

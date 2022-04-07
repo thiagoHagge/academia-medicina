@@ -3,7 +3,16 @@ import { useState } from 'react';
 import ReadPage from '../../src/patterns/ReadPage';
 import api from '../../src/api';
 
-export default function ReadNews({link = '', title = '', content = '', error = false, image = null, lastNews = [], pages = []}) {
+export default function ReadNews({
+    link = '', 
+    title = '', 
+    content = '', 
+    error = false, 
+    image = null, 
+    lastNews = [], 
+    pages = [], 
+    contact = {}
+}) {
     return (
         <ReadPage 
         title={title}
@@ -13,13 +22,14 @@ export default function ReadNews({link = '', title = '', content = '', error = f
         image={image}
         lastItems={lastNews}
         pages={pages}
+        contact={contact}
         />
     )
 }
 export async function getServerSideProps(context) {
     const data = await api.get(`news/get/${context.query.slug}`).then(res => res.data)
     console.log(data)
-    const pages = await api.get('/getPages').then(res => res.data.pages)
+    const {pages, contact} = await api.get('/getPages').then(res => res.data)
 	return {
 		props: {
 			link: context.query.slug,
@@ -27,7 +37,8 @@ export async function getServerSideProps(context) {
             image: data.news.image,
             content: data.news.content,
             lastNews: data.lastNews,
-            pages: pages
+            pages: pages,
+            contact: contact
 		}
 	}
 }

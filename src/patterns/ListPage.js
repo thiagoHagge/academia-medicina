@@ -11,9 +11,9 @@ import Layout from './Layout';
 import News from './News';
 import theme from '../themes';
 
-export default function ListPage({news, slug, video = false, podcast = false, pages = []}) {
+export default function ListPage({news, slug, video = false, podcast = false, pages = [], contact = {}}) {
     return (
-        <Layout navbarEditable title={video ? 'Vídeos' : 'Notícias'} pages={pages}>
+        <Layout navbarEditable title={video ? 'Vídeos' : 'Notícias'} pages={pages} contact={contact}>
             <Typography variant="h5">
                 {podcast ? 'Podcast' : video ? 'Vídeos' : 'Notícias'}:
 			</Typography>

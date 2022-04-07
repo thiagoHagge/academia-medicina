@@ -9,7 +9,8 @@ export default function NewsEditor({
     oldAuthor = '', 
     error = false, 
     oldImage = null, 
-    pages = []
+    pages = [],
+    contact = {}
 }) {
     return (
         <CreatePage
@@ -23,15 +24,17 @@ export default function NewsEditor({
         error={error}
         oldImage={oldImage}
         components={['title', 'file', 'author', 'content']}
+        contact={contact}
         />
     )
 }
 export async function getServerSideProps({query}) {
-    const pages = await api.get('/getPages').then(res => res.data.pages)
+    const {pages, contact} = await api.get('/getPages').then(res => res.data)
     if (query.slug == 'new') {
         return {
             props: {
                 pages: pages,
+                contact: contact,
                 oldLink: query.slug,
                 oldTitle: '',
                 oldContent: '',
@@ -45,6 +48,7 @@ export async function getServerSideProps({query}) {
             return {
                 props: {
                     pages: pages,
+                    contact: contact,
                     oldLink: query.slug,
                     oldTitle: res.data.news.title,
                     oldImage: res.data.news.image,
@@ -57,6 +61,7 @@ export async function getServerSideProps({query}) {
         return {
             props: {
                 pages: pages,
+                contact: contact,
                 error: res.data.error || true,
                 oldLink: query.slug,
             }

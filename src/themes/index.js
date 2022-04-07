@@ -2,6 +2,7 @@ import { createTheme } from '@material-ui/core/styles';
 
 const palette = {
     black: {
+        black: '#000000ff',
         main: '#111111',
         dark: '#0e0e0e',
     },

@@ -9,16 +9,16 @@ import ViewCarouselOutlinedIcon from '@mui/icons-material/ViewCarouselOutlined';
 import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import PodcastsRoundedIcon from '@mui/icons-material/PodcastsRounded';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
 import SvgIcon from '@material-ui/core/SvgIcon';
-
 
 import theme from '../../src/themes';
 import Layout from '../../src/patterns/Layout';
 import api from '../../src/api';
 
-export default function Index({pages = []}) {
+export default function Index({pages = [], contact = {}}) {
 	return (
-		<Layout navbarEditable title="Painel do admin - AMEI-BA" pages={pages}>
+		<Layout navbarEditable title="Painel do admin - AMEI-BA" pages={pages} contact={contact}>
 			<Typography variant="h5">
 				Editar:
 			</Typography>
@@ -28,6 +28,7 @@ export default function Index({pages = []}) {
 				<CardEdit link="/admin/noticias" name="Notícias" icon={NewspaperRoundedIcon} />
 				<CardEdit link="/admin/videos" name="Vídeos" icon={YouTubeIcon} />
 				<CardEdit link="/admin/podcasts" name="Podcasts" icon={PodcastsRoundedIcon} />
+				<CardEdit link="/admin/contatos" name="Contato" icon={ContactPageIcon} />
 			</Box>
 		</Layout>
 	)
@@ -52,10 +53,12 @@ function CardEdit({link, name, icon}) {
 }
 
 export async function getStaticProps() {
-    const pages = await api.get('/getPages').then(res => res.data.pages)
+    const {pages, contact} = await api.get('/getPages').then(res => res.data)
 	return {
 		props: {
-			pages: pages
+			pages: pages,
+			contact: contact
+
 		},
 		revalidate: 10
 	}

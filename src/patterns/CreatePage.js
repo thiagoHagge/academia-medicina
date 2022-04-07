@@ -29,7 +29,8 @@ export default function CreatePage({
     error = false, 
     oldImage = null, 
     components = [],
-    pages = []
+    pages = [],
+    contact = {}
 }) {
     const [title, setTitle] = useState(oldTitle);
     const [author, setAuthor] = useState(oldAuthor);
@@ -128,7 +129,7 @@ export default function CreatePage({
         return components.indexOf(input) > -1
     }
     return (
-        <Layout navbarEditable error={error} pages={pages}>
+        <Layout navbarEditable error={error} pages={pages} contact={contact}>
             <IconButton onClick={() => router.push(`/admin/${slug}`)} sx={{mb:2}}>
                 <ArrowBackRoundedIcon />
             </IconButton>

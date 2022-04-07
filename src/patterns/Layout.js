@@ -17,7 +17,7 @@ import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 // import TwitterIcon from '@mui/icons-material/Twitter';
-// import YouTubeIcon from '@mui/icons-material/YouTube';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import CallIcon from '@mui/icons-material/Call';
 import { Typography } from '@material-ui/core';
@@ -27,13 +27,48 @@ import useWindowDimensions from '../hook/useWindowDimensions';
 import Navbar from './Navbar';
 import LoadingScreen from './LoadingScreen';
 
-const phone = '(73) 00000-0000';
-const email = 'easdasdasmail@emasdasail.com';
 
-export default function Layout({pages = [], title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = [], error = false, noMargin = false, loading = false}) {
+export default function Layout({pages = [], title = 'Academia Itabunense de Medicina', children, navbarEditable = false, carousel = [], error = false, noMargin = false, loading = false, contact = {}}) {
 	const navbarRef = useRef(null)
-	
 	const { windowHeight } = useWindowDimensions();
+	function SocialMedia(color = theme.palette.black.black ) {
+		const ShowIconButton = ({children, link}) => {
+			if (link == '') return 
+			if(link.slice(0,4) != 'http') {
+				link = 'https://' + link
+			} else {
+				if(link.slice(0,5) != 'https') {
+					link = link.replace('http', 'https')
+				}
+			}
+			return <a href={link}>
+				<IconButton sx={{color: color}}>
+					{children}
+				</IconButton>
+			</a>
+		}
+		let whatsNum = ''
+		if(contact.whatsapp != '') {
+			let regex = /\d/g
+			whatsNum = contact.whatsapp.match(regex).join('')
+		}
+		return (
+			<Box sx={theme.align.center}>
+				{whatsNum != '' && <ShowIconButton link={`https://api.whatsapp.com/send?phone=55${whatsNum}${contact.whatsappMessage != '' ? `&text=${encodeURI(contact.whatsappMessage)}` : ''}`}>
+					<WhatsAppIcon />
+				</ShowIconButton>}
+				<ShowIconButton link={contact.instagram}>
+					<InstagramIcon />
+				</ShowIconButton>
+				<ShowIconButton link={contact.facebook}>
+					<FacebookIcon />
+				</ShowIconButton>
+				<ShowIconButton link={contact.youtube}>
+					<YouTubeIcon />
+				</ShowIconButton>
+			</Box>
+		)
+	}
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>
@@ -63,7 +98,7 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 											{/* Tratar para ligas de todos os aparelhos */}
 											<CallIcon />
 											<Typography sx={theme.ps2}>
-												{phone}
+												{contact.phone}
 											</Typography>
 										</Box>
 									</Grid>
@@ -73,7 +108,7 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 										</Box>
 									</Grid> */}
 									<Grid item xs={4}>
-										<SocialMedia />
+										<SocialMedia color="#000000" />
 									</Grid>
 								</Grid>
 							</Box>
@@ -107,11 +142,11 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 							</h6>
 							<p style={{fontFamily: "'Lora', serif", color: theme.palette.white, marginBottom: '5px'}}>
 								<CallIcon sx={{mr: 1}} />
-								{phone}
+								{contact.phone}
 							</p>
 							<p style={{fontFamily: "'Lora', serif", color: theme.palette.white}}>
 								<EmailRoundedIcon sx={{mr: 1}} />
-								{email}
+								{contact.email}
 							</p>
 						</Box>
 						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 0, md: 1}, mb: 3, flexGrow: 1}}>
@@ -127,7 +162,7 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px', textAlign: 'center'}}>
 								Redes sociais:
 							</h6>
-							<SocialMedia color={theme.palette.white}/>
+							<SocialMedia color={theme.palette.white} />
 						</Box>
 					</Box>
 					<Box sx={{backgroundColor: theme.palette.primary.main, py: '5px'}}>
@@ -142,18 +177,3 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 	);
 };
 
-function SocialMedia(color = theme.palette.black.main) {
-	return (
-		<Box sx={theme.align.center}>
-			<IconButton sx={{color: color}}>
-				<WhatsAppIcon />
-			</IconButton>
-			<IconButton sx={{color: color}}>
-				<InstagramIcon />
-			</IconButton>
-			<IconButton sx={{color: color}}>
-				<FacebookIcon />
-			</IconButton>
-		</Box>
-	)
-}

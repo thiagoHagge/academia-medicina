@@ -1,7 +1,16 @@
 import CreatePage from '../../../src/patterns/CreatePage';
 import api from '../../../src/api';
 
-export default function VideoEditor({id = 0, oldLink = '', oldTitle = '', oldContent = '', oldYtId = '', error = false, pages = []}) {
+export default function VideoEditor({
+    id = 0, 
+    oldLink = '', 
+    oldTitle = '', 
+    oldContent = '', 
+    oldYtId = '', 
+    error = false, 
+    pages = [], 
+    contact = {}
+}) {
     return (
         <CreatePage
         id={id}
@@ -12,12 +21,13 @@ export default function VideoEditor({id = 0, oldLink = '', oldTitle = '', oldCon
         error={error}
         components={['title', 'link', 'content']}
         pages={pages}
+        contact={contact}
         />
     )
 }
 
 export async function getServerSideProps({query}) {
-    const pages = await api.get('/getPages').then(res => res.data.pages)
+    const {pages, contact} = await api.get('/getPages').then(res => res.data)
     if (query.slug == 'new') {
         return {
             props: {
@@ -35,6 +45,7 @@ export async function getServerSideProps({query}) {
             return {
                 props: {
                     pages: pages,
+                    contact: contact,
                     oldLink: query.slug,
                     oldTitle: res.data.news.title,
                     oldContent: res.data.news.content,
@@ -46,6 +57,7 @@ export async function getServerSideProps({query}) {
         return {
             props: {
                 pages: pages,
+                contact: contact,
                 error: res.data.error || true,
                 oldLink: query.slug,
             }
