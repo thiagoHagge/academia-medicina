@@ -45,7 +45,7 @@ export async function getServerSideProps({query}) {
                     contact: contact
                 }
             }
-        }
+        } 
         return {
             props: {
                 pages: pages,
