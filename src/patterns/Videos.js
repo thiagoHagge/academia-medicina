@@ -15,7 +15,7 @@ export default function Videos({videos}) {
             {videos.map(({link, title, ytId}) => (
                 <Grid item xs={12} md={4} key={`vid-${ytId}`}>
                     <Link href={`/videos/${link}`} passHref>
-                        <Card key={`vid-${link}`}>
+                        <Card>
                             <CardActionArea>
                                 <CardMedia
                                 component="img"

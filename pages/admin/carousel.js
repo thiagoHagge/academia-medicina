@@ -24,14 +24,15 @@ import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import theme from '../../src/themes';
 import { useAuth } from '../../src/contexts/auth';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const {pages, contact} = await api.get('/getPages').then(res => res.data)
     return api.get('/carousel/get').then(res => {
         if (!res.data.success) {
             return {
                 props: {
                     error: res.data.error
-                }
+                },
+                revalidate: 60
             }
         }
         return {
@@ -39,7 +40,8 @@ export async function getServerSideProps() {
                 oldCarouselItems: res.data.items,
                 pages: pages,
                 contact: contact
-            }
+            },
+            revalidate: 60
         } 
     })
 }

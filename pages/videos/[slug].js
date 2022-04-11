@@ -27,15 +27,24 @@ export default function ReadVideos({
         />
     )
 }
-
-export async function getServerSideProps({query}) {
+export async function getStaticPaths() {
+    const news = await api.get('videos/get').then(res => res.data.news);
+    let paths = news.map(item =>  {
+        return {'params': {'slug': item.link}}
+    })
+    return {
+        paths: paths,
+        fallback: true
+    }
+}
+export async function getStaticProps({params}) {
     const {pages, contact} = await api.get('/getPages').then(res => res.data)
-	return api.get(`videos/get/${query.slug}`).then(res => {
+	return api.get(`videos/get/${params.slug}`).then(res => {
         // console.log(res)
         if(res.data.success && res.data.news != null) {
             return {
                 props: {
-                    link: query.slug,
+                    link: params.slug,
                     title: res.data.news.title,
                     image: res.data.news.image,
                     content: res.data.news.content,
@@ -43,14 +52,16 @@ export async function getServerSideProps({query}) {
                     lastVideos: res.data.lastVideos,
                     pages: pages,
                     contact: contact
-                }
+                },
+                revalidate: 60
             }
         }
         return {
             props: {
                 error: res.data.error || true,
-                link: query.slug,
-            }
+                link: params.slug,
+            },
+            revalidate: 60
         }
     })
 }

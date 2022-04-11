@@ -67,30 +67,31 @@ export default function ReadPage({
                     style={{width: '100%', height: videoHeight * 0.5625}}
                     src={`https://www.youtube.com/embed/${video}`} 
                     title="YouTube video player" 
-                    frameborder="0" 
+                    frameBorder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
+                    allowFullScreen
                     >
                     </iframe>}
                     {/* TODO: trata pra não aparece url ao subir 2 videos */}
                     {formattedContent != [] ? 
-                        formattedContent.map((p) => {
+                        formattedContent.map((p, i) => {
                             if (p.slice(0, 6) == '{#url}') {
                                 return (
                                     <iframe 
-                                    style={{margin: 'auto', maxWidth: '100%', maxHeight: 315}}
+                                    style={{margin: 'auto', maxWidth: '100%'}}
                                     src={p.slice(6, p.length).replace('watch?v=', 'embed/')} 
                                     title="YouTube video player" 
-                                    frameborder="0" 
+                                    frameBorder="0" 
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen
+                                    allowFullScreen
+                                    key={`video-${i}`}
                                     >
                                     </iframe>
                                 )
                             }
-                            return <div dangerouslySetInnerHTML={{__html: p}} />
+                            return <div dangerouslySetInnerHTML={{__html: p}} key={`paragraph-${i}`} />
                         }) : 
-                        <div dangerouslySetInnerHTML={{__html: content}} />
+                        <div dangerouslySetInnerHTML={{__html: content}} key={`paragraph-${i}`} />
                     }
                 </Grid>
                 {!page && <Grid item xs={12} md={4}>

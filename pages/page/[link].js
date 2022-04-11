@@ -2,9 +2,19 @@ import ReadPage from '../../src/patterns/ReadPage';
 import api from '../../src/api';
 import { useRouter } from 'next/router'
 
-// TODO: aplicar getStaticPath para páginas importantes 
-export async function getServerSideProps(context) {
-    const { link } = context.query
+export async function getStaticPaths() {
+    const pages = await api.get('pages/all').then(res => res.data.pages);
+    let paths = pages.map(item =>  {
+        return {'params': {'link': item.link}}
+    })
+    return {
+        paths: paths,
+        fallback: true
+    }
+}
+
+export async function getStaticProps(context) {
+    const { link } = context.params
     const {pages, contact} = await api.get('/getPages').then(res => res.data)
     const { data } = await api.get(`getContent/${link}`);
     if (data.success) {
@@ -14,7 +24,8 @@ export async function getServerSideProps(context) {
                 title: data.title,
                 pages: pages,
                 contact: contact
-            }
+            },
+            revalidate: 60
         }
     }
 }

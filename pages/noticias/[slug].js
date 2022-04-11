@@ -26,19 +26,31 @@ export default function ReadNews({
         />
     )
 }
-export async function getServerSideProps(context) {
-    const data = await api.get(`news/get/${context.query.slug}`).then(res => res.data)
+
+export async function getStaticPaths() {
+    const news = await api.get('news/get').then(res => res.data.news);
+    let paths = news.map(item =>  {
+        return {'params': {'slug': item.link}}
+    })
+    return {
+        paths: paths,
+        fallback: true
+    }
+}
+export async function getStaticProps(context) {
+    const data = await api.get(`news/get/${context.params.slug}`).then(res => res.data)
     console.log(data)
     const {pages, contact} = await api.get('/getPages').then(res => res.data)
 	return {
 		props: {
-			link: context.query.slug,
+			link: context.params.slug,
             title: data.news.title,
             image: data.news.image,
             content: data.news.content,
             lastNews: data.lastNews,
             pages: pages,
             contact: contact
-		}
+		},
+        revalidate: 60
 	}
 }

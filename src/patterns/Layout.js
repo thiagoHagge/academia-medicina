@@ -32,7 +32,7 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 	const navbarRef = useRef(null)
 	const { windowHeight } = useWindowDimensions();
 	let phone = ''
-	if(contact.phone != '') {
+	if(contact.phone) {
 		let regex = /\d/g
 		phone = contact.phone.match(regex).join('')
 	}
@@ -53,7 +53,7 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 			</a>
 		}
 		let whatsNum = ''
-		if(contact.whatsapp != '') {
+		if(contact.whatsapp) {
 			let regex = /\d/g
 			whatsNum = contact.whatsapp.match(regex).join('')
 		}

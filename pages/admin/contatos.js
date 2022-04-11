@@ -7,7 +7,7 @@ import api from '../../src/api';
 import ActionLine from '../../src/patterns/ActionLine';
 import { useAuth } from '../../src/contexts/auth';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const {pages, contact} = await api.get('/getPages').then(res => res.data)
     return api.get('/carousel/get').then(res => {
         if (!res.data.success) {
@@ -22,7 +22,8 @@ export async function getServerSideProps() {
                 oldCarouselItems: res.data.items,
                 pages: pages,
                 contact: contact
-            }
+            },
+            revalidate: 60
         } 
     })
 }
