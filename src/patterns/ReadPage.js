@@ -75,6 +75,9 @@ export default function ReadPage({
                     {/* TODO: trata pra não aparece url ao subir 2 videos */}
                     {formattedContent != [] ? 
                         formattedContent.map((p, i) => {
+                            if (!p) {
+                                return <></>
+                            }
                             if (p.slice(0, 6) == '{#url}') {
                                 return (
                                     <iframe 
