@@ -38,7 +38,7 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 	}
 	function SocialMedia(color = theme.palette.black.black ) {
 		const ShowIconButton = ({children, link}) => {
-			if (link == '') return 
+			if (!link) return null
 			if(link.slice(0,4) != 'http') {
 				link = 'https://' + link
 			} else {
@@ -89,7 +89,7 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 				/>
 				<link rel="icon" type="image/png" href="/favicon-32x32.png"/>
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
-				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+				<link rel="preconnect" href="https://fonts.gstatic.com" />
 				<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
 			</Head>
 			{!loading ? <Box sx={{minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflowX: 'hidden'}}>

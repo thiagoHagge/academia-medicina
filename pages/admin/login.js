@@ -28,7 +28,7 @@ export default function Login() {
 				<meta name="robots" content="noindex, nofollow"/>
 				<link rel="icon" type="image/png" href="/favicon-32x32.png"/>
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
-				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+				<link rel="preconnect" href="https://fonts.gstatic.com" />
 				<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
 			</Head>
 			<Box 

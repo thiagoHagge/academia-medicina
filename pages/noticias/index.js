@@ -23,7 +23,8 @@ export async function getStaticProps(context) {
                 news: res.data.news,
                 pages: pages,
                 contact: contact
-            }
+            },
+            revalidate: 60
         }
     })
 }

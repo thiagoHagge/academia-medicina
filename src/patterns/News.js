@@ -45,7 +45,18 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                                 alt=""
                                 />}
                                 <CardContent sx={{ flex: '1 0 auto', backgroundColor: '#121212', borderRadius: '0 0 4px 4px', py: 0, minHeight: 90, display: 'flex', flexDirection: !podcasts ? 'column' : 'row', justifyContent: 'center', alignItems: !podcasts ? 'flex-start' : 'center'}}>
-                                    {<Typography gutterBottom component="div" variant="h5" style={{whiteSpace: 'pre-wrap', color: '#fff', fontSize: 15, lineHeight: 1, marginBottom: podcasts ? 0 : '0.35em' }}>
+                                    {<Typography 
+                                    gutterBottom 
+                                    component="div" 
+                                    variant="h5" 
+                                    style={{
+                                        color: '#fff', 
+                                        fontSize: 15, 
+                                        lineHeight: 1, 
+                                        marginBottom: podcasts ? 0 : '0.35em', 
+                                        overflowWrap: 'break-word', 
+                                        width: '100%' 
+                                    }}>
                                         {item.title}
                                     </Typography>}
                                     {!video && !podcasts && (

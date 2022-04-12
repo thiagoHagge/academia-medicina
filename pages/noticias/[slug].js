@@ -32,6 +32,10 @@ export async function getStaticPaths() {
     let paths = news.map(item =>  {
         return {'params': {'slug': item.link}}
     })
+    console.log({
+        paths: paths,
+        fallback: false
+    })
     return {
         paths: paths,
         fallback: true
@@ -39,7 +43,8 @@ export async function getStaticPaths() {
 }
 export async function getStaticProps(context) {
     const data = await api.get(`news/get/${context.params.slug}`).then(res => res.data)
-    console.log(data)
+    // console.log('=====================')
+    // console.log(data)
     const {pages, contact} = await api.get('/getPages').then(res => res.data)
 	return {
 		props: {

@@ -14,7 +14,8 @@ export async function getStaticProps() {
             return {
                 props: {
                     error: res.data.error
-                }
+                },
+                revalidate: 60
             }
         }
         return {

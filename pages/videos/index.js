@@ -12,7 +12,8 @@ export async function getStaticProps() {
                 videos: res.data.news,
                 pages: pages,
                 contact: contact
-            }
+            },
+            revalidate: 60
         };
     })
 }

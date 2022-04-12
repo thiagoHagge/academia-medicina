@@ -19,13 +19,16 @@ export default function ReadPage({
     contact = {}
 }) {
     const videoRef = useRef(null);
+    const contentRef = useRef(null);
     const [videoHeight, setVideoHeight] = useState(0);
+    const [videoInContentHeight, setVideoInContentHeight] = useState(0);
     var formattedContent = [];
     // prepare videos to be displayed
     (function() {
         let i = 0;
         let cutStart = content.search('<figure class="media"><oembed url="') 
         let cutEnd;
+        let firstCut = cutStart
         while (cutStart > 0) {
             // get paragraph before video
             formattedContent[i++] = content.slice(0, cutStart)
@@ -44,27 +47,35 @@ export default function ReadPage({
             
         }
         // get paragraph after video
-        formattedContent[i++] = content.slice(cutEnd, content.length)
+        if (firstCut > 0) {
+            formattedContent[i++] = content.slice(cutEnd, content.length)
+        }
     })()
     useEffect(() => {
         if (videoRef.current) {
-            setVideoHeight(videoRef.current.offsetWidth)
+            setVideoHeight(videoRef.current.offsetWidth * 0.5625)
         }
     }, [videoRef.current])
+    useEffect(() => {
+        if (contentRef.current) {
+            setVideoInContentHeight(contentRef.current.offsetWidth* 0.5625)
+        }
+    }, [contentRef.current])
+    console.log(formattedContent)
     return (
         <Layout title={title} error={error} pages={pages} contact={contact}>
             <Grid container spacing={2} sx={{px: {xs: 0, md: 7}}}>
-                <Grid item xs={12} md={!page ? 8 : 12} sx={{display: 'flex', flexDirection: 'column'}}>
+                <Grid item ref={contentRef} xs={12} md={!page ? 8 : 12} sx={{display: 'block'}}>
                     <Typography variant="h4" gutterBottom sx={{textAlign: 'center', mb: 3}}>
                         {title}
                     </Typography>
                     {image != null && <img 
                     src={image}
-                    style={{width: 'auto', maxHeight: 320, maxWidth: '100%', margin: '0 auto 12px'}}
+                    style={{width: '100%', height: 'auto', maxWidth: '100%', margin: '0 auto 12px'}}
                     />}
                     {video != null && <iframe
                     ref={videoRef}
-                    style={{width: '100%', height: videoHeight * 0.5625}}
+                    style={{width: '100%', height: videoHeight}}
                     src={`https://www.youtube.com/embed/${video}`} 
                     title="YouTube video player" 
                     frameBorder="0" 
@@ -75,13 +86,14 @@ export default function ReadPage({
                     {/* TODO: trata pra não aparece url ao subir 2 videos */}
                     {formattedContent != [] ? 
                         formattedContent.map((p, i) => {
+                            // console.log(`paragraph-${i}`)
                             if (!p) {
-                                return <></>
+                                return 
                             }
                             if (p.slice(0, 6) == '{#url}') {
                                 return (
                                     <iframe 
-                                    style={{margin: 'auto', maxWidth: '100%'}}
+                                    style={{margin: 'auto', width: '100%', height: videoInContentHeight}}
                                     src={p.slice(6, p.length).replace('watch?v=', 'embed/')} 
                                     title="YouTube video player" 
                                     frameBorder="0" 
@@ -92,9 +104,9 @@ export default function ReadPage({
                                     </iframe>
                                 )
                             }
-                            return <div dangerouslySetInnerHTML={{__html: p}} key={`paragraph-${i}`} />
+                            return <div key={`paragraph-${i}`}><div dangerouslySetInnerHTML={{__html: p}} /></div>
                         }) : 
-                        <div dangerouslySetInnerHTML={{__html: content}} key={`paragraph-${i}`} />
+                        <div key={`paragraph-${i}`}><div dangerouslySetInnerHTML={{__html: content}} /></div>
                     }
                 </Grid>
                 {!page && <Grid item xs={12} md={4}>
