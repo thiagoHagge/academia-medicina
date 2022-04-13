@@ -13,6 +13,7 @@ export default function ReadNews({
     pages = [], 
     contact = {}
 }) {
+    // console.log(content)
     return (
         <ReadPage 
         title={title}

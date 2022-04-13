@@ -29,6 +29,7 @@ export default function ReadPage({
         let cutStart = content.search('<figure class="media"><oembed url="') 
         let cutEnd;
         let firstCut = cutStart
+        // console.log('cutStart', cutStart)
         while (cutStart > 0) {
             // get paragraph before video
             formattedContent[i++] = content.slice(0, cutStart)
@@ -61,7 +62,9 @@ export default function ReadPage({
             setVideoInContentHeight(contentRef.current.offsetWidth* 0.5625)
         }
     }, [contentRef.current])
-    console.log(formattedContent)
+    // console.log('content', content)
+    // console.log('formattedContent', formattedContent)
+    // console.log('formattedContent ?', formattedContent ? 'true' : 'false')
     return (
         <Layout title={title} error={error} pages={pages} contact={contact}>
             <Grid container spacing={2} sx={{px: {xs: 0, md: 7}}}>
@@ -84,12 +87,9 @@ export default function ReadPage({
                     >
                     </iframe>}
                     {/* TODO: trata pra não aparece url ao subir 2 videos */}
-                    {formattedContent != [] ? 
+                    {formattedContent.length > 0 ? 
                         formattedContent.map((p, i) => {
                             // console.log(`paragraph-${i}`)
-                            if (!p) {
-                                return 
-                            }
                             if (p.slice(0, 6) == '{#url}') {
                                 return (
                                     <iframe 
@@ -106,7 +106,7 @@ export default function ReadPage({
                             }
                             return <div key={`paragraph-${i}`}><div dangerouslySetInnerHTML={{__html: p}} /></div>
                         }) : 
-                        <div key={`paragraph-${i}`}><div dangerouslySetInnerHTML={{__html: content}} /></div>
+                        <div dangerouslySetInnerHTML={{__html: content}} />
                     }
                 </Grid>
                 {!page && <Grid item xs={12} md={4}>

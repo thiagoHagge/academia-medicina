@@ -33,7 +33,7 @@ export async function getServerSideProps({query}) {
         }
     }
     return api.get(`podcasts/get/${query.slug}`).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         if(res.data.success && res.data.news != null) {
             return {
                 props: {
