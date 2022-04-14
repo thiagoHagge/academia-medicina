@@ -24,7 +24,7 @@ export default function Index({pages = [], contact = {}}) {
 			</Typography>
 			{/* TODO: Style boxes showing the images */}
 			<Box sx={{flexDirection: 'row', display: 'flex', flexWrap: 'wrap'}}>
-				<CardEdit link="/admin/carousel" name="Carrousel" icon={ViewCarouselOutlinedIcon} />
+				<CardEdit link="/admin/carousel" name="Banner" icon={ViewCarouselOutlinedIcon} />
 				<CardEdit link="/admin/noticias" name="Notícias" icon={NewspaperRoundedIcon} />
 				<CardEdit link="/admin/videos" name="Vídeos" icon={YouTubeIcon} />
 				<CardEdit link="/admin/podcasts" name="Podcasts" icon={PodcastsRoundedIcon} />

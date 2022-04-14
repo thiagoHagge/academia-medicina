@@ -37,14 +37,27 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                 <Grid item xs={itemXs === 0 ? 12 : itemXs} sm={itemSm === 0 ? 6 : itemSm} md={itemMd === 0 ? 3 : itemMd} key={item.image + item.title} sx={{alignSelf: 'stretch', justifySelf: 'stretch'}}>
                     <Card sx={[{mt: 2, margin: align == 'center' ? '0 auto 0' : '0'}, !podcasts && {maxWidth: 345}]}>
                         {!podcasts ? <Link href={`${admin}/${podcastEditable ? 'podcasts' : video ? 'videos' : 'noticias'}/${item.link}`} passHref>
-                            <CardActionArea sx={{maxHeight: 280}}>
+                            <CardActionArea>
                                 {(video || item.image) && !noImage && <CardMedia
                                 component="img"
-                                sx={{height: 200}}
+                                sx={{maxHeight: 200}}
                                 image={video ? `https://i.ytimg.com/vi/${item.ytId}/hqdefault.jpg` : item.image}
                                 alt=""
                                 />}
-                                <CardContent sx={{ flex: '1 0 auto', backgroundColor: '#121212', borderRadius: '0 0 4px 4px', py: 0, minHeight: 90, display: 'flex', flexDirection: !podcasts ? 'column' : 'row', justifyContent: 'center', alignItems: !podcasts ? 'flex-start' : 'center'}}>
+                                <CardContent 
+                                sx={{ 
+                                    flex: '1 0 auto', 
+                                    backgroundColor: '#121212', 
+                                    borderRadius: '0 0 4px 4px', 
+                                    pt: 2,
+                                    pb: 1, 
+                                    minHeight: 90, 
+                                    display: 'flex', 
+                                    flexDirection: !podcasts ? 'column' : 'row', 
+                                    justifyContent: 'center', 
+                                    alignItems: !podcasts ? 'flex-start' : 'center',
+
+                                }}>
                                     {<Typography 
                                     gutterBottom 
                                     component="div" 
@@ -52,7 +65,6 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                                     style={{
                                         color: '#fff', 
                                         fontSize: 15, 
-                                        lineHeight: 1, 
                                         marginBottom: podcasts ? 0 : '0.35em', 
                                         overflowWrap: 'break-word', 
                                         width: '100%' 

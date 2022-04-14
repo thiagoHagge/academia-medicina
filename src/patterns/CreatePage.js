@@ -136,7 +136,7 @@ export default function CreatePage({
             {hasInput('title') && <TextField 
             label="Título" 
             variant="outlined" 
-            inputProps={{ maxLength: 40 }}
+            inputProps={{ maxLength: 500 }}
             fullWidth 
             sx={{mb: 2}} 
             value={title}

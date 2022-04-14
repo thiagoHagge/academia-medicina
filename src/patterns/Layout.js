@@ -158,11 +158,14 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 						</Box>
 						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 0, md: 1}, mb: 3, flexGrow: 1}}>
 							<img src="/logo-dark.png" style={{width: 250}} />
-							<h2 style={{fontFamily: "'Lora', serif", color: theme.palette.white, letterSpacing: '5px', fontSize: '40px', marginBottom: 0}}>
-								ACADEMIA
+							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '25px', letterSpacing: '1px', marginBottom: 0, lineHeight: 1, fontWeight: 500}}>
+								ACADEMIA DE
+							</h6>
+							<h2 style={{fontFamily: "'Lora', serif", color: theme.palette.white, letterSpacing: '5px', fontSize: '38px', marginBottom: 0, lineHeight: 1.4, fontWeight: 500}}>
+								MEDICINA
 							</h2>
-							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '15px', letterSpacing: '1px'}}>
-								DE MEDICINA DE ITABUNA
+							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '25px', letterSpacing: '1px', marginBottom: 0, lineHeight: 1, fontWeight: 500}}>
+								DE ITABUNA
 							</h6>
 						</Box>
 						<Box sx={{display: 'flex', flexDirection: 'column', order: 3, flexGrow: 1}}>
