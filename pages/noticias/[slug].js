@@ -33,10 +33,10 @@ export async function getStaticPaths() {
     let paths = news.map(item =>  {
         return {'params': {'slug': item.link}}
     })
-    console.log({
-        paths: paths,
-        fallback: false
-    })
+    // console.log({
+    //     paths: paths,
+    //     fallback: false
+    // })
     return {
         paths: paths,
         fallback: true

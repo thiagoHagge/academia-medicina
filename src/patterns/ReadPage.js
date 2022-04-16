@@ -26,11 +26,12 @@ export default function ReadPage({
     // prepare videos to be displayed
     (function() {
         let i = 0;
+        // console.log('content', content)
         let cutStart = content.search('<figure class="media"><oembed url="') 
         let cutEnd;
         let firstCut = cutStart
         // console.log('cutStart', cutStart)
-        while (cutStart > 0) {
+        while (cutStart > -1) {
             // get paragraph before video
             formattedContent[i++] = content.slice(0, cutStart)
             // remove tags before video
@@ -89,7 +90,7 @@ export default function ReadPage({
                     {/* TODO: trata pra não aparece url ao subir 2 videos */}
                     {formattedContent.length > 0 ? 
                         formattedContent.map((p, i) => {
-                            // console.log(`paragraph-${i}`)
+                            // console.log(p)
                             if (p.slice(0, 6) == '{#url}') {
                                 return (
                                     <iframe 
