@@ -95,7 +95,7 @@ export default function ReadPage({
                                 return (
                                     <iframe 
                                     style={{margin: 'auto', width: '100%', height: videoInContentHeight}}
-                                    src={p.slice(6, p.length).replace('watch?v=', 'embed/')} 
+                                    src={p.slice(6, p.length).replace('watch?v=', 'embed/').split('&')[0]} 
                                     title="YouTube video player" 
                                     frameBorder="0" 
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
