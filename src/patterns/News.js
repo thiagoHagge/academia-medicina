@@ -66,7 +66,8 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                                         color: '#fff', 
                                         fontSize: 15, 
                                         marginBottom: podcasts ? 0 : '0.35em', 
-                                        overflowWrap: 'break-word', 
+                                        overflowWrap: 'break-word',
+                                        fontFamily: "'Arial Black', 'Arial Bold', Gadget, sans-serif",
                                         width: '100%' 
                                     }}>
                                         {item.title}
