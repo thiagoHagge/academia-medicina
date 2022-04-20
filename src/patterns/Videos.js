@@ -13,7 +13,7 @@ export default function Videos({videos}) {
         spacing={2}
         >
             {videos.map(({link, title, ytId}) => (
-                <Grid item xs={12} md={4} key={`vid-${ytId}`}>
+                <Grid item xs={12} md={4} key={`vid-${link}`}>
                     <Link href={`/videos/${link}`} passHref>
                         <Card>
                             <CardActionArea>
