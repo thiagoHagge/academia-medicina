@@ -40,7 +40,6 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                             <CardActionArea>
                                 {(video || item.image) && !noImage && <CardMedia
                                 component="img"
-                                sx={{maxHeight: 200}}
                                 image={video ? `https://i.ytimg.com/vi/${item.ytId}/hqdefault.jpg` : item.image}
                                 alt=""
                                 />}
