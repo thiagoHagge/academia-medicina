@@ -73,10 +73,10 @@ export default function ReadPage({
                     <Typography variant="h4" gutterBottom sx={{textAlign: 'center', mb: 3}}>
                         {title}
                     </Typography>
-                    {image != null && <img 
+                    {image != null && <div style={{width: '100%', textAlign: 'center'}}><img 
                     src={image}
-                    style={{width: '100%', height: 'auto', maxWidth: '100%', margin: '0 auto 12px'}}
-                    />}
+                    style={{height: 'auto', maxWidth: '100%', margin: '0 auto 12px'}}
+                    /></div>}
                     {video != null && <iframe
                     ref={videoRef}
                     style={{width: '100%', height: videoHeight}}
