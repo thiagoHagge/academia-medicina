@@ -16,7 +16,8 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
         <Grid container spacing={2} sx={containerSx}>
             {children}
             {news.map(item => {
-                let date = new Date(Date.parse(item.updated))
+                let date = new Date(Date.parse(item.updated.replace(/\s/, 'T')))
+                // console.log(date)
                 const month = [
                     'Jan',
                     'Fev',
