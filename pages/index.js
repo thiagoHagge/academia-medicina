@@ -58,8 +58,8 @@ export default function Home({carouselItems, news, videos, podcasts, pages, cont
 				<Videos videos={videos}/>
 			</Box>}
 			<Grid container sx={{pt: 2, pb:2, mb: 2, mt: 4}}>
-				{podcasts.length > 0 && <Grid item lg={9} sx={{pr: 4, pl: 4}}>
-					<Box sx={{maxWidth: 720}}>
+				<Grid item lg={9} sx={{pr: 4, pl: 4}}>
+					{podcasts.length > 0 && <Box sx={{maxWidth: 720}}>
 						<Box sx={{display: 'flex', mb: 2, justifyContent: 'space-between'}}>
 							<Typography component="span" variant="h5" >
 								Podcasts
@@ -67,8 +67,8 @@ export default function Home({carouselItems, news, videos, podcasts, pages, cont
 							<ShowSpotifyLink spotify={contact.spotify} />
 						</Box>
 						<News news={podcasts} podcasts itemXs={12}  itemSm={12} itemMd={12}/>
-					</Box>
-				</Grid>}
+					</Box>}
+				</Grid>
 				<Grid item lg={3}>
 					<Typography component="span" variant="h5" >
 						Instituições parceiras
