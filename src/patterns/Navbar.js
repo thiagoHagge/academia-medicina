@@ -49,7 +49,9 @@ export default function Navbar({ editable = false, pages = [] }) {
         setAnchorNav(event.currentTarget)
     };
 
-    const handleCloseNavMenu = (link = '', hasChildren) => {
+    const handleCloseNavMenu = (link = '', hasChildren = false) => {
+        // console.log(link, hasChildren)
+        if(!hasChildren && link != '') router.push(`${editable ? '/admin' : ''}/page/${link}`)
         // console.log(link)
         // console.log(hasChildren)
         if (hasChildren !== 'backdropClick') {
@@ -58,8 +60,6 @@ export default function Navbar({ editable = false, pages = [] }) {
         }
         setAnchorNav(null)
         setNavActive('')
-        if (link === '') return
-        router.push(`/page/${link}`)
     };
 
     const handleOpenDropdown = (event, key) => {
@@ -327,6 +327,7 @@ export default function Navbar({ editable = false, pages = [] }) {
                                         </Droppable>
                                     )}
                                 </Box>
+                                {/* Buttons */}
                                 {editable && ( 
                                     <Box sx={{ flexGrow: 0 }}>
                                         {allowEdit && <Tooltip title="Criar nova seção">
@@ -408,35 +409,3 @@ const FakeBox = styled.ul`
     padding: 0;
     margin: 0;
 `;
-// Dropdown
-/*
-<Box sx={{ flexGrow: 0 }}>
-    <Tooltip title="Habilitar edição">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            {allowEdit ? <EditOffIcon color="action" /> : <EditIcon color="action" />}
-        </IconButton>
-    </Tooltip>
-    <Menu
-        sx={{ mt: '45px' }}
-        id="menu-appbar"
-        anchorEl={anchorElUser}
-        anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        }}
-        open={Boolean(anchorElUser)}
-        onClose={handleCloseUserMenu}
-    >
-        {settings.map((setting) => (
-            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
-            </MenuItem>
-        ))}
-    </Menu>
-</Box>
-*/

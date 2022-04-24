@@ -31,7 +31,8 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                     'Nov',
                     'Dez'
                 ]
-                let dateStr = `${date.getDay()} de ${month[date.getMonth()]} de ${date.getFullYear()}`
+                console.log(date, date.getDay())
+                let dateStr = `${date.getDate()} de ${month[date.getMonth()]} de ${date.getFullYear()}`
                 return (
                 // TODO: criar componente da news box e alinhas com botão de novo item
                 <Grid item xs={itemXs === 0 ? 12 : itemXs} sm={itemSm === 0 ? 6 : itemSm} md={itemMd === 0 ? 3 : itemMd} key={item.image + item.title} sx={{alignSelf: 'stretch', justifySelf: 'stretch'}}>
