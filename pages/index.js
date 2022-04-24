@@ -106,22 +106,7 @@ export default function Home({carouselItems, news, videos, podcasts, pages, cont
 					<Grid xs={4} item sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'justify', pr: 2, pl: 2}}>
 						<Avatar sx={{width: 100, height: 100}} src="https://i.imgur.com/ungaT1s.jpg" />
 						<Typography>
-							“Além de exercer minha atividade
-							Profissional na Beira Rio, estou desenvolvendo
-							dois projetos para atender crianças
-							com problemas de visão em duas
-							Escola públicas e Rotary Club. Estou também
-							Planejando uma tournée pela Europa
-							para janeiro próximo, quando
-							pretendo fazer visita a alguns países
-							que estão na vanguarda do trabalho
-							Ótico, a exemplo da Alemanha, trazer novos
-							equipamentos, fazer um curso e visitar suas
-							universidades.
-							Na volta devo visitar meus filhos.
-							Estou também planejando escrever
-							um livro de poesias, que é um sonho
-							que acalento desde uns anos atrás”.
+							“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec pharetra purus. In lobortis mi magna, quis varius est tincidunt vitae. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam erat volutpat. Nulla facilisi. Curabitur sollicitudin consectetur eleifend. Vivamus in felis lacus. Nullam tempus sagittis eros ac mollis. In consectetur enim vel tincidunt placerat. Sed posuere lacinia ipsum vel aliquet. Quisque lobortis enim ac tellus fermentum, vel aliquam neque ultricies”.
 						</Typography>
 					</Grid>
 					<Grid xs={4} item sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'justify', pr: 2, pl: 2}}>
@@ -148,22 +133,7 @@ export default function Home({carouselItems, news, videos, podcasts, pages, cont
 					<Grid xs={4} item sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'justify', pr: 2, pl: 2}}>
 						<Avatar sx={{width: 100, height: 100}} src="https://i.imgur.com/aSrS8tY.jpg" />
 						<Typography>
-							“Além de exercer minha atividade
-							Profissional na Beira Rio, estou desenvolvendo
-							dois projetos para atender crianças
-							com problemas de visão em duas
-							Escola públicas e Rotary Club. Estou também
-							Planejando uma tournée pela Europa
-							para janeiro próximo, quando
-							pretendo fazer visita a alguns países
-							que estão na vanguarda do trabalho
-							Ótico, a exemplo da Alemanha, trazer novos
-							equipamentos, fazer um curso e visitar suas
-							universidades.
-							Na volta devo visitar meus filhos.
-							Estou também planejando escrever
-							um livro de poesias, que é um sonho
-							que acalento desde uns anos atrás”.
+							“Aliquam lacinia at purus vitae lobortis. Sed rutrum velit dolor, quis rutrum magna viverra et. Morbi sit amet pulvinar enim. Nullam in dignissim eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris lobortis neque tellus, eget dictum metus fringilla id. Suspendisse eget blandit purus, eget congue lacus. Sed sollicitudin ornare ex. Mauris vitae bibendum ligula. Aliquam ut sapien ligula. Donec ac dignissim lectus. Morbi finibus, quam quis accumsan finibus, dui velit fringilla ante, non pretium risus diam feugiat urna. Quisque id ante orci. Nullam sollicitudin turpis a facilisis placerat. Praesent sit amet lacus a massa tempor efficitur”.
 						</Typography>
 					</Grid>
 				</Grid>
