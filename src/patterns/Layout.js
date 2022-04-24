@@ -74,6 +74,8 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 			</Box>
 		)
 	}
+	// console.log(contact)
+	console.log(!contact.whatsapp, !contact.instagram, !contact.facebook, !contact.youtube)
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>
@@ -101,19 +103,15 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 									<Grid item xs={8} >
 										<Box sx={[theme.align.start, theme.ps2]}>
 											{/* Tratar para ligas de todos os aparelhos */}
-											<a href={`tel:55${phone}`} style={{display: 'flex', color: theme.palette.black.main}} >
-												<CallIcon />
-												<Typography sx={theme.ps2}>
-													{contact.phone}
-												</Typography>
-											</a>
+											{contact.phone && <a href={`tel:55${phone}`} style={{display: 'flex', color: theme.palette.black.main}} >
+													<CallIcon />
+													<Typography sx={theme.ps2}>
+														{contact.phone}
+													</Typography>
+												</a>
+											}
 										</Box>
 									</Grid>
-									{/* <Grid item xs={4}>
-										<Box sx={theme.align.center}>
-
-										</Box>
-									</Grid> */}
 									<Grid item xs={4}>
 										<SocialMedia color="#000000" />
 									</Grid>
@@ -143,19 +141,19 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 				</Box>
 				<Box sx={{justifySelf: 'flex-end'}}>
 					<Box sx={{backgroundColor: theme.palette.black.dark, py: '20px', display: 'flex', justifyContent: 'space-evenly', alignItems: {xs: 'center', md: 'baseline'}, flexDirection: {xs: 'column', md: 'row'}}}>
-						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 1, md: 0}, mb: 3, flexGrow: 1}}>
+						{(contact.phone || contact.email) && <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 1, md: 0}, mb: 3, flexGrow: 1}}>
 							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px'}}>
 								Contatos
 							</h6>
-							<a href={`tel:55${phone}`} style={{fontFamily: "'Lora', serif", color: theme.palette.white, marginBottom: '5px'}}>
+							{contact.phone && <a href={`tel:55${phone}`} style={{fontFamily: "'Lora', serif", color: theme.palette.white, marginBottom: '5px'}}>
 								<CallIcon sx={{mr: 1}} />
 								{contact.phone}
-							</a>
+							</a>}
 							<a href={`mailto:${contact.email}`} style={{fontFamily: "'Lora', serif", color: theme.palette.white}}>
 								<EmailRoundedIcon sx={{mr: 1}} />
 								{contact.email}
 							</a>
-						</Box>
+						</Box>}
 						<Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', order: {xs: 0, md: 1}, mb: 3, flexGrow: 1}}>
 							<img src="/logo-dark.png" style={{width: 250}} />
 							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '25px', letterSpacing: '1px', marginBottom: 0, lineHeight: 1, fontWeight: 500}}>
@@ -168,12 +166,12 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 								DE ITABUNA
 							</h6>
 						</Box>
-						<Box sx={{display: 'flex', flexDirection: 'column', order: 3, flexGrow: 1}}>
+						{(contact.whatsapp || contact.instagram || contact.facebook || contact.youtube) && <Box sx={{display: 'flex', flexDirection: 'column', order: 3, flexGrow: 1}}>
 							<h6 style={{fontFamily: "'Lora', serif", color: theme.palette.white, fontSize: '22px', textAlign: 'center'}}>
 								Redes sociais:
 							</h6>
 							<SocialMedia color={theme.palette.white} />
-						</Box>
+						</Box>}
 					</Box>
 					<Box sx={{backgroundColor: theme.palette.primary.main, py: '5px'}}>
 						<p style={{fontFamily: "'Lora', serif", marginBottom: 0, textAlign: 'center'}}>
