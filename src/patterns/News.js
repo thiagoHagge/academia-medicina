@@ -31,7 +31,7 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                     'Nov',
                     'Dez'
                 ]
-                console.log(date, date.getDay())
+                // console.log(date, date.getDay())
                 let dateStr = `${date.getDate()} de ${month[date.getMonth()]} de ${date.getFullYear()}`
                 return (
                 // TODO: criar componente da news box e alinhas com botão de novo item
