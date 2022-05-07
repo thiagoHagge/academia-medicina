@@ -35,11 +35,11 @@ export async function getStaticPaths() {
     })
     // console.log({
     //     paths: paths,
-    //     fallback: false
+    //     fallback: 'blocking'
     // })
     return {
         paths: paths,
-        fallback: true
+        fallback: 'blocking'
     }
 }
 export async function getStaticProps(context) {
