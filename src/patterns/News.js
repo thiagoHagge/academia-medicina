@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -14,13 +14,10 @@ import theme from '../themes';
 
 export default function NewsList({ news = [], admin = '', video = false, podcasts = false, podcastEditable = false, containerSx = {}, itemXs = 0, itemSm = 0, itemMd = 0, noImage = false, align = 'center', children, width = 0 }) {
     const imgRef = useRef(null);
-    useEffect(() => {
-        console.log(imgRef.current.width)
-    }, [imgRef])
     return (
         <Grid container spacing={2} sx={containerSx}>
             {children}
-            {news.map((item, i) => {
+            {news.map(item => {
                 let date = new Date(Date.parse(item.updated.replace(/\s/, 'T')))
                 // console.log(date)
                 const month = [
