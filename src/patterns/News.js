@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -14,6 +14,9 @@ import theme from '../themes';
 
 export default function NewsList({ news = [], admin = '', video = false, podcasts = false, podcastEditable = false, containerSx = {}, itemXs = 0, itemSm = 0, itemMd = 0, noImage = false, align = 'center', children, width = 0 }) {
     const imgRef = useRef(null);
+    useEffect(() => {
+        console.log(imgRef.current.width)
+    }, [imgRef.current])
     return (
         <Grid container spacing={2} sx={containerSx}>
             {children}
@@ -47,7 +50,7 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                                 image={video ? `https://i.ytimg.com/vi/${item.ytId}/hqdefault.jpg` : item.image}
                                 alt=""
                                 ref={imgRef}
-                                sx={{height: imgRef.current.width*3/4}}
+                                sx={{height: imgRef.current ? imgRef.current.width*.75 : 345*.75}}
                                 />}
                                 <CardContent 
                                 sx={{ 
