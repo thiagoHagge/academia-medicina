@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -12,10 +13,14 @@ import PlayCircleFilledRoundedIcon from '@mui/icons-material/PlayCircleFilledRou
 import theme from '../themes';
 
 export default function NewsList({ news = [], admin = '', video = false, podcasts = false, podcastEditable = false, containerSx = {}, itemXs = 0, itemSm = 0, itemMd = 0, noImage = false, align = 'center', children, width = 0 }) {
+    const imgRef = useRef(null);
+    useEffect(() => {
+        console.log(imgRef.current.width)
+    }, [imgRef])
     return (
         <Grid container spacing={2} sx={containerSx}>
             {children}
-            {news.map(item => {
+            {news.map((item, i) => {
                 let date = new Date(Date.parse(item.updated.replace(/\s/, 'T')))
                 // console.log(date)
                 const month = [
@@ -44,6 +49,8 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                                 component="img"
                                 image={video ? `https://i.ytimg.com/vi/${item.ytId}/hqdefault.jpg` : item.image}
                                 alt=""
+                                ref={imgRef}
+                                sx={{height: imgRef.current.width*3/4}}
                                 />}
                                 <CardContent 
                                 sx={{ 
@@ -57,7 +64,6 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                                     flexDirection: !podcasts ? 'column' : 'row', 
                                     justifyContent: 'center', 
                                     alignItems: !podcasts ? 'flex-start' : 'center',
-
                                 }}>
                                     {<Typography 
                                     gutterBottom 
