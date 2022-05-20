@@ -1,5 +1,6 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
@@ -11,12 +12,20 @@ import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import IconButton from '@mui/material/IconButton';
 import PlayCircleFilledRoundedIcon from '@mui/icons-material/PlayCircleFilledRounded';
 import theme from '../themes';
-
 export default function NewsList({ news = [], admin = '', video = false, podcasts = false, podcastEditable = false, containerSx = {}, itemXs = 0, itemSm = 0, itemMd = 0, noImage = false, align = 'center', children, width = 0 }) {
+    const [imgHeight , setImgHeight] = useState(0);
     const imgRef = useRef(null);
     useEffect(() => {
-        console.log(imgRef.current.width)
-    }, [imgRef.current])
+        console.log(imgRef.current);
+        if (imgRef.current) {
+            setImgHeight(imgRef.current.width*0.75)
+            window.addEventListener("resize", () => setImgHeight(imgRef.current.width*0.75), false);
+        }
+    }, [imgRef])
+    dynamic(() => {
+    }, {
+        ssr: false
+    })  
     return (
         <Grid container spacing={2} sx={containerSx}>
             {children}
@@ -50,7 +59,7 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
                                 image={video ? `https://i.ytimg.com/vi/${item.ytId}/hqdefault.jpg` : item.image}
                                 alt=""
                                 ref={imgRef}
-                                sx={{height: imgRef.current ? imgRef.current.width*.75 : 345*.75}}
+                                sx={{height: imgHeight}}
                                 />}
                                 <CardContent 
                                 sx={{ 
