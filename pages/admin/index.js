@@ -1,4 +1,3 @@
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Link from 'next/link';
 import CardActionArea from '@mui/material/CardActionArea';
@@ -8,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import ViewCarouselOutlinedIcon from '@mui/icons-material/ViewCarouselOutlined';
 import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import PodcastsRoundedIcon from '@mui/icons-material/PodcastsRounded';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
@@ -27,7 +25,6 @@ export default function Index({pages = [], contact = {}}) {
 				<CardEdit link="/admin/carousel" name="Banner" icon={ViewCarouselOutlinedIcon} />
 				<CardEdit link="/admin/noticias" name="Notícias" icon={NewspaperRoundedIcon} />
 				<CardEdit link="/admin/videos" name="Vídeos" icon={YouTubeIcon} />
-				<CardEdit link="/admin/podcasts" name="Podcasts" icon={PodcastsRoundedIcon} />
 				<CardEdit link="/admin/contatos" name="Contato" icon={ContactPageIcon} />
 			</Box>
 		</Layout>
