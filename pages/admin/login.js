@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -58,14 +59,13 @@ export default function Login() {
 						sx={{ 
 							mb: 2, 
 							display: { 
-								xs: 'none', 
-								md: 'flex' 
+								md: 'flex'
 							} 
 						}}
 					>
 						Login
 					</Typography>
-					<TextField 
+					<TextField
 						id="user" 
 						label="Usuário" 
 						variant="outlined"
@@ -86,6 +86,9 @@ export default function Login() {
 						// 	mb: 2
 						// }}
 					/>
+					{router.query.error && (<Alert icon={false} sx={{width: '100%', py: 0, mb: 1, backgroundColor: 'black', color: '#aaa'}}>
+						{router.query.error}
+					</Alert>)}
 					<Button 
 						variant="contained" 
 						size="large"
