@@ -16,18 +16,20 @@ import api from '../../src/api';
 
 export default function Index({pages = [], contact = {}}) {
 	return (
-		<Layout navbarEditable title="Painel do admin - AMEI-BA" pages={pages} contact={contact}>
-			<Typography variant="h5">
-				Editar:
-			</Typography>
-			{/* TODO: Style boxes showing the images */}
-			<Box sx={{flexDirection: 'row', display: 'flex', flexWrap: 'wrap'}}>
-				<CardEdit link="/admin/carousel" name="Banner" icon={ViewCarouselOutlinedIcon} />
-				<CardEdit link="/admin/noticias" name="Notícias" icon={NewspaperRoundedIcon} />
-				<CardEdit link="/admin/videos" name="Vídeos" icon={YouTubeIcon} />
-				<CardEdit link="/admin/contatos" name="Contato" icon={ContactPageIcon} />
-			</Box>
-		</Layout>
+		<h1 style={{textAlign: 'center'}}>Manutenção</h1>
+
+		// <Layout navbarEditable title="Painel do admin - AMEI-BA" pages={pages} contact={contact}>
+		// 	<Typography variant="h5">
+		// 		Editar:
+		// 	</Typography>
+		// 	{/* TODO: Style boxes showing the images */}
+		// 	<Box sx={{flexDirection: 'row', display: 'flex', flexWrap: 'wrap'}}>
+		// 		<CardEdit link="/admin/carousel" name="Banner" icon={ViewCarouselOutlinedIcon} />
+		// 		<CardEdit link="/admin/noticias" name="Notícias" icon={NewspaperRoundedIcon} />
+		// 		<CardEdit link="/admin/videos" name="Vídeos" icon={YouTubeIcon} />
+		// 		<CardEdit link="/admin/contatos" name="Contato" icon={ContactPageIcon} />
+		// 	</Box>
+		// </Layout>
 	)
 }
 
