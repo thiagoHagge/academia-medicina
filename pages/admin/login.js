@@ -32,76 +32,75 @@ export default function Login() {
 				<link rel="preconnect" href="https://fonts.gstatic.com" />
 				<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
 			</Head>
-			<h1 style={{textAlign: 'center'}}>Manutenção</h1>
-			{/*<Box */}
-			{/*	mode="dark"*/}
-			{/*	sx={{*/}
-			{/*		width: '100vw',*/}
-			{/*		height: '100vh',*/}
-			{/*		display: 'flex',*/}
-			{/*		alignItems: 'center',*/}
-			{/*		justifyContent: 'center',*/}
-			{/*	}}*/}
-			{/*>*/}
-			{/*	<Box */}
-			{/*		sx={{*/}
-			{/*			backgroundColor: theme.palette.yellow,*/}
-			{/*			padding: 10,*/}
-			{/*			display: 'flex', */}
-			{/*			justifyContent: 'center', */}
-			{/*			alignItems: 'center', */}
-			{/*			flexDirection: 'column'*/}
-			{/*		}}*/}
-			{/*	>*/}
-			{/*		<Typography*/}
-			{/*			variant="h6"*/}
-			{/*			noWrap*/}
-			{/*			component="div"*/}
-			{/*			sx={{ */}
-			{/*				mb: 2, */}
-			{/*				display: { */}
-			{/*					md: 'flex'*/}
-			{/*				} */}
-			{/*			}}*/}
-			{/*		>*/}
-			{/*			Login*/}
-			{/*		</Typography>*/}
-			{/*		<TextField*/}
-			{/*			id="user" */}
-			{/*			label="Usuário" */}
-			{/*			variant="outlined"*/}
-			{/*			margin="normal"*/}
-			{/*			value={username}*/}
-			{/*			onChange={(e) => setUsername(e.target.value)}*/}
-			{/*		/>*/}
-			{/*		<TextField */}
-			{/*			id="pass" */}
-			{/*			label="Senha"*/}
-			{/*			type="password"*/}
-			{/*			autoComplete="current-password" */}
-			{/*			variant="outlined"*/}
-			{/*			margin="normal"	*/}
-			{/*			value={password}*/}
-			{/*			onChange={(e) => setPassword(e.target.value)}*/}
-			{/*			// sx={{*/}
-			{/*			// 	mb: 2*/}
-			{/*			// }}*/}
-			{/*		/>*/}
-			{/*		{router.query.error && (<Alert icon={false} sx={{width: '100%', py: 0, mb: 1, backgroundColor: 'black', color: '#aaa'}}>*/}
-			{/*			{router.query.error}*/}
-			{/*		</Alert>)}*/}
-			{/*		<Button */}
-			{/*			variant="contained" */}
-			{/*			size="large"*/}
-			{/*			onClick={() => login(username, password)}*/}
-			{/*			sx={{color: 'white', backgroundColor: theme.palette.black.main,  "&:hover": {*/}
-			{/*				backgroundColor: theme.palette.black.main,*/}
-			{/*			},}}*/}
-			{/*		>*/}
-			{/*			Logar*/}
-			{/*		</Button>*/}
-			{/*	</Box>*/}
-			{/*</Box>*/}
+			<Box
+				mode="dark"
+				sx={{
+					width: '100vw',
+					height: '100vh',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+				}}
+			>
+				<Box
+					sx={{
+						backgroundColor: theme.palette.yellow,
+						padding: 10,
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						flexDirection: 'column'
+					}}
+				>
+					<Typography
+						variant="h6"
+						noWrap
+						component="div"
+						sx={{
+							mb: 2,
+							display: {
+								md: 'flex'
+							}
+						}}
+					>
+						Login
+					</Typography>
+					<TextField
+						id="user"
+						label="Usuário"
+						variant="outlined"
+						margin="normal"
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
+					/>
+					<TextField
+						id="pass"
+						label="Senha"
+						type="password"
+						autoComplete="current-password"
+						variant="outlined"
+						margin="normal"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						// sx={{
+						// 	mb: 2
+						// }}
+					/>
+					{router.query.error && (<Alert icon={false} sx={{width: '100%', py: 0, mb: 1, backgroundColor: 'black', color: '#aaa'}}>
+						{router.query.error}
+					</Alert>)}
+					<Button
+						variant="contained"
+						size="large"
+						onClick={() => login(username, password)}
+						sx={{color: 'white', backgroundColor: theme.palette.black.main,  "&:hover": {
+							backgroundColor: theme.palette.black.main,
+						},}}
+					>
+						Logar
+					</Button>
+				</Box>
+			</Box>
 		</ThemeProvider>
 	);
 }
