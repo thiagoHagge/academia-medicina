@@ -191,7 +191,6 @@ export default function Navbar({ editable = false, pages = [] }) {
                                 {/* Desktop Logo */}
                                 <Link href={editable ? '/admin' : '/'} passHref>
                                     <Box
-                                        noWrap
                                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, cursor: 'pointer' }}
                                     >
                                         <img src="/logo.png" style={{ maxHeight: 80, marginTop: 25, marginBottom: 25 }} alt="" />
@@ -245,7 +244,6 @@ export default function Navbar({ editable = false, pages = [] }) {
                                 {/* Mobile Logo */}
                                 <Link href={editable ? '/admin' : '/'} passHref>
                                     <Box
-                                        noWrap
                                         sx={{ display: { xs: 'flex', md: 'none' }, maxHeight: 100, cursor: 'pointer' }}
                                     >
                                         <img src="/logo.png" style={{ maxHeight: 100 }} />

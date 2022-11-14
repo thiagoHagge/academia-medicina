@@ -54,7 +54,6 @@ export default function Login() {
 				>
 					<Typography
 						variant="h6"
-						noWrap
 						component="div"
 						sx={{
 							mb: 2,

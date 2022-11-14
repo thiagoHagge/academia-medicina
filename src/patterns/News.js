@@ -16,7 +16,7 @@ export default function NewsList({ news = [], admin = '', video = false, podcast
     const [imgHeight , setImgHeight] = useState(0);
     const imgRef = useRef(null);
     useEffect(() => {
-        console.log(imgRef.current);
+        // console.log(imgRef.current);
         if (imgRef.current) {
             setImgHeight(imgRef.current.width*0.75)
             window.addEventListener("resize", () => setImgHeight(imgRef.current.width*0.75), false);

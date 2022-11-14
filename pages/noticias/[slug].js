@@ -29,16 +29,16 @@ export default function ReadNews({
 }
 
 export async function getStaticPaths() {
-    const news = await api.get('news/get').then(res => res.data.news);
-    let paths = news.map(item =>  {
-        return {'params': {'slug': item.link}}
-    })
+    // const news = await api.get('news/get').then(res => res.data.news);
+    // let paths = news.map(item =>  {
+    //     return {'params': {'slug': item.link}}
+    // })
     // console.log({
     //     paths: paths,
     //     fallback: 'blocking'
     // })
     return {
-        paths: paths,
+        paths: [],
         fallback: 'blocking'
     }
 }

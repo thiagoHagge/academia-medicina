@@ -1,14 +1,13 @@
 import ReadPage from '../../src/patterns/ReadPage';
 import api from '../../src/api';
-import { useRouter } from 'next/router'
 
 export async function getStaticPaths() {
-    const pages = await api.get('pages/all').then(res => res.data.pages);
-    let paths = pages.map(item =>  {
-        return {'params': {'link': item.link}}
-    })
+    // const pages = await api.get('pages/all').then(res => res.data.pages);
+    // let paths = pages.map(item =>  {
+    //     return {'params': {'link': item.link}}
+    // })
     return {
-        paths: paths,
+        paths: [],
         fallback: 'blocking'
     }
 }
@@ -33,12 +32,12 @@ export async function getStaticProps(context) {
 export default function Index({content, title, pages = [], contact = {}}) {
     // get link from url
 	return (
-        <ReadPage 
-        title={title}
+        <ReadPage
         content={content}
-        page
-        pages={pages}
         contact={contact}
+        pages={pages}
+        title={title}
+        page
         />
 	)
 }

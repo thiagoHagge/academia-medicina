@@ -75,7 +75,7 @@ export default function Layout({pages = [], title = 'Academia Itabunense de Medi
 		)
 	}
 	// console.log(contact)
-	console.log(!contact.whatsapp, !contact.instagram, !contact.facebook, !contact.youtube)
+	// console.log(!contact.whatsapp, !contact.instagram, !contact.facebook, !contact.youtube)
 	return (
 		<ThemeProvider theme={theme}>
 			<Head>

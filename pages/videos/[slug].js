@@ -28,12 +28,12 @@ export default function ReadVideos({
     )
 }
 export async function getStaticPaths() {
-    const news = await api.get('videos/get').then(res => res.data.news);
-    let paths = news.map(item =>  {
-        return {'params': {'slug': item.link}}
-    })
+    // const news = await api.get('videos/get').then(res => res.data.news);
+    // let paths = news.map(item =>  {
+    //     return {'params': {'slug': item.link}}
+    // })
     return {
-        paths: paths,
+        paths: [],
         fallback: 'blocking'
     }
 }
