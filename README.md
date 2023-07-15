@@ -1,60 +1,49 @@
-<p align="center">
-    <img src="https://raw.githubusercontent.com/thiagoHagge/layout/main/public/logo-full.png" style="max-width: 300px" alt="Brasão da medicina de itabuna">
-</p>
+# Project Name: Blog Design and Admin Panel
 
-<hr>
+This project focuses on developing the layout for a blog and an admin panel using Next.js, CSS libraries such as Material-UI and Bootstrap. The backend of the project is implemented separately and can be found in another repository at [https://github.com/thiagoHagge/blog-api](https://github.com/thiagoHagge/blog-api).
 
-<p align="center">
-    <img src="https://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=RED&style=for-the-badge" alt="Status: em desenvolvimento"/>
-</p>
+## Project Overview
 
-### Tópicos 
+The goal of this project is to create a visually appealing and user-friendly blog design along with an intuitive admin panel. The frontend is built using Next.js, a popular React framework that provides server-side rendering, routing, and other useful features out of the box. Additionally, CSS libraries like Material-UI and Bootstrap are used to enhance the design and provide pre-styled components.
 
-- [Descrição do projeto](#descrição-do-projeto)
+The admin panel includes the functionality for creating news articles. To achieve this, the CKEditor library was integrated into the admin interface. CKEditor is a popular rich text editor that enables users to create and edit content with formatting options, including text styles, lists, images, and more.
 
-- [Funcionalidades](#funcionalidades)
+The project's backend is implemented separately in the [blog-api](https://github.com/thiagoHagge/blog-api) repository. This backend repository contains the necessary logic to handle blog posts, user authentication, and other related functionalities. The frontend interacts with the backend through API calls to retrieve and manipulate data.
 
-- [Telas](#telas)
+## Technologies Used
 
-- [Ferramentas utilizadas](#ferramentas-utilizadas)
+The following technologies and frameworks were used in this project:
 
-- [Acesso ao projeto](#acesso-ao-projeto)
+- **Next.js**: A React framework that provides server-side rendering, routing, and other helpful features.
+- **Material-UI**: A popular React UI framework that provides pre-built components and styling options.
+- **Bootstrap**: A CSS framework that offers a wide range of responsive design components and utilities.
+- **CKEditor**: A rich text editor library that allows users to create and edit content with formatting options.
+- **React**: A JavaScript library for building user interfaces.
+- **HTML**: The standard markup language for creating web pages and applications.
+- **CSS**: The styling language used to customize the appearance of web pages.
 
+## Setup Instructions
 
-## Descrição do projeto 
+To set up the project locally, follow these steps:
 
-<p align="justify">
-    Site informativo e jornalístico da Academia Itabunense de Medicina, que tem como principal objetivo a divulgação científica e democratização do conhecimento.
-</p>
-<p align="justify">
-    Lançamento ocorrerá em abril.
-</p>
+1. Clone the repository:
 
-## Funcionalidades
+   ```
+   git clone https://github.com/thiagoHagge/academia-medicina.git
+   ```
 
-- [x] `Funcionalidade 1` Blog responsivo com notícias, vídeos e carousel.
-- [x] `Funcionalidade 2` Painel de controle de conteúdo permitindo criação e edição de todos os items.
-- [ ] `Funcionalidade 3` State while revalidate
-- [ ] `Funcionalidade 3` Testes automatizados com Jest
+2. Install the project dependencies:
 
-## Telas
-<div style="display: flex">
-    <img src="https://i.imgur.com/XWq2Lzn.png" style="max-width: 200px; margin-right: 10px; margin-bottom: 5px. float:left;">
-    <div style="display: flex; align-items: flex-start; flex-wrap: wrap;">
-        <img src="https://i.imgur.com/CQtOnfq.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
-        <img src="https://i.imgur.com/koWueHd.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
-        <img src="https://i.imgur.com/dhl1CjC.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
-</div>
-</div>
+   ```
+   cd academia-medicina
+   npm install
+   ```
 
-## Ferramentas utilizadas
-<p align="center">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg" alt="Next.js" width="50">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg" alt="Next.js" width="50">
-</p>
-<p align="justify">
-    Foi escolhido o Next.js para o projeto para aproveitarmos os benefícios de SEO oferecido pelo Next.
-</p>
+3. Start the development server:
 
-## Acesso ao projeto
-Você pode acompanhar o beta do projeto nesse [link](https://layout-three.vercel.app/) 
+   ```
+   npm run dev
+   ```
+
+4. Access the blog at [http://localhost:3000](http://localhost:3000) in your browser.
+
