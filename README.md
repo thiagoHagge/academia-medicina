@@ -1,4 +1,4 @@
-# Project Name: Blog Design and Admin Panel
+# Medicine Blog and Admin Panel
 
 This project focuses on developing the layout for a blog and an admin panel using Next.js, CSS libraries such as Material-UI and Bootstrap. The backend of the project is implemented separately and can be found in another repository at [https://github.com/thiagoHagge/blog-api](https://github.com/thiagoHagge/blog-api).
 
