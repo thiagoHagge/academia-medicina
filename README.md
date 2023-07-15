@@ -47,3 +47,14 @@ To set up the project locally, follow these steps:
 
 4. Access the blog at [http://localhost:3000](http://localhost:3000) in your browser.
 
+## Screenshots
+<div style="display: flex">
+    <img src="https://i.imgur.com/XWq2Lzn.png" style="max-width: 200px; margin-right: 10px; margin-bottom: 5px. float:left;">
+    <div style="display: flex; align-items: flex-start; flex-wrap: wrap;">
+        <img src="https://i.imgur.com/CQtOnfq.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
+        <img src="https://i.imgur.com/koWueHd.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
+        <img src="https://i.imgur.com/dhl1CjC.png" style="max-width: 300px; margin-right: 10px; margin-bottom: 5px">
+</div>
+</div>
+
+##
